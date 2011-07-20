@@ -1,0 +1,104 @@
+<?php
+$page = (isset($this->request) ? $this->request->params[0] : '');
+$data['stylesheets'] = array_unique($data['stylesheets']);
+$data['scripts'] = array_unique($data['scripts']);
+
+function menuLink($current_page, $new_page)
+  {
+  return '<a href="' . urlModr($new_page) . '"' . ($current_page == $new_page ? ' class="active"' : '') . '>';
+  }
+?>
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+  <title>KWE Admin :: <?php echo $this->title; ?></title>
+  <meta charset="utf-8" />
+  <link title="KWE Admin" href="<?php echo FULLPATH; ?>/css/kwe_admin.css" rel="stylesheet" media="screen" />
+  <link href="<?php echo FULLPATH; ?>/css/kwe_admin_print.css" rel="stylesheet" media="print" />
+<?php foreach ($data['stylesheets'] as $stylesheet): ?>
+  <link href="<?php echo $stylesheet; ?>" rel="stylesheet" />
+<?php endforeach; ?>
+  <!--<link type="image/x-icon" href="<?php echo FULLPATH; ?>/favicon.ico" rel="icon" />-->
+  <!--[if lte IE 8]><link href="<?php echo FULLPATH; ?>/css/kwe_admin_ie.css" rel="stylesheet" />
+  <script src="<?php echo FULLPATH_SITE; ?>/js/html5.js" type="text/javascript"></script><![endif]-->
+  <script src="<?php echo FULLPATH_SITE; ?>/js/kwf.js"></script>
+  <script src="<?php echo FULLPATH_SITE; ?>/js/kwe.js"></script>
+<?php foreach ($data['scripts'] as $script): ?>
+  <script src="<?php echo $script; ?>"></script>
+<?php endforeach; ?>
+  <script src="<?php echo FULLPATH_SITE; ?>/js/leetitor/leetitor.min.js"></script>
+  <script>leetitor.base_src = '<?php echo FULLPATH_SITE; ?>/js/';</script>
+</head>
+
+<body id="kwe_<?php if (isset($data['body_id'])) echo $data['body_id']; else echo 'default'; ?>">
+
+<header id="header">
+  <h1><a href="<?php echo urlModr(); ?>" id="kwe_logo">KWE</a></h1>
+
+  <nav id="navigation">
+    <ul>
+<?php if (access::$is_logged_in): ?>
+      <li><?php echo menuLink($page, 'index'); ?>Översikt</a></li>
+      <li><?php echo menuLink($page, 'users'); ?>Användare</a></li>
+      <li><?php echo menuLink($page, 'page'); ?>Sidor</a></li>
+      <li><?php echo menuLink($page, 'controllers'); ?>Moduler</a></li>
+<?php if (access::$user->rank == 1): ?>
+      <li><?php echo menuLink($page, 'settings'); ?>Inställningar</a></li>
+<?php endif; ?>
+      <li><?php echo menuLink($page, 'logout'); ?>Logga ut</a></li>
+<?php else: ?>
+      <li><?php echo menuLink($page, 'index'); ?>Logga in</a></li>
+<?php endif; ?>
+    </ul>
+  </nav>
+</header>
+
+<div id="page">
+  <div id="content">
+<?php if (count($this->error_messages)): ?>
+    <ul id="errorlist">
+<?php foreach ($this->error_messages as $msg): ?>
+      <li><?php echo $msg; ?></li>
+<?php endforeach; ?>
+    </ul>
+<?php endif; 
+
+if (count($this->info_messages)): ?>
+    <ul id="infolist">
+<?php foreach ($this->info_messages as $msg): ?>
+      <li><?php echo $msg; ?></li>
+<?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+
+<?php echo $this->content_data; ?>
+
+  </div>
+</div>
+
+<?php if (isset($data['subnavigation'])): ?>
+<nav id="subnavigation">
+  <ul>
+<?php foreach ($data['subnavigation'] as $subnav): ?>
+    <li><a href="<?php echo urlModr($this->request->params[0], $subnav[1]); ?>"<?php if (isset($this->request->params[1]) && $subnav[1] == $this->request->params[1]) echo ' class="active"'; ?>><?php echo $subnav[0]; ?></a></li>
+<?php endforeach; ?>
+  </ul>
+</nav>
+<?php endif; ?>
+
+<footer id="footer">
+  <p id="version"><?php echo KWE_VERSION; ?></p>
+  <p id="copyright">Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2011</p>
+  <p id="user-info"><?php if (access::$is_logged_in): ?>Inloggad som <?php echo access::$user->name; ?><?php endif; ?></p>
+  <nav id="footer_nav">
+    <ul>
+      <li><a href="<?php echo FULLPATH_SITE; ?>/">Till din förstasida</a></li>
+      <li><a href="<?php echo urlModr('update'); ?>">Leta efter uppdateringar</a></li>
+    </ul>
+  </nav>
+</footer>
+
+</body>
+
+</html>

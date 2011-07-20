@@ -1,0 +1,177 @@
+/* KWE Standard Style: kwe.css */
+/* Christoffer Lindahl, 2008 */
+
+@import 'kwe_global.css';
+
+html, body
+  {
+  width: 100%;
+  height: 100%;
+  }
+
+html
+  {
+  background: url('../images/body_bg.png') repeat-y center top #274d92;
+  text-align: center;
+  }
+
+body
+  {
+  margin: 0 auto;
+  width: 780px;
+  background: transparent;
+  text-align: left;
+  }
+
+/* Header */
+
+div#header
+  {
+  margin: 1%;
+  height: 80px;
+  background: url('../images/header_770.jpg') center center no-repeat #000;
+  }
+
+/* Navigation */
+
+div#navigation
+  {
+  margin: 0 1% 1% 1%;
+  border-bottom: 1px solid #274d92;
+  }
+
+div#navigation ul
+  {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  }
+
+div#navigation ul li
+  {
+  float: left;
+  margin: 0;
+  }
+
+div#navigation ul li a
+  {
+  display: block;
+  padding: 1px 5px;
+  font-size: 0.8em;
+  text-decoration: none;
+  }
+
+div#navigation ul li a.active
+  {
+  background: #f3f3f3;
+  color: #ac2e2e;
+  }
+
+/* Main */
+
+div#page
+  {
+  margin: 0 1% 1% 1%;
+  }
+
+div#content
+  {
+  float: right;
+  margin-bottom: 1em;
+  width: 76%;
+  background: #fff;
+  }
+
+div#footer
+  {
+  clear: both;
+  margin: 0 1% 0 1%;
+  padding: 3px 0 0 0;
+  background: url('../images/stripes_diag.png') #fff;
+  }
+
+div#footer p
+  {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  font-size: 0.7em;
+  }
+
+/* Menu */
+
+ul#menu
+  {
+  float: left;
+  margin-bottom: 1em;
+  width: 23%;
+  }
+
+ul#menu
+  {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  list-style-position: outside;
+  }
+
+ul#menu li
+  {
+  margin: 0;
+  }
+
+ul#menu li a
+  {
+  display: block;
+  padding: 2px 4px;
+  border-bottom: 1px solid #ac2e2e;
+  font-size: 1em;
+  color: #000;
+  text-decoration: none;
+  }
+
+ul#menu li a:link, ul#menu li a:visited
+  {
+  background: transparent;
+  }
+
+ul#menu li a:hover, ul#menu li a:active, ul#menu li a.active
+  {
+  background: #f3f3f3;
+  }
+
+/* Items */
+
+.item-odd
+  {
+  padding: 2px;
+  background: #c4d1e7;
+  }
+
+.item-even
+  {
+  padding: 2px;
+  background: #839dcd;
+  }
+
+/* News */
+
+.datetime
+  {
+  margin: 0.3em;
+  font-size: 0.7em;
+  }
+
+div#news_content
+  {
+  float: right;
+  width: 60%;
+  border-left: 1px solid #f1f1f1;
+  }
+
+div#news_content h3
+  {
+  padding: 2px;
+  background: #274d92;
+  color: #fff;
+  }

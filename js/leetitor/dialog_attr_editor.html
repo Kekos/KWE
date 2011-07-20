@@ -1,0 +1,151 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="sv" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Redigera attribut - Leetitor</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link type="text/css" href="leetitor.css" rel="stylesheet" media="screen" />
+  <script type="text/javascript" src="leetitor.min.js"></script>
+  <script type="text/javascript" src="leetitor_settings.min.js"></script>
+  <script type="text/javascript">// <![CDATA[
+    var win = window.opener;
+    var leetwin = win.leetitor;
+    var elemt = null;
+    var nn = '';
+    var styles_attr = null;
+    var new_style = null;
+    addEvent(window, 'load', function()
+      {
+      // Get attributes from selected element
+      var sel = selection(leetwin.win, leetwin.doc);
+      elemt = (document.selection) ? sel.createRange().parentElement() : sel.focusNode.parentNode;
+      nn = elemt.nodeName.toLowerCase();
+
+      elem('node_name').firstChild.nodeValue = '<' + nn + '>';
+      elem('attr_id').value = elemt.id;
+      elem('attr_classname').value = elemt.className;
+      elem('attr_title').value = elemt.getAttribute('title');
+      if (nn == 'img')
+        {
+        elem('attr_src').value = elemt.getAttribute('src');
+        elem('row_src').className = '';
+        elem('attr_alt').value = elemt.getAttribute('alt');
+        elem('row_alt').className = '';
+        }
+
+      styles_attr = elem('styles_attr');
+      new_style = elem('row_new_style');
+      var has_border = false;
+      for (var stle in elemt.style)
+        {
+        var typo = typeof elemt.style[stle];
+        var def = elemt.style[stle];
+        if (def != '' && typo == 'string' && !stle.match(/[0-9]/) && stle != 'cssText' && stle != 'accelerator')
+          {
+          if (stle.indexOf('border') > -1 && has_border && !document.all)
+            continue;
+          if (stle.indexOf('border') > -1 && !document.all)
+            has_border = true;
+          var new_term = document.createElement('div');
+          var new_def = document.createElement('input');
+          new_term.className = 'term';
+          new_def.className = 'def';
+          new_def.id = 'style_' + stle;
+          new_term.appendChild(document.createTextNode(stle));
+          new_def.setAttribute('value', elemt.style[stle]);
+          styles_attr.insertBefore(new_term, new_style);
+          styles_attr.insertBefore(new_def, new_style);
+          }
+        }
+      });
+
+    addEvent(document, 'click', function(e)
+      {
+      var targ = getTarget(e);
+      var id = targ.id;
+      if (id == 'btn_ok')
+        {
+        // Set new attributes for element
+        if (elem('attr_id').value != '')
+          elemt.id = elem('attr_id').value;
+        if (elem('attr_classname').value != '')
+          elemt.className = elem('attr_classname').value;
+        if (elem('attr_title').value != '')
+          elemt.setAttribute('title', elem('attr_title').value);
+        if (nn == 'img')
+          {
+          elemt.setAttribute('src', elem('attr_src').value);
+          elemt.setAttribute('alt', elem('attr_alt').value);
+          }
+
+        var styles = styles_attr.getElementsByTagName('input');
+        for (var stle = 0; stle < styles.length; stle++)
+          {
+          var stle_val = styles[stle].value;
+          var def = styles[stle].id.substring(6, 50);
+          if (def != 'ew')
+          elemt.style[def] = stle_val;
+          }
+        window.close();
+        }
+      else if (id == 'btn_cancel')
+        window.close();
+      else if (targ.parentNode.id == 'row_new_style')
+        {
+        var stle = prompt('Ange namnet på den nya egenskapen', '');
+        if (stle && stle != '')
+          {
+          var new_term = document.createElement('div');
+          var new_def = document.createElement('input');
+          new_term.className = 'term';
+          new_def.className = 'def';
+          new_def.id = 'style_' + stle;
+          new_term.appendChild(document.createTextNode(stle));
+          new_def.setAttribute('value', elemt.style[stle]);
+          styles_attr.insertBefore(new_term, new_style);
+          styles_attr.insertBefore(new_def, new_style);
+          }
+        }
+      });
+  // ]]></script>
+</head>
+
+<body id="leetitor_dialog">
+
+<h1>Redigera attribut</h1>
+
+<p>Här kan du göra mer avancerad redigering av enskilda element.</p>
+
+<fieldset id="props_attr">
+  <legend>Egenskaper</legend>
+
+  <div class="left">Tagg: <span id="node_name">n/a</span></div>
+</fieldset>
+
+<fieldset class="half">
+  <legend>Attribut</legend>
+
+  <div class="list">
+    <div class="term">ID</div> <input type="text" id="attr_id" class="def" value="" />
+    <div class="term">CSS-klasser</div> <input type="text" id="attr_classname" class="def" value="" />
+    <div class="term">Titel</div> <input type="text" id="attr_title" class="def" value="" />
+    <div id="row_src" class="hidden"><div class="term">Källa för fil</div> <input type="text" id="attr_src" class="def" value="" /></div>
+    <div id="row_alt" class="hidden"><div class="term">Alternativ text</div> <input type="text" id="attr_alt" class="def" value="" /></div>
+  </div>
+</fieldset>
+
+<fieldset class="half">
+  <legend>Stilar</legend>
+
+  <div id="styles_attr" class="list">
+    <div id="row_new_style"><div class="term">Ny</div> <input type="text" id="attr_new" class="def" value="(..)" /></div>
+  </div>
+</fieldset>
+
+<div id="footer"><input type="button" value="OK" id="btn_ok" /> <input type="button" value="Avbryt" id="btn_cancel" /></div>
+
+</body>
+
+</html>

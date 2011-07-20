@@ -1,0 +1,10 @@
+    <h1>Ta bort sidmodul</h1>
+
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form delete-dialog">
+      <p>Är du säker på att du vill ta bort modulen <strong><?php echo htmlspecialchars($controller->name); ?></strong> 
+        på den aktuella sidan <strong><?php echo htmlspecialchars($active_page->title); ?></strong>?</p>
+
+      <p><button type="submit" name="delete_pcontroller_yes" value="yes">Ja</button>
+        <button type="submit" name="delete_pcontroller_no" value="no" class="hide-boxing">Nej</button>
+        <input type="hidden" name="controller_id" value="<?php echo $controller->id; ?>" /></p>
+    </form>

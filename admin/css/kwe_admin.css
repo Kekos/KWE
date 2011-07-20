@@ -1,0 +1,384 @@
+/**
+ * KWF Style: kwe_admin.css
+ * 
+ * @author Christoffer Lindahl <christoffer@kekos.se>
+ * @date 2011-07-10
+ * @version 2.0
+ */
+
+@import '../../css/kwf_global.min.css';
+
+html
+  {
+  background: #fff;
+  text-align: center;
+  }
+
+body
+  {
+  margin: 0 auto;
+  padding: 0.1px 0;
+  width: 100%;
+  max-width: 1200px;
+  background: #fff;
+  text-align: left;
+  }
+
+#header, #kwe_logo, #login_logo, #navigation a, li, th
+  {
+  background-image: url('../../images/admin/sprite.png');
+  background-repeat: no-repeat;
+  }
+
+/* Header */
+
+#header
+  {
+  padding: 0.1px 0 0 0;
+  height: 80px;
+  width: 100%;
+  background-color: #353535;
+  background-repeat: repeat-x;
+  }
+
+#header h1
+  {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  }
+
+#kwe_logo, #login_logo
+  {
+  display: block;
+  float: left;
+  margin: 18px 30px;
+  height: 43px;
+  width: 138px;
+  background-position: 0 -90px;
+  text-indent: -9999px;
+  }
+
+/* Navigation */
+
+#navigation ul
+  {
+  float: right;
+  margin: 0 10px 0 0;
+  }
+
+#navigation li
+  {
+  float: left;
+  margin: 0 -2px 0 0;
+  padding: 0;
+  background: none;
+  }
+
+#navigation a
+  {
+  display: block;
+  padding: 5px 0;
+  width: 80px;
+  height: 70px;
+  /*background-position: 0 -140px;*/
+  background-image: url('../../images/admin/menu_bg.png');
+  font-size: 1em;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  }
+
+#navigation a:hover, #navigation a:focus { background-image: url('../../images/admin/menu_hover_bg.png'); }
+#navigation .active { /*background-position: 0 -230px;*/background-image: url('../../images/admin/menu_active_bg.png'); }
+
+/* Main */
+
+#page
+  {
+  float: left;
+  padding: 0.1px 0;
+  width: 100%;
+  }
+
+#content
+  {
+  padding: 0.1px 0 0 0;
+  margin-right: 200px;
+  }
+
+h1, h2, h3, legend
+  {
+  padding-bottom: 4px;
+  border-bottom: 1px solid #cdcdcd;
+  font-weight: normal;
+  color: #353535;
+  }
+
+h1 { font-size: 1.4em; }
+h2 { font-size: 1em; }
+h3 { font-size: 0.8em; }
+
+li
+  {
+  margin: 1% 0;
+  padding: 0 0 0 14px;
+  background-position: 0 -315px;
+  list-style-type: none;
+  line-height: 1.4;
+  }
+
+th
+  {
+  background-color: #353535;
+  background-repeat: repeat-x;
+  font-size: 0.8em;
+  text-align: left;
+  color: #fff;
+  }
+
+th, td
+  {
+  padding: 0.4em;
+  border-top: 1px solid #353535;
+  border-bottom: 1px solid #353535;
+  vertical-align: middle;
+  }
+
+a { color: #04aeec; }
+.subpage { padding-left: 20px; }
+tr { background-color: #306791; }
+.actions-head { display: none; }
+
+section { position: relative; }
+tr:hover .actions { left: auto; right: 1px; margin-right: 1%;}
+
+.actions
+  {
+  position: absolute;
+  left: -9999px;
+  background-color: #0597da;
+  border: 0;
+  -moz-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  -webkit-transition: all 0.5s ease-out;
+  -ms-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+  }
+
+.edit-link, .delete-link, .permission-link
+  {
+  padding: 0.3em;
+  font-size: 0.9em;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none !important;
+  }
+
+.edit-link { background: #7cef14; }
+.edit-link:hover, .edit-link:focus { background: #30ef14; }
+.delete-link { background: #ef5914; }
+.delete-link:hover, .delete-link:focus { background: #ce4d11; }
+.permission-link { background: #04aeec; }
+.permission-link:hover, .permission-link:focus { background: #074cd3; }
+
+form ol { margin: 0 1%; padding: 0; }
+form ol li:last-child { background: none; }
+input, select, textarea { float: left; margin: 2px 0 2px; }
+
+form ol li
+  {
+  position: relative;
+  padding: 0.5%;
+  margin: 0.5% 0;
+  background: #306791;
+  overflow: auto;
+  }
+
+form label
+  {
+  float: left;
+  clear: both;
+  display: block;
+  width: 30%;
+  padding-top: 2px;
+  }
+
+input[type='text'], input[type='password'], select
+  {
+  padding: 3px;
+  width: 60%;
+  }
+
+form span.description
+  {
+  float: left;
+  clear: both;
+  margin-left: 30%;
+  width: 60%;
+  font-size: 0.9em;
+  }
+
+/* Cells and Sections */
+
+.cell
+  {
+  float: left;
+  margin: 1% 1% 1% 0;
+  width: 49%;
+  }
+
+.cell, section, fieldset
+  {
+  background: #224967;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  box-shadow: 0 0 15px #074cd3;
+  color: #fff;
+  }
+
+.cell h2, section h2, fieldset h2 { color: #fff; }
+
+section, fieldset
+  {
+  padding: 0.1px 0 0 0;
+  margin: 1% 0;
+  }
+
+.toggle-collapse
+  {
+  display: block;
+  padding-left: 20px;
+  background: no-repeat url('../../images/admin/collapse.png');
+  }
+
+.collapsed > * { height: 1.3em; display: none; }
+.collapsed h2 { display: block; border: 0; }
+.collapsed .toggle-collapse { background-image: url('../../images/admin/expand.png'); }
+
+/* Shortcuts */
+
+.shortcuts li
+  {
+  margin: 1% 0;
+  padding: 5px 14px;
+  background-color: #306791;
+  background-position: 3px -310px;
+  }
+
+.shortcuts li:nth-child(2n), tr:nth-child(2n) { background-color: #5796c7; }
+.shortcuts li:hover, tr:hover { background-color: #0597da; }
+.shortcuts li a, td a { color: #101010; }
+
+/* SubNavigation */
+
+#subnavigation
+  {
+  float: right;
+  margin: 1% 0 0 -100%;
+  padding: 0;
+  width: 200px;
+  border-left: 1px solid #cdcdcd;
+  }
+
+#subnavigation li
+  {
+  margin: 5px 5px 0;
+  padding: 0 0 5px 0;
+  background: none;
+  border-bottom: 1px solid #cdcdcd;
+  }
+
+#subnavigation a
+  {
+  display: block;
+  padding: 4px 5px;
+  border-left: 5px solid #04aeec;
+  font-size: 1em;
+  color: #505050;
+  text-decoration: none;
+  }
+
+#subnavigation a:hover, #subnavigation a:active
+  {
+  background: #efefef;
+  }
+
+#subnavigation .active
+  {
+  border-left: 5px solid #ef6b14;
+  }
+
+/* Footer */
+
+#footer
+  {
+  clear: left;
+  border-top: 1px solid #cdcdcd;
+  }
+
+#footer p
+  {
+  float: left;
+  margin: 0;
+  padding: 1%;
+  height: 40px;
+  border: 0px solid #cdcdcd;
+  border-right-width: 1px;
+  font-size: 0.7em;
+  color: #505050;
+  }
+
+#footer #version
+  {
+  border-right-width: 1px;
+  font-size: 1.9em;
+  font-weight: bold;
+  }
+
+#footer ul
+  {
+  float: right;
+  margin: 0;
+  }
+
+#footer li
+  {
+  margin: 1px;
+  padding: 0;
+  width: 200px;
+  background: none;
+  line-height: 1;
+  }
+
+#footer li a
+  {
+  display: block;
+  padding: 6px 5px;
+  background: #505050;
+  color: #fff;
+  text-decoration: none;
+  }
+
+#footer_nav a:hover, #footer_nav a:focus { background: #353535; }
+
+/* Login */
+
+#kwe_login { height: 100%; }
+#login_logo { float: none; margin: 1em auto; }
+#login_form label { width: 95px; font-weight: normal; }
+
+#kwe_login #header, #kwe_login #navigation, #kwe_login #footer
+  {
+  display: none;
+  }
+
+#kwe_login #content
+  {
+  float: none;
+  width: 320px;
+  margin: 100px auto 0;
+  }
+
+#kwe_login h1 { color: #fff; text-align: center; }

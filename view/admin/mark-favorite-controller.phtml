@@ -1,0 +1,17 @@
+    <h1>Ange modul som favorit</h1>
+
+    <form action="<?php echo urlModr($route, $params); ?>" method="post">
+      <fieldset>
+<?php if ($controller->has_favorite_config): ?>
+        <p><label for="favorite_config">Vill du att modulen visar ett gränssnitt i miniatyr på Översikten?</label>
+          <select name="favorite_config" id="favorite_config">
+            <option value="0">Nej</option>
+            <option value="1">Ja</option>
+          </select></p>
+<?php endif; ?>
+        <p class="clear">För att ange modulen <strong><?php echo htmlspecialchars($controller->name); ?></strong> som favorit, tryck på Spara.</p>
+      </fieldset>
+
+      <p><button type="submit" name="mark_favorite_yes" value="yes">Spara</button>
+        <button type="submit" name="mark_favorite_no" value="no">Avbryt</button></p>
+    </form>

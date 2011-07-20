@@ -1,0 +1,38 @@
+    <h1>Moduler</h1>
+
+<?php if (access::$user->rank == 1): ?>
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" enctype="multipart/form-data">
+      <fieldset class="collapsable<?php if (!$install_controller) echo ' start-collapsed'; ?>">
+        <h2>Installera modul</h2>
+        <ol>
+          <li><label for="file">Installationsfil</label> <input type="file" name="file" id="file" />
+            <span class="description">En installationsfil ska ha filändelsen .kwe</span></li>
+          <li><button type="submit" name="install_controller" value="yes">Installera</button></li>
+        </ol>
+      </fieldset>
+    </form>
+<?php endif; ?>
+
+    <section class="collapsable">
+      <h2>Modullista</h2>
+
+      <table>
+        <tr>
+          <th>Namn</th>
+          <th class="actions-head">&nbsp;</th>
+        </tr>
+<?php foreach ($controllers as $controller): ?>
+        <tr>
+<?php if ($controller->configurable): ?>
+          <td><a href="<?php echo urlModr($controller->class_name); ?>"><?php echo htmlspecialchars($controller->name); ?></a></td>
+<?php else: ?>
+          <td><?php echo htmlspecialchars($controller->name); ?></td>
+<?php endif; ?>
+          <td class="actions"><?php if (access::$user->rank == 1): ?><a href="<?php echo urlModr('controllers', 'uninstall', $controller->class_name); ?>" class="delete-link">Avinstallera</a><?php
+endif;
+if ($controller->configurable): ?>
+<a href="<?php echo urlModr('controllers', 'favorite', $controller->class_name); ?>" class="permission-link"><?php echo ($controller->favorite ? 'Inte favorit' : 'Favorit'); ?></a><?php endif; ?></td>
+        </tr>
+<?php endforeach; ?>
+      </table>
+    </section>

@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="sv" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>KWF &gt; <?php echo $this->title; ?></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link type="text/css" title="KWE" href="<?php echo FULLPATH; ?>/css/kwe.css" rel="stylesheet" media="screen" />
+  <link type="text/css" href="<?php echo FULLPATH; ?>/css/kwe_print.css" rel="stylesheet" media="print" />
+  <!--<link type="image/vnd.microsoft.icon" href="<?php echo FULLPATH; ?>/favicon.ico" rel="icon" />-->
+</head>
+
+<body>
+
+<div id="header"></div>
+
+<div id="navigation">
+  <ul>
+<?php
+foreach ($data['navigation'] as $nav): ?>
+  <li><a href="<?php echo urlModr($nav->url); ?>"<?php if ($nav->url == $this->request->params[0]) echo ' class="active"'; ?>><?php echo htmlspecialchars($nav->title); ?></a></li>
+<?php endforeach; ?>
+  </ul>
+  <div class="clear"></div>
+</div>
+
+<div id="page">
+
+  <div id="content">
+    <h1><?php echo $this->title; ?></h1>
+<?php if (count($this->error_messages)): ?>
+    <ul id="errorlist">
+<?php foreach ($this->error_messages as $msg): ?>
+      <li><?php echo $msg; ?></li>
+<?php endforeach; ?>
+    </ul>
+<?php endif; 
+
+if (count($this->info_messages)): ?>
+    <ul id="infolist">
+<?php foreach ($this->info_messages as $msg): ?>
+      <li><?php echo $msg; ?></li>
+<?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+
+<?php echo $this->content_data; ?>
+
+  </div>
+
+  <ul id="menu">
+<?php
+$params = implode('/', $this->request->params);
+foreach ($data['subnavigation'] as $nav): ?>
+    <li><a href="<?php echo urlModr($nav->url); ?>"<?php if ($nav->url == $params) echo ' class="active"'; ?>><?php echo htmlspecialchars($nav->title); ?></a></li>
+<?php endforeach; ?>
+  </ul>
+
+  <div id="footer">
+    <p>Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2010</p>
+  </div>
+
+</div>
+
+</html>

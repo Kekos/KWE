@@ -1,0 +1,7 @@
+      <h2>Artikelmodul</h2>
+
+      <p id="content_controller_<?php echo $controller->id; ?>_container">
+        <input type="hidden" id="content_controller_<?php echo $controller->id; ?>_settings" value="style=true;format=true;font=false;table=true;link=true;colors=false;semantic=true" />
+        <textarea name="content_<?php echo $controller->id; ?>" id="content_controller_<?php echo $controller->id; ?>" class="editable" cols="100" rows="10"><?php request::formStatePost('content_' . $controller->id, 'textarea', '', $controller->content); ?></textarea>
+      </p>
+<?php /*      <p><textarea name="content_<?php echo $controller->id; ?>" id="content_controller_<?php echo $controller->id; ?>" class="append-DOMIWYG" cols="100" rows="10"><?php request::formStatePost('content_' . $controller->id, 'textarea', '', $controller->content); ?></textarea></p> */?>

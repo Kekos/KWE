@@ -1,0 +1,13 @@
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" id="login_form">
+      <fieldset>
+        <a href="<?php echo urlModr(); ?>" id="login_logo">Kekos-mail</a>
+
+        <h1>Logga in</h1>
+
+        <ol>
+          <li><label for="username">Användarnamn</label> <input type="text" name="username" id="username" maxlength="20" /></li>
+          <li><label for="password">Lösenord</label> <input type="password" name="password" id="password" /></li>
+          <li><button type="submit" name="login_submit" value="ok">Logga in</button></li>
+        </ol>
+      </fieldset>
+    </form>

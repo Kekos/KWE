@@ -1,0 +1,14 @@
+<?php if ($update_status): ?>
+    <h2>Det finns en ny version av KWE att ladda ner nu!</h2>
+
+    <p>Installera den nya versionen nu för att se till att ditt KWE är säkert.</p>
+
+    <p><a href="<?php echo htmlspecialchars($update_link); ?>" class="edit-link">Ladda ner här</a></p>
+<?php else: ?>
+    <h2>Du har den senaste versionen av KWE!</h2>
+
+    <p>...men kom gärna tillbaka till denna sida då och då för att kolla om en ny 
+      version finns tillgänglig. Installera nya versioner för att se till att din 
+      webbplattform är säker och för att få tillgång till de senaste verktygen 
+      och funktionerna.</p>
+<?php endif; ?>

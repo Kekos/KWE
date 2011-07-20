@@ -1,0 +1,9 @@
+    <h1>Ta bort användare</h1>
+
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form delete-dialog">
+      <p>Är du säker på att du vill ta bort användaren <strong><?php echo htmlspecialchars($user->name); ?></strong> 
+      permanent?</p>
+
+      <p><button type="submit" name="delete_user_yes" value="yes">Ja</button>
+        <button type="submit" name="delete_user_no" value="no" class="hide-boxing">Nej</button></p>
+    </form>

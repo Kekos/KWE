@@ -1,0 +1,12 @@
+<?php
+$pattern = array('%id%', '%title%', '%content%', '%starttime%', '%endtime%', '%creator%', '%datetime%', '%creator_id%', '%url%');
+
+foreach ($events as $event)
+  {
+  $event->starttime = easyDate('H:i', $event->starttime);
+  $event->endtime = easyDate('H:i', $event->endtime);
+  $event->created = easyDate('H:i', $event->created);
+  $event = (array) $event;
+  echo '    ' . str_replace($pattern, $event, $settings->html_before . $settings->html_format . $settings->html_after) . "\n";
+  }
+?>

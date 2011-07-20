@@ -1,0 +1,111 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="sv" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>Infoga länk - Leetitor</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link type="text/css" href="leetitor.css" rel="stylesheet" media="screen" />
+  <script type="text/javascript" src="leetitor.min.js"></script>
+  <script type="text/javascript" src="leetitor_settings.min.js"></script>
+  <script type="text/javascript">// <![CDATA[
+    var win = window.opener;
+    var leetwin = win.leetitor;
+    var elemt = null;
+    var nn = null;
+    addEvent(window, 'load', function()
+      {
+      // Is a link already selected?
+      var sel = selection(leetwin.win, leetwin.doc);
+      elemt = (document.selection) ? sel.createRange().parentElement() : sel.focusNode.parentNode;
+      nn = elemt.nodeName.toLowerCase();
+
+      if (nn == 'a')
+        {
+        var link = elemt.getAttribute('href');
+        if (link.indexOf(':') < 0 || link.indexOf(':') > 6)
+          {
+          elem('link_protocoll').value = '';
+          elem('link_url').value = link;
+          }
+        else
+          {
+          link = link.split(':');
+          elem('link_protocoll').value = link[0];
+          elem('link_url').value = link[1];
+          }
+        }
+      });
+
+    addEvent(document, 'click', function(e)
+      {
+      var targ = getTarget(e);
+      var id = targ.id;
+      if (id == 'btn_ok')
+        {
+        var url = elem('link_url').value;
+        var protocoll = elem('link_protocoll').value;
+        if (url == '')
+          {
+          try
+            {
+            leetwin.doc.execCommand('unlink', false, null);
+            }
+          catch (e)
+            {
+            alert(leetitor.lang['err_format_support1'] + 'unlink' + leetitor.lang['err_format_support2']);
+            }
+          }
+        else
+          {
+          url = url.replace(/http:\/\/|http:|https:\/\/|https:|ftp:\/\/|ftp:|mailto:/ig, '');
+          if (protocoll != 'mailto:' && protocoll != '' && url.indexOf('//') != 0)
+            url = '//' + url;
+          var link_url = protocoll + url;
+          if (nn == 'a') // Is a link already selected?
+            elemt.setAttribute('href', link_url);
+          else
+            {
+            try
+              {
+              leetwin.doc.execCommand('createlink', false, link_url);
+              }
+            catch (e)
+              {
+              alert(leetitor.lang['err_format_support1'] + 'createlink' + leetitor.lang['err_format_support2']);
+              }
+            }
+          }
+        leetwin.focus();
+        window.close();
+        }
+      else if (id == 'btn_cancel')
+        window.close();
+      else if (id == 'btn_browse')
+        leetitor.openWin('../../admin/browse_link.php', 'browse_link', 400, 450);
+      });
+  // ]]></script>
+</head>
+
+<body id="leetitor_dialog">
+
+<h1>Infoga länk</h1>
+
+<p>Skriv in adressen dit länken ska leda. Välj även vilket protokoll som ska användas.</p>
+
+<p><select id="link_protocoll">
+    <option value="">samma webbplats</option>
+    <option value="http:">http: (webbsida)</option>
+    <option value="https:">https: (säker sida)</option>
+    <option value="mailto:">mailto: (e-post)</option>
+    <option value="ftp:">ftp: (filöverföring)</option>
+  </select> <input type="text" id="link_url" value="www.example.com" /> <input type="button" value="Bläddra..." id="btn_browse" /></p>
+
+<p>Om du vill ta bort en länk, markera <strong>hela</strong> länken och lämna fältet tomt här ovan.</p>
+
+<div id="footer"><input type="button" value="OK" id="btn_ok" /> <input type="button" value="Avbryt" id="btn_cancel" /></div>
+
+</body>
+
+</html>

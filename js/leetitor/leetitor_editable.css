@@ -1,0 +1,13 @@
+/* Leetitor - Rich text editor */
+/* Copyright, Christoffer Lindahl, 2008 */
+
+/* Please insert your CSS for your site here, so that the editor shows an approximate display of the content */
+
+@import '../../css/kwe.css';
+
+html, body
+  {
+  width: auto;
+  height: auto;
+  background: none;
+  }

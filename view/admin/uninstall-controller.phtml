@@ -1,0 +1,9 @@
+    <h1>Avinstallera modul</h1>
+
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form delete-dialog">
+      <p>Är du säker på att du vill avinstallera modulen <strong><?php echo htmlspecialchars($controller->name); ?></strong> 
+      permanent?</p>
+
+      <p><button type="submit" name="uninstall_controller_yes" value="yes">Ja</button>
+        <button type="submit" name="uninstall_controller_no" value="no" class="hide-boxing">Nej</button></p>
+    </form>

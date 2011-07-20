@@ -1,0 +1,17 @@
+    <h1>Redigera nyhet</h1>
+
+    <p><a href="<?php echo urlModr($route); ?>">Gå till nyhetslistan</a></p>
+
+    <form action="<?php echo urlModr($route, $params); ?>" method="post">
+      <fieldset>
+        <ol>
+          <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php request::formStatePost('title', 'text', '', $news->title); ?> /></li>
+          <li><button type="submit" name="edit_news" class="save-leetitor" value="yes">Spara ändringar</button></li>
+        </ol>
+      </fieldset>
+
+      <p id="news_content_container">
+        <input type="hidden" id="news_content_settings" value="style=true;format=true;font=false;table=true;link=true;colors=false;semantic=true" />
+        <textarea name="content" id="news_content" class="editable" cols="100" rows="10"><?php request::formStatePost('content', 'textarea', '', $news->content); ?></textarea>
+      </p>
+    </form>

@@ -1,0 +1,39 @@
+    <h1>Översikt</h1>
+
+    <section class="cell">
+      <h2><a href="<?php echo urlModr('page'); ?>">Sidor och undersidor</a></h2>
+
+      <p>Senast redigerade:</p>
+
+      <ul class="shortcuts">
+<?php foreach ($last_pages as $page): ?>
+        <li>
+          <a href="<?php echo urlModrSite($page->url); ?>"><?php echo htmlspecialchars($page->title); ?></a> 
+          (<?php echo easyDate('H:i', $page->edited) . ' av ' . htmlspecialchars($page->name); ?>) 
+          <a href="<?php echo urlModr('edit-page', $page->url); ?>" class="edit-link">Redigera</a>
+        </li>
+<?php endforeach; ?>
+      </ul>
+    </section>
+
+    <section class="cell">
+      <h2><a href="<?php echo urlModr('controllers'); ?>">Moduler</a></h2>
+<?php if (count($controllers)): ?>
+      <p>Dina favoritmoduler:</p>
+
+      <ul class="shortcuts">
+<?php foreach ($controllers as $controller): ?>
+        <li><a href="<?php echo urlModr($controller->class_name); ?>"><?php echo htmlspecialchars($controller->name); ?></a></li>
+<?php endforeach; ?>
+      </ul>
+<?php endif; ?>
+    </section>
+
+<?php foreach ($controllers as $controller):
+   if ($controller->has_favorite_config): ?>
+    <section class="cell">
+<?php require('controller.favorite.' . $controller->class_name . '.phtml'); ?>
+    </section>
+
+<?php endif;
+endforeach; ?>

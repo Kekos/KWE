@@ -1,0 +1,40 @@
+    <h1>Rättigheter för användaren <?php echo htmlspecialchars($user->username); ?></h1>
+
+    <form action="<?php echo urlModr($route, $params); ?>" method="post">
+      <table>
+        <tr>
+          <th>Sida</th>
+          <th>Lägg till sidor</th>
+          <th>Redigera innehåll</th>
+          <th>Ta bort sidor</th>
+        </tr>
+<?php foreach ($pages as $page):
+  if ($page->permission == null)
+    $page->permission = 0;
+?>
+        <tr>
+          <td class="<?php echo ($page->parent ? 'subpage' : 'page'); ?>"><?php echo htmlspecialchars($page->title); ?></td>
+          <td><?php if (!$page->parent): ?><input type="checkbox" name="permissions[<?php echo $page->id; ?>][]" value="1"<?php echo ($page->permission & PERMISSION_ADD ? ' checked="checked"' : ''); ?> /><?php endif; ?></td>
+          <td><input type="checkbox" name="permissions[<?php echo $page->id; ?>][]" value="2"<?php echo ($page->permission & PERMISSION_EDIT ? ' checked="checked"' : ''); ?> /></td>
+          <td><input type="checkbox" name="permissions[<?php echo $page->id; ?>][]" value="4"<?php echo ($page->permission & PERMISSION_DELETE ? ' checked="checked"' : ''); ?> /></td>
+        </tr>
+<?php endforeach; ?>
+      </table>
+
+      <table>
+        <tr>
+          <th>Modul</th>
+          <th>Tillåt</th>
+        </tr>
+<?php foreach ($controllers as $controller):
+   if ($controller->configurable): ?>
+        <tr>
+          <td><?php echo htmlspecialchars($controller->name); ?></td>
+          <td><input type="checkbox" name="controller_permissions[<?php echo $controller->id; ?>]" value="1"<?php echo ($controller->user ? ' checked="checked"' : ''); ?> /></td>
+        </tr>
+<?php endif;
+endforeach; ?>
+      </table>
+
+      <p><button type="submit" name="save_user_permissions" value="yes">Spara</button></p>
+    </form>

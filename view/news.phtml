@@ -1,0 +1,11 @@
+<?php
+$pattern = array('%id%', '%title%', '%content%', '%creator%', '%datetime%', '%creator_id%', '%url%');
+
+foreach ($news as $news_item)
+  {
+  $news_item->created = easyDate('H:i', $news_item->created);
+  $news_item = (array) $news_item;
+  echo '    ' . str_replace($pattern, $news_item, $settings->html_before . $settings->html_format . $settings->html_after) . "\n";
+  }
+?>
+

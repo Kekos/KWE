@@ -1,0 +1,16 @@
+    <h1>Redigera händelse</h1>
+
+    <p><a href="<?php echo urlModr($route); ?>">Gå till händelselistan</a></p>
+    <form action="<?php echo urlModr($route, $params); ?>" method="post">
+      <fieldset>
+        <ol>
+          <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php request::formStatePost('title', 'text', '', $event->title); ?> /></li>
+          <li><label for="event_content">Innehåll</label> <textarea name="content" id="event_content" cols="80" rows="10"><?php request::formStatePost('content', 'textarea', '', $event->content); ?></textarea></li>
+          <li><label for="starttime">Startdatum &amp; -tid</label> <input type="text" name="starttime" id="starttime" maxlength="16"<?php request::formStatePost('starttime', 'text', '', date('Y-m-d H:i', $event->starttime)); ?> />
+            <span class="description">Anges i formatet ÅÅÅÅ-MM-DD TT:MM</span></li>
+          <li><label for="endtime">Slutdatum &amp; -tid</label> <input type="text" name="endtime" id="endtime" maxlength="16"<?php request::formStatePost('endtime', 'text', '', date('Y-m-d H:i', $event->endtime)); ?> />
+            <span class="description">Anges i formatet ÅÅÅÅ-MM-DD TT:MM</span></li>
+          <li><button type="submit" name="edit_event" value="yes">Spara ändringar</button></li>
+        </ol>
+      </fieldset>
+    </form>

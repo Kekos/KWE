@@ -1,0 +1,11 @@
+/* KWE Style: print.css */
+/* Christoffer Lindahl, 2008 */
+
+@import 'kwe_global.css';
+
+/* Hide things */
+
+div#navigation, ul#menu
+  {
+  display: none;
+  }

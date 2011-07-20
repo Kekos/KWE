@@ -1,0 +1,8 @@
+Options -MultiViews
+
+RewriteEngine On
+RewriteBase /
+RewriteRule ^(class|include|pages|view)/(.*)$ index.php?r=
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?r=$1
