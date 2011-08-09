@@ -13,8 +13,8 @@ kwf.onclick = function(e, targ)
     cls = targ.className, 
     breq = boxing_request;
 
-  if (cls.indexOf('save-leetitor') > -1)
-    k.saveLeetitor(e, targ);
+  if (cls.indexOf('save-domiwyg') > -1)
+    k.saveDomiwyg(e, targ);
   else if (cls.indexOf('toggle-collapse') > -1)
     k.toggleCollapse(e, targ);
   else if (cls.indexOf('clink') > -1)
@@ -65,8 +65,6 @@ kwf.onload = function(e)
       }
     });
   };
-
-function LeetitorSaveDoc() {}
 
 var kwe = {
   beforeAjax: function()
@@ -161,18 +159,19 @@ var kwe = {
 
   initWysiwygs: function()
     {
-    if (typeof leetitor != 'undefined')
-      leetitor.init();
+    if (typeof domiwyg != 'undefined')
+      domiwyg.find();
     },
 
-  saveLeetitor: function(e, targ)
+  saveDomiwyg: function(e, targ)
     {
-    var iframes = document.getElementsByTagName('iframe'),
-      i;
-    for (i = 0; i < iframes.length; i++)
+    var textareas = targ.form.getElementsByTagName('textarea'), 
+      t;
+
+    for (t = 0; t < textareas.length; t++)
       {
-      if (iframes[i].className.indexOf('leetitor') > -1)
-        iframes[i].contentWindow.leetitor.save();
+      if (hasClass(textareas[t], 'has-domiwyg'))
+        textareas[t].value = textareas[t].domiwyg.save();
       }
     }
   };

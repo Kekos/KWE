@@ -15,6 +15,7 @@ function menuLink($current_page, $new_page)
   <title>KWE Admin :: <?php echo $this->title; ?></title>
   <meta charset="utf-8" />
   <link title="KWE Admin" href="<?php echo FULLPATH; ?>/css/kwe_admin.css" rel="stylesheet" media="screen" />
+  <link href="<?php echo FULLPATH_SITE; ?>/js/domiwyg.min.css" rel="stylesheet" />
   <link href="<?php echo FULLPATH; ?>/css/kwe_admin_print.css" rel="stylesheet" media="print" />
 <?php foreach ($data['stylesheets'] as $stylesheet): ?>
   <link href="<?php echo $stylesheet; ?>" rel="stylesheet" />
@@ -27,8 +28,8 @@ function menuLink($current_page, $new_page)
 <?php foreach ($data['scripts'] as $script): ?>
   <script src="<?php echo $script; ?>"></script>
 <?php endforeach; ?>
-  <script src="<?php echo FULLPATH_SITE; ?>/js/leetitor/leetitor.min.js"></script>
-  <script>leetitor.base_src = '<?php echo FULLPATH_SITE; ?>/js/';</script>
+  <script src="<?php echo FULLPATH_SITE; ?>/js/domiwyg.min.js"></script>
+  <script src="<?php echo FULLPATH_SITE; ?>/js/domiwyg.swedish.min.js"></script>
 </head>
 
 <body id="kwe_<?php if (isset($data['body_id'])) echo $data['body_id']; else echo 'default'; ?>">

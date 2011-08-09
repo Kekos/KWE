@@ -35,7 +35,7 @@ foreach ($controllers as $controller): ?>
 <?php require(BASE . 'view/admin/controller.page.' . $controller->class_name . '.phtml'); ?>
       <p class="controller-actions">
         <input type="hidden" name="controller_id" value="<?php echo $controller->id; ?>" />
-        <button type="submit" name="save_controller" class="save-leetitor" value="yes">Spara modul</button>
+        <button type="submit" name="save_controller" class="save-domiwyg" value="yes">Spara modul</button>
         <button type="submit" name="delete_controller" value="yes" class="delete-controller">Ta bort modul</button>
         <?php if ($i > 0): ?><button type="submit" name="controller_order_up" value="yes">Upp i ordningen</button>
         <?php endif; if ($i < $max_controllers): ?><button type="submit" name="controller_order_down" value="yes">Ner i ordningen</button><?php endif; ?>
