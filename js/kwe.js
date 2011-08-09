@@ -13,17 +13,17 @@ kwf.onclick = function(e, targ)
     cls = targ.className, 
     breq = boxing_request;
 
-  if (cls.indexOf('save-domiwyg') > -1)
+  if (hasClass(targ, 'save-domiwyg'))
     k.saveDomiwyg(e, targ);
-  else if (cls.indexOf('toggle-collapse') > -1)
+  else if (hasClass(targ, 'toggle-collapse'))
     k.toggleCollapse(e, targ);
-  else if (cls.indexOf('clink') > -1)
+  else if (hasClass(targ, 'clink'))
     k.contentLink(e, targ);
-  else if (cls.indexOf('blink') > -1)
+  else if (hasClass(targ, 'blink'))
     k.boxingLink(e, targ);
-  else if (cls.indexOf('delete-link') > -1)
+  else if (hasClass(targ, 'delete-link'))
     breq.load(e, targ.getAttribute('href'), 300, 200);
-  else if (cls.indexOf('delete-controller') > -1)
+  else if (hasClass(targ, 'delete-controller'))
     {
     returnFalse(e);
     breq.width = 300;
@@ -55,13 +55,10 @@ kwf.onload = function(e)
   addEvent(boxing_request, 'afterload', function(e)
     {
     var targ = e.target;
-    if (targ.className)
+    if (hasClass(targ, 'delete-dialog'))
       {
-      if (targ.className.indexOf('delete-dialog') > -1)
-        {
-        content_request.parseResponse(this.response);
-        this.response.page = '';
-        }
+      content_request.parseResponse(this.response);
+      this.response.page = '';
       }
     });
   };
@@ -96,14 +93,15 @@ var kwe = {
 
     function prepare(element)
       {
-      if (element.className.indexOf('collapsable') > -1)
+      if (hasClass(element, 'collapsable'))
         {
         element.className = element.className.replace(/\bcollapsable\b/, '');
         h2 = element.getElementsByTagName('h2')[0];
         h2.innerHTML = '<a href="" class="toggle-collapse">' + h2.innerHTML + '</a>';
-        if (element.className.indexOf('start-collapsed') > -1)
+        if (hasClass(element, 'start-collapsed'))
           {
-          element.className = element.className.replace(/\bstart-collapsed\b/, 'collapsed');
+          removeClass(element, 'start-collapsed');
+          addClass(element, 'collapsed');
           }
         }
       }
@@ -124,10 +122,10 @@ var kwe = {
     returnFalse(e);
     var section = toggler.parentNode.parentNode;
 
-    if (section.className.indexOf('collapsed') > -1)
-      section.className = section.className.replace(/\bcollapsed\b/, '');
+    if (hasClass(section, 'collapsed'))
+      removeClass(section, 'collapsed');
     else
-      section.className += ' collapsed';
+      addClass(section, 'collapsed');
     },
 
   contentLink: function(e, link)
@@ -153,7 +151,7 @@ var kwe = {
   noRespContent: function(e)
     {
     var targ = e.target;
-    if (targ.className && targ.className.indexOf('no-content') > -1)
+    if (hasClass(targ, 'no-content'))
       this.response.page.content = '';
     },
 
