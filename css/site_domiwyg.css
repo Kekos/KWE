@@ -1,0 +1,115 @@
+/**
+ * Site Style: site_domiwyg.css - Applies the site's style on Domiwyg editors in admin
+ * 
+ * @author Christoffer Lindahl <christoffer@kekos.se>
+ * @date 2011-08-09
+ * @version 1.0
+ */
+
+.domiwyg-area .item-odd
+  {
+  padding: 2px;
+  background: #c4d1e7;
+  }
+
+.domiwyg-area .item-even
+  {
+  padding: 2px;
+  background: #839dcd;
+  }
+
+.domiwyg-area .datetime
+  {
+  margin: 0.3em;
+  font-size: 0.7em;
+  }
+
+.domiwyg-area h1, .domiwyg-area h2, .domiwyg-area h3, .domiwyg-area h4, .domiwyg-area p
+  {
+  margin: 0.3em;
+  border: 0;
+  font-weight: bold;
+  color: #000;
+  }
+
+.domiwyg-area h1
+  {
+  font-size: 1.1em;
+  }
+
+.domiwyg-area h2
+  {
+  font-size: 0.9em;
+  }
+
+.domiwyg-area h3
+  {
+  font-size: 0.8em;
+  }
+
+.domiwyg-area p
+  {
+  margin: 1em 0.3em;
+  font-size: 0.8em;
+  font-weight: normal;
+  text-align: justify;
+  line-height: 1.5;
+  }
+
+.domiwyg-area dt, .domiwyg-area dd
+  {
+  float: left;
+  margin: 1px 0.5%;
+  font-size: 0.8em;
+  line-height: 1.8;
+  }
+
+.domiwyg-area dt
+  {
+  clear: both;
+  width: 30%;
+  font-weight: bold;
+  }
+
+.domiwyg-area dd
+  {
+  width: 65%;
+  }
+
+.domiwyg-area li
+  {
+  font-size: 0.8em;
+  line-height: 1.5;
+  }
+
+.domiwyg-area .panel
+  {
+  margin: 0 0.5%;
+  width: 48%;
+  }
+
+.domiwyg-area table
+  {
+  margin: 2px 1%;
+  width: 98%;
+  border-collapse: collapse;
+  }
+
+.domiwyg-area td
+  {
+  background: #fff;
+  border: 0;
+  font: 0.8em Verdana, sans-serif;
+  }
+
+.domiwyg-area a:link, .domiwyg-area a:visited
+  {
+  color: #2d5a9d;
+  text-decoration: none;
+  }
+
+.domiwyg-area a:hover, .domiwyg-area a:active
+  {
+  color: #ac2e2e;
+  text-decoration: underline;
+  }
