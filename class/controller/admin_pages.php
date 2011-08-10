@@ -149,6 +149,17 @@ class admin_pages extends controller
       }
     }
 
+  public function js_browse()
+    {
+    $json = array();
+    $json['cd'] = ($this->page ? $this->page->title : '/');
+    $json['pages'] = (!$this->page ? $this->model_page->fetchPageList(0, 0) : 
+        $this->model_page->fetchSubPageList($this->page->id, 0, 0));
+
+    $this->response->setContentType('application/json');
+    $this->response->addContent(json_encode($json));
+    }
+
   private function listPages()
     {
     $data['active_page'] = $this->active_page;

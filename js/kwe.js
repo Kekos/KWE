@@ -31,6 +31,10 @@ kwf.onclick = function(e, targ)
     ajax.post(targ.form.action, breq.parseResponse, breq.parseResponse, 
         {controller_id: targ.form.controller_id.value, delete_controller: 1});
     }
+  else if (targ.name == 'select-page')
+    elem('dw_link_url').value = targ.parentNode.getAttribute('data-url');
+  else if (hasClass(targ, 'browse-to'))
+    k.KWElinkBrowse(targ.parentNode.getAttribute('data-url'));
   };
 
 kwf.onload = function(e)
@@ -158,7 +162,69 @@ var kwe = {
   initWysiwygs: function()
     {
     if (typeof domiwyg != 'undefined')
-      domiwyg.find();
+      {
+      var dw = domiwyg;
+
+      dw.tool_btns.splice(1, 0, ['KWElink', 'create_kwe_link']);
+      dw.area.prototype.cmdKWElink = kwe.KWElink;
+      dw.find();
+      }
+    },
+
+  KWElink: function()
+    {
+    var self = this, lang = domiwyg.lang, 
+      element = self.getSelectedAreaElement(), 
+      node_name = null;
+
+    if (element)
+      {
+      node_name = element.nodeName.toLowerCase();
+      self.storeCursor();
+
+      boxing.show('<h1>' + lang.create_link + '</h1>'
+        + '<p>Bläddra dig fram till den interna sida du vill länka till.</p><p id="dw_KWE_cd">/</p><ul id="dw_KWE_page_browser"></ul>'
+        + '<p><input type="hidden" id="dw_link_protocol" value="" /><input type="text" id="dw_link_url" value="" /></p>'
+        + '<p>' + lang.info_link_delete + '</p>'
+        + '<p><button id="btn_create_link" class="hide-boxing">' + lang.ok + '</button> <button class="hide-boxing">' + lang.cancel + '</button></p>', 500, 400);
+
+      kwe.KWElinkBrowse('');
+
+      if (node_name)
+        {
+        if (node_name != 'a')
+          element = null;
+
+        addEvent(elem('btn_create_link'), 'click', function()
+          {
+          elem('dw_link_url').value = kwf.MODR_SITE + elem('dw_link_url').value + '/';
+          self.createLink(element);
+          });
+        }
+      else
+        {
+        boxing.hide();
+        }
+      }
+    },
+
+  KWElinkBrowse: function(path)
+    {
+    var html = '', json, i;
+
+    ajax.get(kwf.MODR + 'page/js_browse/' + path, function(resp)
+      {
+      json = resp.page.pages;
+      json.splice(0, 0, {url: '/', title: 'Gå uppåt'});
+
+      for (i = 0; i < json.length; i++)
+        {
+        html += '<li data-url="' + json[i].url + '">' + (i ? '<input type="radio" name="select-page" /> ' : '') + '<a href="javascript: void(0);" class="browse-to">' + json[i].title + '</a></li>';
+        }
+
+      elem('dw_KWE_page_browser').innerHTML = html;
+      elem('dw_KWE_cd').innerHTML = resp.page.cd;
+      }, function() {});
     },
 
   saveDomiwyg: function(e, targ)
