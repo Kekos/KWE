@@ -219,6 +219,8 @@ form span.description
   font-size: 0.9em;
   }
 
+#dw_KWE_cd { padding: 2px; background: #224967; color: #fff; }
+
 /* Cells and Sections */
 
 .cell
