@@ -215,7 +215,7 @@ var kwe = {
     ajax.get(kwf.MODR + 'page/js_browse/' + path, function(resp)
       {
       json = resp.page.pages;
-      json.splice(0, 0, {url: '/', title: 'Gå uppåt'});
+      json.splice(0, 0, {url: '', title: 'Gå uppåt'});
 
       for (i = 0; i < json.length; i++)
         {
