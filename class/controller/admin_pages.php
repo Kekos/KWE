@@ -152,7 +152,7 @@ class admin_pages extends controller
   public function js_browse()
     {
     $json = array();
-    $json['cd'] = ($this->page ? $this->page->title : '/');
+    $json['cd'] = '/' . ($this->page ? $this->page->title . '/' : '');
     $json['pages'] = (!$this->page ? $this->model_page->fetchPageList(0, 0) : 
         $this->model_page->fetchSubPageList($this->page->id, 0, 0));
 
