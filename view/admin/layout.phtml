@@ -31,7 +31,8 @@ function menuLink($current_page, $new_page)
 <?php endforeach; ?>
   <script src="<?php echo FULLPATH_SITE; ?>/js/domiwyg.min.js"></script>
   <script src="<?php echo FULLPATH_SITE; ?>/js/domiwyg.swedish.min.js"></script>
-  <script>kwf.FULLPATH = '<?php echo FULLPATH; ?>'; kwf.MODR = '<?php echo urlModr(); ?>'; kwf.MODR_SITE = '<?php echo urlModrSite(); ?>';</script>
+  <script>kwf.FULLPATH = '<?php echo FULLPATH; ?>'; kwf.FULLPATH_SITE = '<?php echo FULLPATH_SITE; ?>';
+    kwf.MODR = '<?php echo urlModr(); ?>'; kwf.MODR_SITE = '<?php echo urlModrSite(); ?>';</script>
 </head>
 
 <body id="kwe_<?php if (isset($data['body_id'])) echo $data['body_id']; else echo 'default'; ?>">
