@@ -51,9 +51,11 @@ kwf.onload = function(e)
     ajax.onafterajax = k.afterAjax;
     }
 
+  k.initWysiwygs();
+
   addEvent(content_request, 'afterload', k.noRespContent);
   addEvent(content_request, 'ready', k.findCollapsables);
-  addEvent(content_request, 'ready', k.initWysiwygs);
+  addEvent(content_request, 'ready', domiwyg.find);
 
   addEvent(boxing_request, 'afterload', k.noRespContent);
   addEvent(boxing_request, 'afterload', function(e)
@@ -167,7 +169,6 @@ var kwe = {
 
       dw.tool_btns.splice(1, 0, ['KWElink', 'create_kwe_link']);
       dw.area.prototype.cmdKWElink = kwe.KWElink;
-      dw.find();
       }
     },
 
