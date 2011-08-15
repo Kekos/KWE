@@ -1,0 +1,46 @@
+<?php if (!empty($path))
+  $path .= '/'; ?>
+    <h1>Filuppladdning</h1>
+
+<?php if (access::$user->rank == 1): ?>
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" enctype="multipart/form-data">
+      <fieldset class="collapsable<?php if (!$upload_file) echo ' start-collapsed'; ?>">
+        <h2>Ladda upp fil</h2>
+        <ol>
+          <li><label for="file">Fil</label> <input type="file" name="file" id="file" /></li>
+          <li><button type="submit" name="upload_file" value="yes">Ladda upp</button></li>
+        </ol>
+      </fieldset>
+    </form>
+<?php endif; ?>
+
+    <section class="collapsable">
+      <h2>Uppladdade filer</h2>
+
+      <table>
+        <tr>
+          <td>
+            <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
+              <label for="folder_name">Skapa ny mapp här med namnet</label> <input type="text" name="folder_name" id="folder_name" />
+              <button type="submit" name="new_folder" value="yes">Spara</button>
+            </form>
+          </td>
+        </tr>
+        <tr>
+          <th>Namn (<?php echo htmlspecialchars($path . ', ' . $real_path); ?>)</th>
+          <th class="actions-head">&nbsp;</th>
+        </tr>
+<?php foreach ($files as $file):
+  $is_dir = is_dir($real_path . '/' . $file);
+  if ($file != '.'): ?>
+        <tr>
+<?php if ($file == '..' && $path != '/'): ?>
+          <td class="up-folder-level"><a href="<?php echo urlModr('upload', 'browse', $up_path); ?>" class="clink">Upp en nivå</a></td>
+<?php elseif ($file != '..'): ?>
+          <td><a href="<?php echo urlModr('upload', 'browse', $path . $file); ?>" class="<?php echo ($is_dir ? 'folder clink' : 'file blink'); ?>"><?php echo htmlspecialchars($file); ?></a></td>
+          <td class="actions"><a href="<?php echo urlModr('upload', 'delete', $path . $file); ?>" class="delete-link">Ta bort</a></td>
+<?php endif; ?>
+        </tr>
+<?php endif; endforeach; ?>
+      </table>
+    </section>
