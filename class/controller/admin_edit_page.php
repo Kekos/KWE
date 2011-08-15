@@ -153,7 +153,7 @@ class admin_edit_page extends controller
 
     /* Append this controller to bottom of page with step sorter */
     $sorter = new step_sorter($this->model_page_controller);
-    $sorter->append($this->controller, array($this->active_page->id));
+    $sorter->append($this->controller, array($this->active_page->id, 0));
 
     $this->controller->setPage($this->active_page->id);
     $this->controller->setController($controller);
