@@ -149,7 +149,7 @@ class admin_controller_upload extends controller
 
     if (!count($errors))
       {
-      move_uploaded_file($_FILES['file']['tmp_name'], $this->upload_dir . $filename);
+      move_uploaded_file($_FILES['file']['tmp_name'], $this->real_path . '/' . $filename);
       $this->response->addInfo('Filen laddades upp.');
       }
     else
@@ -162,7 +162,7 @@ class admin_controller_upload extends controller
     {
     $errors = array();
     $folder_name = $this->request->post('folder_name');
-    $folder_path = $this->real_path . $folder_name;
+    $folder_path = $this->real_path . '/' . $folder_name;
 
     if (empty($folder_name))
       $errors[] = 'Du angav inte ett namn för den nya mappen.';
