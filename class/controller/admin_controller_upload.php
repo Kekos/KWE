@@ -3,7 +3,7 @@
  * KWF Controller: admin_controller_upload
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-08-14
+ * @date 2011-08-16
  * @version 1.0
  */
 
@@ -15,7 +15,7 @@ class admin_controller_upload extends controller
 
   public function before($action = false)
     {
-    if (!access::$is_logged_in || !access::$is_administrator || !access::hasControllerPermission('upload'))
+    if ((!access::$is_logged_in || !access::$is_administrator) || ($action != 'js_browse' && !access::hasControllerPermission('upload')))
       {
       $this->response->redirect(urlModr());
       }
@@ -36,6 +36,25 @@ class admin_controller_upload extends controller
       $this->path = false;
       $this->response->addInfo('Hittade inte filen eller mappen med sökvägen ' . htmlspecialchars($this->path));
       }
+    }
+
+  public function js_browse()
+    {
+    $json = array();
+    $json['cd'] = $this->path;
+    $json['up_path'] = $this->lvlUpFolder($this->path);
+    $json['files'] = scandir($this->real_path);
+
+    foreach ($json['files'] as $key => &$file)
+      {
+      if ($file == '.' || $file == '..')
+        array_splice($json['files'], $key, 1);
+      else
+        $file = array('folder' => is_dir($this->real_path . $file), 'url' => $file, 'name' => $file);
+      }
+
+    $this->response->setContentType('application/json');
+    $this->response->addContent(json_encode($json));
     }
 
   public function _default()

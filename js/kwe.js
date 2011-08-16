@@ -3,7 +3,7 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-29
+ * @date 2011-08-16
  * @version 3.0
  */
 
@@ -33,8 +33,12 @@ kwf.onclick = function(e, targ)
     }
   else if (targ.name == 'select-page')
     elem('dw_link_url').value = targ.parentNode.getAttribute('data-url');
-  else if (hasClass(targ, 'browse-to'))
+  else if (hasClass(targ, 'browse-to-link'))
     k.KWElinkBrowse(targ.parentNode.getAttribute('data-url'));
+  else if (targ.name == 'select-image')
+    elem('dw_img_url').value = targ.parentNode.getAttribute('data-url');
+  else if (hasClass(targ, 'browse-to-img'))
+    k.KWEimageBrowse(targ.parentNode.getAttribute('data-url'));
   };
 
 kwf.onload = function(e)
@@ -167,8 +171,9 @@ var kwe = {
       {
       var dw = domiwyg;
 
-      dw.tool_btns.splice(1, 0, ['KWElink', 'create_kwe_link']);
+      dw.tool_btns.splice(6, 0, ['KWElink', 'create_kwe_link'], ['KWEimage', 'insert_kwe_image']);
       dw.area.prototype.cmdKWElink = kwe.KWElink;
+      dw.area.prototype.cmdKWEimage = kwe.KWEimage;
       }
     },
 
@@ -220,11 +225,60 @@ var kwe = {
 
       for (i = 0; i < json.length; i++)
         {
-        html += '<li data-url="' + json[i].url + '">' + (i ? '<input type="radio" name="select-page" /> ' : '') + '<a href="javascript: void(0);" class="browse-to">' + json[i].title + '</a></li>';
+        html += '<li data-url="' + json[i].url + '">' + (i ? '<input type="radio" name="select-page" /> ' : '') + '<a href="javascript: void(0);" class="browse-to-link">' + json[i].title + '</a></li>';
         }
 
       elem('dw_KWE_page_browser').innerHTML = html;
       elem('dw_KWE_cd').innerHTML = resp.page.cd;
+      }, function() {});
+    },
+
+  KWEimage: function()
+    {
+    var self = this, lang = domiwyg.lang;
+
+    if (self.getSelectedAreaElement())
+      {
+      self.storeCursor();
+
+      boxing.show('<h1>' + lang.insert_image + '</h1>'
+        + '<p>Bläddra dig fram till den bildfil du vill infoga.</p><p id="dw_KWE_cd">/</p><ul id="dw_KWE_image_browser"></ul>'
+        + '<p>' + lang.image_url + ': <input type="text" id="dw_img_url" value="" /></p>'
+        + '<p><button id="btn_insert_image" class="hide-boxing">' + lang.ok + '</button> <button class="hide-boxing">' + lang.cancel + '</button></p>', 500, 400);
+
+      kwe.KWEimageBrowse('');
+
+      addEvent(elem('btn_insert_image'), 'click', function()
+        {
+        elem('dw_img_url').value = kwf.FULLPATH_SITE + '/upload/' + elem('dw_img_url').value;
+        self.insertImage();
+        }, self);
+      }
+    },
+
+  KWEimageBrowse: function(path)
+    {
+    var html = '', json, i;
+
+    ajax.get(kwf.MODR + 'upload/js_browse/' + path, function(resp)
+      {
+      json = resp.page.files;
+      json.splice(0, 0, {folder: 1, url: resp.page.up_path || '', name: 'Gå uppåt'});
+
+      if (resp.page.cd != '')
+        resp.page.cd += '/';
+
+      for (i = 0; i < json.length; i++)
+        {
+        html += '<li data-url="' + (i ? resp.page.cd : '') + json[i].url + '">';
+        if (json[i].folder)
+          html += ' <a href="javascript: void(0);" class="browse-to-img">' + json[i].name + '</a></li>';
+        else
+          html += (i ? '<input type="radio" name="select-image" /> ' : '') + '' + json[i].name + '</li>';
+        }
+
+      elem('dw_KWE_image_browser').innerHTML = html;
+      elem('dw_KWE_cd').innerHTML = '/' + resp.page.cd;
       }, function() {});
     },
 
