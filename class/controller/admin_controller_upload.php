@@ -50,7 +50,7 @@ class admin_controller_upload extends controller
       if ($file == '.' || $file == '..')
         array_splice($json['files'], $key, 1);
       else
-        $file = array('folder' => is_dir($this->real_path . $file), 'url' => $file, 'name' => $file);
+        $file = array('folder' => is_dir($this->real_path . '/' . $file), 'url' => $file, 'name' => $file);
       }
 
     $this->response->setContentType('application/json');
