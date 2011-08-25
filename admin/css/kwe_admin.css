@@ -220,6 +220,9 @@ form span.description
   }
 
 #dw_KWE_cd { padding: 2px; background: #224967; color: #fff; }
+.dwcmd-KWElink, .dwcmd-KWEimage { background: no-repeat 2px 2px; }
+.dwcmd-KWElink { background-image: url('../../images/admin/dw_kwe_link.png') !important; }
+.dwcmd-KWEimage { background-image: url('../../images/admin/dw_kwe_image.png') !important; }
 
 /* Cells and Sections */
 
