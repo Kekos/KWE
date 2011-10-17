@@ -96,5 +96,6 @@ CREATE TABLE `kwe_permissions` (
 CREATE TABLE `kwe_controller_permissions` (
   `user` smallint(5) unsigned NOT NULL,
   `controller` smallint(5) unsigned NOT NULL,
+  `favorite` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`user`,`controller`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
