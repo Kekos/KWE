@@ -30,3 +30,7 @@ js/kwf*
 modules/
 view/error*
 view/exception_debug.phtml
+
+#Ignore test configuration files
+config.php
+admin/admin_config.php
