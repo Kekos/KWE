@@ -33,7 +33,7 @@ $max_pages = count($pages) - 1;
 $i = 0;
 foreach ($pages as $page): ?>
         <tr>
-          <td><?php echo htmlspecialchars($page->title) . ' ' . $page->order; ?></td>
+          <td><?php echo htmlspecialchars($page->title); ?></td>
           <td><a href="<?php echo urlModrSite($page->url); ?>"><?php echo htmlspecialchars($page->url); ?></a></td>
           <td><?php echo ($page->public ? 'Ja' : 'Nej'); ?></td>
           <td><?php echo ($page->show_in_menu ? 'Ja' : 'Nej'); ?></td>
