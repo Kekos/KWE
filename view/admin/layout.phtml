@@ -14,7 +14,8 @@ function menuLink($current_page, $new_page)
 <head>
   <title>KWE Admin :: <?php echo $this->title; ?></title>
   <meta charset="utf-8" />
-  <link title="KWE Admin" href="<?php echo FULLPATH; ?>/css/kwe_admin.css" rel="stylesheet" media="screen" />
+<?php /*  <link title="KWE Admin" href="<?php echo FULLPATH; ?>/css/kwe_admin.css" rel="stylesheet" media="screen" />*/ ?>
+  <link title="KWE Admin" href="<?php echo FULLPATH; ?>/css/kwe_admin.min.css" rel="stylesheet" media="screen" />
   <link href="<?php echo FULLPATH_SITE; ?>/js/domiwyg.min.css" rel="stylesheet" />
   <link href="<?php echo FULLPATH_SITE; ?>/css/site_domiwyg.css" rel="stylesheet" />
   <link href="<?php echo FULLPATH; ?>/css/kwe_admin_print.css" rel="stylesheet" media="print" />
@@ -22,10 +23,11 @@ function menuLink($current_page, $new_page)
   <link href="<?php echo $stylesheet; ?>" rel="stylesheet" />
 <?php endforeach; ?>
   <!--<link type="image/x-icon" href="<?php echo FULLPATH; ?>/favicon.ico" rel="icon" />-->
-  <!--[if lte IE 8]><link href="<?php echo FULLPATH; ?>/css/kwe_admin_ie.css" rel="stylesheet" />
+  <!--[if lte IE 8]><link href="<?php echo FULLPATH; ?>/css/kwe_admin_ie.min.css" rel="stylesheet" />
   <script src="<?php echo FULLPATH_SITE; ?>/js/html5.js" type="text/javascript"></script><![endif]-->
-  <script src="<?php echo FULLPATH_SITE; ?>/js/kwf.js"></script>
-  <script src="<?php echo FULLPATH_SITE; ?>/js/kwe.js"></script>
+<?php /*  <script src="<?php echo FULLPATH_SITE; ?>/js/kwf.js"></script>
+  <script src="<?php echo FULLPATH_SITE; ?>/js/kwe.js"></script>*/ ?>
+  <script src="<?php echo FULLPATH_SITE; ?>/js/kwe.min.js"></script>
 <?php foreach ($data['scripts'] as $script): ?>
   <script src="<?php echo $script; ?>"></script>
 <?php endforeach; ?>
