@@ -63,7 +63,7 @@ CREATE TABLE `kwe_pages` (
 
 -- Pages value --
 
-INSERT INTO `kwe_pages` ( `title` , `url`, `parent`, `public`, `show_in_menu`, `creator`, `created`, `editor`, `edited` ) 
+INSERT INTO `kwe_pages` ( `title` , `url`, `parent`, `public`, `show_in_menu`, `order`, `creator`, `created`, `editor`, `edited` ) 
 VALUES ('Start', 'index', 0, 1, 1, 1, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP());
 
 -- Page controllers table --
