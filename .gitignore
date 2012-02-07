@@ -25,7 +25,7 @@ class/view.php
 css/kwf*
 include/
 !include/functions_extra.php
-js/html5.js
+js/html5.min.js
 js/kwf*
 modules/
 view/error*
