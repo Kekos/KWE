@@ -3,11 +3,11 @@
  * KWE Controller: redirect
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-11
- * @version 2.1
+ * @date 2012-06-19
+ * @version 2.2
  */
 
-class redirect extends controller
+class redirect extends Controller
   {
   public function _default()
     {

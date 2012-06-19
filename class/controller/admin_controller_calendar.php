@@ -3,11 +3,11 @@
  * KWF Controller: admin_controller_calendar
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-18
+ * @date 2012-06-19
  * @version 2.2
  */
 
-class admin_controller_calendar extends controller
+class admin_controller_calendar extends Controller
   {
   private $db = null;
   private $model_calendar = null;
@@ -20,7 +20,7 @@ class admin_controller_calendar extends controller
       $this->response->redirect(urlModr());
       }
 
-    $this->db = db_mysqli::getInstance();
+    $this->db = DbMysqli::getInstance();
     $this->model_calendar = new calendar_model($this->db);
     $this->response->title = 'Kalender';
 
@@ -53,7 +53,7 @@ class admin_controller_calendar extends controller
       }
 
     $data['event'] = $this->event;
-    $this->view = new view('admin/edit-event', $data);
+    $this->view = new View('admin/edit-event', $data);
     }
 
   public function delete()
@@ -72,7 +72,7 @@ class admin_controller_calendar extends controller
       }
     else
       {
-      $this->view = new view('admin/delete-event', array('event' => $this->event));
+      $this->view = new View('admin/delete-event', array('event' => $this->event));
       }
     }
 
@@ -80,7 +80,7 @@ class admin_controller_calendar extends controller
     {
     $data['events'] = $this->model_calendar->fetchAll();
     $data['new_event'] = $this->request->post('new_event');
-    $this->view = new view('admin/list-events', $data);
+    $this->view = new View('admin/list-events', $data);
     }
 
   private function newEvent()

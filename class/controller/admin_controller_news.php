@@ -3,11 +3,11 @@
  * KWF Controller: admin_controller_news
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-18
+ * @date 2012-06-19
  * @version 2.2
  */
 
-class admin_controller_news extends controller
+class admin_controller_news extends Controller
   {
   private $db = null;
   private $model_news = null;
@@ -20,7 +20,7 @@ class admin_controller_news extends controller
       $this->response->redirect(urlModr());
       }
 
-    $this->db = db_mysqli::getInstance();
+    $this->db = DbMysqli::getInstance();
     $this->model_news = new news_model($this->db);
     $this->response->title = 'Nyheter';
 
@@ -53,7 +53,7 @@ class admin_controller_news extends controller
       }
 
     $data['news'] = $this->news;
-    $this->view = new view('admin/edit-news', $data);
+    $this->view = new View('admin/edit-news', $data);
     }
 
   public function delete()
@@ -72,7 +72,7 @@ class admin_controller_news extends controller
       }
     else
       {
-      $this->view = new view('admin/delete-news', array('news' => $this->news));
+      $this->view = new View('admin/delete-news', array('news' => $this->news));
       }
     }
 
@@ -80,7 +80,7 @@ class admin_controller_news extends controller
     {
     $data['news'] = $this->model_news->fetchAll();
     $data['new_news'] = $this->request->post('new_news');
-    $this->view = new view('admin/list-news', $data);
+    $this->view = new View('admin/list-news', $data);
     }
 
   private function newNews()

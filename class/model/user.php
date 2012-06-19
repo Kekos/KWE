@@ -3,11 +3,11 @@
  * KWF Model: user
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-11
- * @version 1.2
+ * @date 2012-06-19
+ * @version 1.3
  */
 
-class user extends db_object
+class user extends DbObject
   {
   protected $id = null;
   protected $name = '';

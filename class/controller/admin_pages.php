@@ -3,16 +3,16 @@
  * KWF Controller: admin_pages
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-07-11
- * @version 2.1
+ * @date 2012-06-19
+ * @version 2.2
  */
 
-class admin_pages extends controller
+class admin_pages extends Controller
   {
   private $db = null;
   private $model_page = null;
   private $model_page_controller = null;
-  private $page = false;
+  private $kpage = false;
   private $subpage = false;
   private $active_page = false;
   private $ignore_view = false;
@@ -24,13 +24,13 @@ class admin_pages extends controller
       $this->response->redirect(urlModr());
       }
 
-    $this->db = db_mysqli::getInstance();
-    $this->model_page = new page_model($this->db);
+    $this->db = DbMysqli::getInstance();
+    $this->model_page = new PageModel($this->db);
     $this->model_page_controller = new page_controller_model($this->db);
 
     if ($action && $page_url)
       {
-      if (!$this->page = $this->model_page->fetchPagePermission($page_url, access::$user->id))
+      if (!$this->kpage = $this->model_page->fetchPagePermission($page_url, access::$user->id))
         return $this->response->addInfo('Hittade inte sidan med URL:en ' . htmlspecialchars($page_url));
 
       if ($subpage_url)
@@ -44,9 +44,9 @@ class admin_pages extends controller
       {
       $this->active_page = $this->subpage;
       }
-    else if ($this->page)
+    else if ($this->kpage)
       {
-      $this->active_page = $this->page;
+      $this->active_page = $this->kpage;
       }
 
     if ($this->active_page && access::$user->rank == 1)
@@ -58,7 +58,7 @@ class admin_pages extends controller
     if (!$this->subpage)
       {
       if ($this->request->post('new_page') && 
-          (access::$user->rank == 1 || $this->page->permission & PERMISSION_ADD))
+          (access::$user->rank == 1 || $this->kpage->permission & PERMISSION_ADD))
         {
         $this->newPage();
         }
@@ -93,7 +93,7 @@ class admin_pages extends controller
       }
 
     if (!$this->subpage)
-      $this->page = $this->active_page = false;
+      $this->kpage = $this->active_page = false;
 
     $this->listPages();
     }
@@ -117,7 +117,7 @@ class admin_pages extends controller
       }
 
     if (!$this->subpage)
-      $this->page = $this->active_page = false;
+      $this->kpage = $this->active_page = false;
 
     $this->listPages();
     }
@@ -145,16 +145,16 @@ class admin_pages extends controller
       }
     else
       {
-      $this->view = new view('admin/delete-page', array('page' => $this->active_page));
+      $this->view = new View('admin/delete-page', array('page' => $this->active_page));
       }
     }
 
   public function js_browse()
     {
     $json = array();
-    $json['cd'] = '/' . ($this->page ? $this->page->title . '/' : '');
-    $json['pages'] = (!$this->page ? $this->model_page->fetchPageList(0, 0) : 
-        $this->model_page->fetchSubPageList($this->page->id, 0, 0));
+    $json['cd'] = '/' . ($this->kpage ? $this->kpage->title . '/' : '');
+    $json['pages'] = (!$this->kpage ? $this->model_page->fetchPageList(0, 0) : 
+        $this->model_page->fetchSubPageList($this->kpage->id, 0, 0));
 
     $this->response->setContentType('application/json');
     $this->response->addContent(json_encode($json));
@@ -164,9 +164,9 @@ class admin_pages extends controller
     {
     $data['active_page'] = $this->active_page;
     $data['new_page'] = $this->request->post('new_page');
-    $data['pages'] = (!$this->page ? $this->model_page->fetchPageList(0, 1) : 
-        $this->model_page->fetchSubPageList($this->page->id, 0, 1));
-    $this->view = new view('admin/list-pages', $data);
+    $data['pages'] = (!$this->kpage ? $this->model_page->fetchPageList(0, 1) : 
+        $this->model_page->fetchSubPageList($this->kpage->id, 0, 1));
+    $this->view = new View('admin/list-pages', $data);
     }
 
   private function newPage()
@@ -185,10 +185,10 @@ class admin_pages extends controller
       $parent = 0;
 
       /* Is this new page a subpage? */
-      if ($this->page)
+      if ($this->kpage)
         {
-        $url = $this->page->url . '/' . $url;
-        $parent = $this->page->id;
+        $url = $this->kpage->url . '/' . $url;
+        $parent = $this->kpage->id;
         }
 
       /* Find first available URL for this page, start with empty counter (not 1) */
@@ -235,7 +235,7 @@ class admin_pages extends controller
     $model_permission = new permission_model($this->db);
 
     /* Delete all permissions bound to this page and delete all subpages */
-    foreach ($this->model_page->fetchSubPageList($this->page->id, 0) as $subpage)
+    foreach ($this->model_page->fetchSubPageList($this->kpage->id, 0) as $subpage)
       {
       $model_permission->deleteByPage($subpage->id);
       $this->model_page->delete($subpage->id);
@@ -243,11 +243,11 @@ class admin_pages extends controller
       }
 
     /* Delete this page's controllers */
-    $this->model_page_controller->deleteByPage($this->page->id);
+    $this->model_page_controller->deleteByPage($this->kpage->id);
 
-    $this->response->addInfo('Sidan ' . htmlspecialchars($this->page->title) . ' och dess undersidor togs bort.');
+    $this->response->addInfo('Sidan ' . htmlspecialchars($this->kpage->title) . ' och dess undersidor togs bort.');
 
-    $this->page = false;
+    $this->kpage = false;
     $this->active_page = false;
     }
 

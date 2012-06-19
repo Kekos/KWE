@@ -3,11 +3,11 @@
  * KWF Model: knews
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-11
- * @version 1.0
+ * @date 2011-06-19
+ * @version 1.1
  */
 
-class knews extends db_object
+class knews extends DbObject
   {
   protected $id = null;
   protected $title = '';

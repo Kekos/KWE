@@ -3,16 +3,16 @@
  * KWF Controller: text
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-11
- * @version 2.1
+ * @date 2012-06-19
+ * @version 2.2
  */
 
-class text extends controller
+class text extends Controller
   {
   public function _default()
     {
     $data['content'] = $this->controller_data->content;
-    $this->view = new view('text', $data);
+    $this->view = new View('text', $data);
     }
 
   public function run()

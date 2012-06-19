@@ -3,11 +3,11 @@
  * KWF Controller: admin_settings
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-17
+ * @date 2012-06-19
  * @version 1.0
  */
 
-class admin_settings extends controller
+class admin_settings extends Controller
   {
   private $db = null;
 
@@ -26,7 +26,7 @@ class admin_settings extends controller
       $this->saveSettings();
       }
 
-    $this->view = new view('admin/settings');
+    $this->view = new View('admin/settings');
     }
 
   private function saveSettings()

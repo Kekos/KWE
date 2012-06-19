@@ -3,11 +3,11 @@
  * KWE Controller: admin_index
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-13
- * @version 2.1
+ * @date 2012-06-19
+ * @version 2.2
  */
 
-class admin_index extends controller
+class admin_index extends Controller
   {
   private $db;
   private $model_page = null;
@@ -15,8 +15,8 @@ class admin_index extends controller
 
   public function _default()
     {
-    $this->db = db_mysqli::getInstance();
-    $this->model_page = new page_model($this->db);
+    $this->db = DbMysqli::getInstance();
+    $this->model_page = new PageModel($this->db);
     $this->model_controller = new controller_model($this->db);
 
   if (!access::$is_logged_in || !access::$is_administrator)
@@ -27,7 +27,7 @@ class admin_index extends controller
 
     $data['last_pages'] = $this->model_page->fetchLastEdited();
     $data['controllers'] = $this->model_controller->fetchFavorites(access::$user->id);
-    $this->view = new view('admin/index', $data);
+    $this->view = new View('admin/index', $data);
     }
 
   public function run()

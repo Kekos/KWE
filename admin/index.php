@@ -3,15 +3,15 @@ define('PERMISSION_ADD', 1);
 define('PERMISSION_EDIT', 2);
 define('PERMISSION_DELETE', 4);
 define('KWE_VERSION', '3.0');
-define('KWE_BUILD', '110617');
+define('KWE_BUILD', '120619');
 
 require('admin_config.php');
 require(BASE . 'include/init.php');
 
 $route = (isset($_GET['r']) ? $_GET['r'] : '');
-$db = db_mysqli::getInstance();
+$db = DbMysqli::getInstance();
 
-$request = new request(new session(), new cookie());
+$request = new Request(new Session(), new Cookie());
 $page_model = new page_model_admin();
 
 if ($user = $request->session->get('admin'))
@@ -20,7 +20,7 @@ if ($user = $request->session->get('admin'))
   new access($model_user, $user);
   }
 
-$router = new router($route, $request, $page_model);
+$router = new Router($route, $request, $page_model);
 $page = $router->getPage();
 
 $page->response->data['stylesheets'] = array();

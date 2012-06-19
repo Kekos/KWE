@@ -3,11 +3,11 @@
  * KWE Controller: calendar
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-11
- * @version 2.1
+ * @date 2012-06-19
+ * @version 2.2
  */
 
-class calendar extends controller
+class calendar extends Controller
   {
   private $db;
   private $model_calendar = null;
@@ -15,7 +15,7 @@ class calendar extends controller
 
   public function _default($event_id = false)
     {
-    $this->db = db_mysqli::getInstance();
+    $this->db = DbMysqli::getInstance();
     $this->model_calendar = new calendar_model($this->db);
     $this->settings = json_decode($this->controller_data->content);
 
@@ -30,7 +30,7 @@ class calendar extends controller
       $data['events'] = $this->model_calendar->fetchTimespan(strtotime('today 00:00'), $this->settings->num_events);
       }
 
-    $this->view = new view('calendar', $data);
+    $this->view = new View('calendar', $data);
     }
 
   public function run()

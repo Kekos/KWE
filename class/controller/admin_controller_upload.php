@@ -3,11 +3,11 @@
  * KWF Controller: admin_controller_upload
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-08-16
+ * @date 2012-06-19
  * @version 1.0
  */
 
-class admin_controller_upload extends controller
+class admin_controller_upload extends Controller
   {
   private $upload_dir;
   private $path = '';
@@ -89,7 +89,7 @@ class admin_controller_upload extends controller
         }
       else
         {
-        $this->view = new view('admin/delete-folder', array('path' => $this->path));
+        $this->view = new View('admin/delete-folder', array('path' => $this->path));
         }
       }
     else
@@ -105,7 +105,7 @@ class admin_controller_upload extends controller
         }
       else
         {
-        $this->view = new view('admin/delete-file', array('path' => $this->path));
+        $this->view = new View('admin/delete-file', array('path' => $this->path));
         }
       }
     }
@@ -119,7 +119,7 @@ class admin_controller_upload extends controller
       $data['up_path'] = $this->lvlUpFolder($this->path);
       $data['files'] = scandir($this->real_path);
       $data['upload_file'] = $this->request->post('upload_file');
-      $this->view = new view('admin/list-uploaded-files', $data);
+      $this->view = new View('admin/list-uploaded-files', $data);
       }
     else
       {

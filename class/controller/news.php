@@ -3,11 +3,11 @@
  * KWE Controller: news
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-11
- * @version 2.1
+ * @date 2012-06-19
+ * @version 2.2
  */
 
-class news extends controller
+class news extends Controller
   {
   private $db;
   private $model_news = null;
@@ -15,7 +15,7 @@ class news extends controller
 
   public function _default($news_id = false)
     {
-    $this->db = db_mysqli::getInstance();
+    $this->db = DbMysqli::getInstance();
     $this->model_news = new news_model($this->db);
     $this->settings = json_decode($this->controller_data->content);
 
@@ -31,7 +31,7 @@ class news extends controller
           0, $this->settings->num_news);
       }
 
-    $this->view = new view('news', $data);
+    $this->view = new View('news', $data);
     }
 
   public function run()

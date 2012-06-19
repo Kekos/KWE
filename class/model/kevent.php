@@ -3,11 +3,11 @@
  * KWF Model: kevent
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-11
- * @version 1.0
+ * @date 2012-06-19
+ * @version 1.1
  */
 
-class kevent extends db_object
+class kevent extends DbObject
   {
   protected $id = null;
   protected $title = '';

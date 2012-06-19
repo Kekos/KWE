@@ -3,16 +3,16 @@
  * KWF Controller: admin_edit_page
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-07-02
+ * @date 2012-06-19
  * @version 1.0
  */
 
-class admin_edit_page extends controller
+class admin_edit_page extends Controller
   {
   private $db = null;
   private $model_page = null;
   private $model_page_controller = null;
-  private $page = false;
+  private $kpage = false;
   private $subpage = false;
   private $active_page = false;
   private $controller = false;
@@ -25,13 +25,13 @@ class admin_edit_page extends controller
       $this->response->redirect(urlModr());
       }
 
-    $this->db = db_mysqli::getInstance();
-    $this->model_page = new page_model($this->db);
+    $this->db = DbMysqli::getInstance();
+    $this->model_page = new PageModel($this->db);
     $this->model_page_controller = new page_controller_model($this->db);
 
     if ($page_url)
       {
-      if (!$this->page = $this->model_page->fetchPagePermission($page_url, access::$user->id))
+      if (!$this->kpage = $this->model_page->fetchPagePermission($page_url, access::$user->id))
         return $this->response->addInfo('Hittade inte sidan med URL:en ' . htmlspecialchars($page_url));
 
       if ($subpage_url)
@@ -45,9 +45,9 @@ class admin_edit_page extends controller
       {
       $this->active_page = &$this->subpage;
       }
-    else if ($this->page)
+    else if ($this->kpage)
       {
-      $this->active_page = &$this->page;
+      $this->active_page = &$this->kpage;
       }
     else
       {
@@ -76,7 +76,7 @@ class admin_edit_page extends controller
     if ($this->request->post('delete_controller') && $this->controller)
       {
       $data['controller'] = $this->controller;
-      $this->view = new view('admin/delete-page-controller', $data);
+      $this->view = new View('admin/delete-page-controller', $data);
       }
     else
       {
@@ -105,7 +105,7 @@ class admin_edit_page extends controller
 
         $data['installed_controllers'] = $model_controller->fetchAll();
         $data['controllers'] = $this->model_page_controller->fetchAll($this->active_page->id);
-        $this->view = new view('admin/edit-page', $data);
+        $this->view = new View('admin/edit-page', $data);
         }
       }
     }

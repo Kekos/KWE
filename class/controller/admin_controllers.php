@@ -3,11 +3,11 @@
  * KWF Controller: admin_controllers
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-18
+ * @date 2012-06-19
  * @version 2.2
  */
 
-class admin_controllers extends controller
+class admin_controllers extends Controller
   {
   private $db = null;
   private $model_controller = null;
@@ -22,7 +22,7 @@ class admin_controllers extends controller
       $this->response->redirect(urlModr());
       }
 
-    $this->db = db_mysqli::getInstance();
+    $this->db = DbMysqli::getInstance();
     $this->model_controller = new controller_model($this->db);
     $this->model_controller_permission = new controller_permission_model($this->db);
 
@@ -78,7 +78,7 @@ class admin_controllers extends controller
       }
     else
       {
-      $this->view = new view('admin/uninstall-controller', array('controller' => $this->controller));
+      $this->view = new View('admin/uninstall-controller', array('controller' => $this->controller));
       }
     }
 
@@ -112,7 +112,7 @@ class admin_controllers extends controller
       }
     else
       {
-      $this->view = new view('admin/mark-favorite-controller', array('controller' => $this->controller));
+      $this->view = new View('admin/mark-favorite-controller', array('controller' => $this->controller));
       }
     }
 
@@ -120,7 +120,7 @@ class admin_controllers extends controller
     {
     $data['controllers'] = $this->controllers;
     $data['install_controller'] = $this->request->post('install_controller');
-    $this->view = new view('admin/list-controllers', $data);
+    $this->view = new View('admin/list-controllers', $data);
     }
 
   private function installController()

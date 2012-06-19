@@ -3,11 +3,11 @@
  * KWF Model: kpage
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-30
- * @version 1.0
+ * @date 2012-06-19
+ * @version 1.1
  */
 
-class kpage extends db_object
+class kpage extends DbObject
   {
   protected $id = null;
   protected $title = '';

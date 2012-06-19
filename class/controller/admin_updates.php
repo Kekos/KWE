@@ -3,11 +3,11 @@
  * KWE Controller: admin_updates
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-11
+ * @date 2012-06-19
  * @version 2.1
  */
 
-class admin_updates extends controller
+class admin_updates extends Controller
   {
   public function _default()
     {
@@ -21,17 +21,18 @@ class admin_updates extends controller
       return $this->response->addError('Det gick inte att ansluta till uppdateringsservern just nu. Försök igen senare.');
 
     $update_obj = json_decode($update_obj);
-    if ($update_obj->status->code == 0)
+    $data['update_status'] = $update_obj->status->code;
+
+    if ($update_obj->status->code == 1)
       {
-      $data['update_status'] = 0;
-      }
-    else
-      {
-      $data['update_status'] = 1;
       $data['update_link'] = $update_obj->package;
       }
+    else if ($update_obj->status->code == 2)
+      {
+      $this->response->addError('Det gick inte att få paketinformation från servern.');
+      }
 
-    $this->view = new view('admin/update', $data);
+    $this->view = new View('admin/update', $data);
     }
 
   public function run()

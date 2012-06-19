@@ -3,11 +3,11 @@
  * KWF Model: kcontroller
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-12
- * @version 1.0
+ * @date 2012-06-19
+ * @version 1.1
  */
 
-class kcontroller extends db_object
+class kcontroller extends DbObject
   {
   protected $id = null;
   protected $name = '';

@@ -1,13 +1,13 @@
 <?php
 /**
- * KWE Model: page_model
+ * KWE Model: PageModel
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-07-02
- * @version 2.0
+ * @date 2012-06-12
+ * @version 2.1
  */
 
-class page_model
+class PageModel
   {
   private $db = null;
   private $active_page = false;

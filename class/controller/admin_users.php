@@ -3,11 +3,11 @@
  * KWF Controller: admin_users
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-18
- * @version 2.1
+ * @date 2012-06-19
+ * @version 2.2
  */
 
-class admin_users extends controller
+class admin_users extends Controller
   {
   private $db = null;
   private $model_user = null;
@@ -25,7 +25,7 @@ class admin_users extends controller
       $this->response->redirect(urlModr());
       }
 
-    $this->db = db_mysqli::getInstance();
+    $this->db = DbMysqli::getInstance();
     $this->model_user = new user_model($this->db);
 
     if ($action && $user_id)
@@ -59,7 +59,7 @@ class admin_users extends controller
       $this->editUserPassword();
       }
 
-    $this->view = new view('admin/edit-user', array('user' => $this->user));
+    $this->view = new View('admin/edit-user', array('user' => $this->user));
     }
 
   public function permissions()
@@ -95,7 +95,7 @@ class admin_users extends controller
       }
     else
       {
-      $this->view = new view('admin/delete-user', array('user' => $this->user));
+      $this->view = new View('admin/delete-user', array('user' => $this->user));
       }
     }
 
@@ -103,7 +103,7 @@ class admin_users extends controller
     {
     $data['users'] = $this->model_user->fetchAll();
     $data['new_user'] = $this->request->post('new_user');
-    $this->view = new view('admin/list-users', $data);
+    $this->view = new View('admin/list-users', $data);
     }
 
   private function listPermissions()
@@ -125,7 +125,7 @@ class admin_users extends controller
     $data['user'] = $this->user;
     $data['pages'] = $pages;
     $data['controllers'] = $controllers;
-    $this->view = new view('admin/user-permissions', $data);
+    $this->view = new View('admin/user-permissions', $data);
     }
 
   private function newUser()

@@ -10,20 +10,20 @@ js/domiwyg*
 js/images/
 
 #Ignore KWF
-class/controller.php
-class/cookie.php
-class/db.php
-class/db_mysqli.php
-class/db_mysqli_statement.php
-class/db_object.php
-class/page.php
-class/request.php
-class/response.php
-class/router.php
-class/session.php
-class/view.php
+class/Controller.php
+class/Cookie.php
+class/Db.php
+class/DbMysqli.php
+class/DbMysqliStatement.php
+class/DbObject.php
+class/Page.php
+class/Request.php
+class/Response.php
+class/Router.php
+class/Session.php
+class/View.php
 css/kwf*
-include/
+include/*.php
 !include/functions_extra.php
 js/html5.min.js
 js/kwf*
