@@ -3,11 +3,11 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-08-16
+ * @date 2012-06-19
  * @version 3.0
  */
 
-kwf.onclick = function(e, targ)
+Kwf.onclick = function(e, targ)
   {
   var k = kwe,
     cls = targ.className, 
@@ -28,7 +28,7 @@ kwf.onclick = function(e, targ)
     returnFalse(e);
     breq.width = 300;
     breq.height = 200;
-    ajax.post(targ.form.action, breq.parseResponse, breq.parseResponse, 
+    Ajax.post(targ.form.action, breq.parseResponse, breq.parseResponse, 
         {controller_id: targ.form.controller_id.value, delete_controller: 1});
     }
   else if (targ.name == 'select-page')
@@ -41,7 +41,7 @@ kwf.onclick = function(e, targ)
     k.KWEimageBrowse(targ.parentNode.getAttribute('data-url'));
   };
 
-kwf.onload = function(e)
+Kwf.onload = function(e)
   {
   var k = kwe;
 
@@ -51,8 +51,8 @@ kwf.onload = function(e)
     }
   else
     {
-    ajax.onbeforeajax = k.beforeAjax;
-    ajax.onafterajax = k.afterAjax;
+    Ajax.onbeforeAjax = k.beforeAjax;
+    Ajax.onafterAjax = k.afterAjax;
     }
 
   k.initWysiwygs();
@@ -76,23 +76,23 @@ kwf.onload = function(e)
 var kwe = {
   beforeAjax: function()
     {
-    var ajax_loader = elem('ajax_loader'),
+    var Ajax_loader = elem('Ajax_loader'),
       doc = document;
 
-    if (!ajax_loader)
+    if (!Ajax_loader)
       {
-      ajax_loader = doc.createElement('div');
-      ajax_loader.id = 'ajax_loader';
-      ajax_loader.appendChild(doc.createTextNode('Laddar...'));
-      elem('header').appendChild(ajax_loader);
+      Ajax_loader = doc.createElement('div');
+      Ajax_loader.id = 'Ajax_loader';
+      Ajax_loader.appendChild(doc.createTextNode('Laddar...'));
+      elem('header').appendChild(Ajax_loader);
       }
 
-    ajax_loader.style.display = 'block';
+    Ajax_loader.style.display = 'block';
     },
 
   afterAjax: function()
     {
-    elem('ajax_loader').style.display = 'none';
+    elem('Ajax_loader').style.display = 'none';
     },
 
   findCollapsables: function()
@@ -190,7 +190,7 @@ var kwe = {
       node_name = element.nodeName.toLowerCase();
       self.storeCursor();
 
-      boxing.show('<h1>' + lang.create_link + '</h1>'
+      Boxing.show('<h1>' + lang.create_link + '</h1>'
         + '<p>Bläddra dig fram till den interna sida du vill länka till.</p><p id="dw_KWE_cd">/</p><ul id="dw_KWE_page_browser"></ul>'
         + '<p><input type="hidden" id="dw_link_protocol" value="" /><input type="text" id="dw_link_url" value="" /></p>'
         + '<p>' + lang.info_link_delete + '</p>'
@@ -205,13 +205,13 @@ var kwe = {
 
         addEvent(elem('btn_create_link'), 'click', function()
           {
-          elem('dw_link_url').value = kwf.MODR_SITE + elem('dw_link_url').value + '/';
+          elem('dw_link_url').value = Kwf.MODR_SITE + elem('dw_link_url').value + '/';
           self.createLink(element);
           });
         }
       else
         {
-        boxing.hide();
+        Boxing.hide();
         }
       }
     },
@@ -220,7 +220,7 @@ var kwe = {
     {
     var html = '', json, i;
 
-    ajax.get(kwf.MODR + 'page/js_browse/' + path, function(resp)
+    Ajax.get(Kwf.MODR + 'page/js_browse/' + path, function(resp)
       {
       json = resp.page.pages;
       json.splice(0, 0, {url: '', title: 'Gå uppåt'});
@@ -243,7 +243,7 @@ var kwe = {
       {
       self.storeCursor();
 
-      boxing.show('<h1>' + lang.insert_image + '</h1>'
+      Boxing.show('<h1>' + lang.insert_image + '</h1>'
         + '<p>Bläddra dig fram till den bildfil du vill infoga.</p><p id="dw_KWE_cd">/</p><ul id="dw_KWE_image_browser"></ul>'
         + '<p>' + lang.image_url + ': <input type="text" id="dw_img_url" value="" /></p>'
         + '<p><button id="btn_insert_image" class="hide-boxing">' + lang.ok + '</button> <button class="hide-boxing">' + lang.cancel + '</button></p>', 500, 400);
@@ -252,7 +252,7 @@ var kwe = {
 
       addEvent(elem('btn_insert_image'), 'click', function()
         {
-        elem('dw_img_url').value = kwf.FULLPATH_SITE + '/upload/' + elem('dw_img_url').value;
+        elem('dw_img_url').value = Kwf.FULLPATH_SITE + '/upload/' + elem('dw_img_url').value;
         self.insertImage();
         }, self);
       }
@@ -262,7 +262,7 @@ var kwe = {
     {
     var html = '', json, i;
 
-    ajax.get(kwf.MODR + 'upload/js_browse/' + path, function(resp)
+    Ajax.get(Kwf.MODR + 'upload/js_browse/' + path, function(resp)
       {
       json = resp.page.files;
       json.splice(0, 0, {folder: 1, url: resp.page.up_path || '', name: 'Gå uppåt'});
