@@ -14,19 +14,21 @@ function menuLink($current_page, $new_page)
 <head>
   <title>KWE Admin :: <?php echo $this->title; ?></title>
   <meta charset="utf-8" />
-<?php /*  <link title="KWE Admin" href="<?php echo FULLPATH; ?>/css/kwe_admin.css" rel="stylesheet" media="screen" />*/ ?>
-  <link title="KWE Admin" href="<?php echo FULLPATH; ?>/css/kwe_admin.min.css" rel="stylesheet" media="screen" />
+  <link title="KWE Admin" href="<?php echo FULLPATH; ?>/css/kwe_admin<?php if (MINIFIED) echo '.min'; ?>.css" rel="stylesheet" media="screen" />
   <link href="<?php echo FULLPATH_SITE; ?>/js/domiwyg.min.css" rel="stylesheet" />
   <link href="<?php echo FULLPATH_SITE; ?>/css/site_domiwyg.css" rel="stylesheet" />
-  <link href="<?php echo FULLPATH; ?>/css/kwe_admin_print.css" rel="stylesheet" media="print" />
+  <link href="<?php echo FULLPATH; ?>/css/kwe_admin_print<?php if (MINIFIED) echo '.min'; ?>.css" rel="stylesheet" media="print" />
 <?php foreach ($data['stylesheets'] as $stylesheet): ?>
   <link href="<?php echo $stylesheet; ?>" rel="stylesheet" />
 <?php endforeach; ?>
-  <!--[if lte IE 8]><link href="<?php echo FULLPATH; ?>/css/kwe_admin_ie.min.css" rel="stylesheet" />
+  <!--[if lte IE 8]><link href="<?php echo FULLPATH; ?>/css/kwe_admin_ie<?php if (MINIFIED) echo '.min'; ?>.css" rel="stylesheet" />
   <script src="<?php echo FULLPATH_SITE; ?>/js/html5.min.js" type="text/javascript"></script><![endif]-->
-<?php /*  <script src="<?php echo FULLPATH_SITE; ?>/js/kwf.js"></script>
-  <script src="<?php echo FULLPATH_SITE; ?>/js/kwe.js"></script>*/ ?>
+<?php if (MINIFIED): ?>
   <script src="<?php echo FULLPATH_SITE; ?>/js/kwe.min.js"></script>
+<?php else: ?>
+  <script src="<?php echo FULLPATH_SITE; ?>/js/kwf.js"></script>
+  <script src="<?php echo FULLPATH_SITE; ?>/js/kwe.js"></script>
+<?php endif; ?>
 <?php foreach ($data['scripts'] as $script): ?>
   <script src="<?php echo $script; ?>"></script>
 <?php endforeach; ?>
@@ -94,7 +96,7 @@ if (count($this->info_messages)): ?>
 
 <footer id="footer">
   <p id="version"><?php echo KWE_VERSION; ?></p>
-  <p id="copyright">Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2011</p>
+  <p id="copyright">Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2012</p>
   <p id="user-info"><?php if (access::$is_logged_in): ?>Inloggad som <?php echo access::$user->name; ?><?php endif; ?></p>
   <nav id="footer_nav">
     <ul>
