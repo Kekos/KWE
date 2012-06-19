@@ -1,7 +1,7 @@
     <h1>Översikt</h1>
 
-    <section class="cell">
-      <h2><a href="<?php echo urlModr('page'); ?>">Sidor och undersidor</a></h2>
+    <section class="half-section list">
+      <h1><a href="<?php echo urlModr('page'); ?>">Sidor och undersidor</a></h1>
 
       <p>Senast redigerade:</p>
 
@@ -16,8 +16,8 @@
       </ul>
     </section>
 
-    <section class="cell">
-      <h2><a href="<?php echo urlModr('controllers'); ?>">Moduler</a></h2>
+    <section class="half-section list">
+      <h1><a href="<?php echo urlModr('controllers'); ?>">Moduler</a></h1>
 <?php if (count($controllers)): ?>
       <p>Dina favoritmoduler:</p>
 
@@ -31,7 +31,7 @@
 
 <?php foreach ($controllers as $controller):
    if ($controller->has_favorite_config): ?>
-    <section class="cell">
+    <section class="half-section">
 <?php require('controller.favorite.' . $controller->class_name . '.phtml'); ?>
     </section>
 

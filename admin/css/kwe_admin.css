@@ -2,29 +2,19 @@
  * KWF Style: kwe_admin.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-07-10
+ * @date 2012-06-19
  * @version 2.0
  */
 
 @import '../../css/kwf_global.min.css';
 
-html
-  {
-  background: #fff;
-  text-align: center;
-  }
-
 body
   {
-  margin: 0 auto;
   padding: 0.1px 0;
-  width: 100%;
-  max-width: 1200px;
-  background: #fff;
-  text-align: left;
+  background: #d8d8d8;
   }
 
-#header, #kwe_logo, #login_logo, #navigation a, li, th
+#header, #kwe_logo, #login_logo
   {
   background-image: url('../../images/admin/sprite.png');
   background-repeat: no-repeat;
@@ -34,11 +24,17 @@ body
 
 #header
   {
-  padding: 0.1px 0 0 0;
-  height: 80px;
+  height: 50px;
   width: 100%;
+  overflow: hidden;
   background-color: #353535;
   background-repeat: repeat-x;
+  }
+
+#header_inner
+  {
+  margin: 0 auto;
+  max-width: 1000px;
   }
 
 #header h1
@@ -52,7 +48,7 @@ body
   {
   display: block;
   float: left;
-  margin: 18px 30px;
+  margin: 3px 0;
   height: 43px;
   width: 138px;
   background-position: 0 -90px;
@@ -64,13 +60,13 @@ body
 #navigation ul
   {
   float: right;
-  margin: 0 10px 0 0;
+  margin: 8px 0;
   }
 
 #navigation li
   {
   float: left;
-  margin: 0 -2px 0 0;
+  margin: 0;
   padding: 0;
   background: none;
   }
@@ -78,41 +74,42 @@ body
 #navigation a
   {
   display: block;
-  padding: 5px 0;
-  width: 80px;
-  height: 70px;
-  /*background-position: 0 -140px;*/
-  background-image: url('../../images/admin/menu_bg.png');
+  margin: 2px;
+  padding: 5px 10px;
+  background: #306791;
+  box-shadow: inset -1px -1px 2px #fff;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 10px;
   font-size: 1em;
   text-align: center;
   text-decoration: none;
   color: #fff;
   }
 
-#navigation a:hover, #navigation a:focus { background-image: url('../../images/admin/menu_hover_bg.png'); }
-#navigation .active { /*background-position: 0 -230px;*/background-image: url('../../images/admin/menu_active_bg.png'); }
+#navigation a:hover { background: #3a7baa; }
+#navigation .active, #navigation a:focus { background: #0597da; }
 
 /* Main */
 
 #page
   {
-  float: left;
   padding: 0.1px 0;
+  margin: 0 auto;
   width: 100%;
-  }
-
-#content
-  {
-  padding: 0.1px 0 0 0;
-  margin-right: 200px;
+  max-width: 1000px;
+  overflow: auto;
+  background: #fdfdfd;
+  font-size: 1.1em;
   }
 
 h1, h2, h3, legend
   {
-  padding-bottom: 4px;
-  border-bottom: 1px solid #cdcdcd;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #d8d8d8;
   font-weight: normal;
   color: #353535;
+  letter-spacing: -1px;
   }
 
 h1 { font-size: 1.4em; }
@@ -122,48 +119,28 @@ h3 { font-size: 0.8em; }
 li
   {
   margin: 1% 0;
-  padding: 0 0 0 14px;
-  background-position: 0 -315px;
   list-style-type: none;
   line-height: 1.4;
   }
 
 th
   {
-  background-color: #353535;
-  background-repeat: repeat-x;
   font-size: 0.8em;
   text-align: left;
-  color: #fff;
   }
 
 th, td
   {
   padding: 0.4em;
-  border-top: 1px solid #353535;
-  border-bottom: 1px solid #353535;
   vertical-align: middle;
   }
 
 a { color: #04aeec; }
 .subpage { padding-left: 20px; }
-tr { background-color: #306791; }
 .actions-head { display: none; }
-
-section { position: relative; }
-tr:hover .actions { left: auto; right: 1px; margin-right: 1%;}
 
 .actions
   {
-  position: absolute;
-  left: -9999px;
-  background-color: #0597da;
-  border: 0;
-  -moz-transition: all 0.5s ease-out;
-  -o-transition: all 0.5s ease-out;
-  -webkit-transition: all 0.5s ease-out;
-  -ms-transition: all 0.5s ease-out;
-  transition: all 0.5s ease-out;
   }
 
 .edit-link, .delete-link, .permission-link
@@ -184,14 +161,13 @@ tr:hover .actions { left: auto; right: 1px; margin-right: 1%;}
 
 form ol { margin: 0 1%; padding: 0; }
 form ol li:last-child { background: none; }
-input, select, textarea { float: left; margin: 2px 0 2px; }
+input, select, textarea { float: left; margin: 2px 0; }
 
 form ol li
   {
   position: relative;
-  padding: 0.5%;
+  padding: 0;
   margin: 0.5% 0;
-  background: #306791;
   overflow: auto;
   }
 
@@ -204,10 +180,10 @@ form label
   padding-top: 2px;
   }
 
-input[type='text'], input[type='password'], select
+input[type='text'], input[type='password'], select, textarea
   {
   padding: 3px;
-  width: 60%;
+  width: 65%;
   }
 
 form span.description
@@ -224,57 +200,71 @@ form span.description
 .dwcmd-KWElink { background-image: url('../../images/admin/dw_kwe_link.png') !important; }
 .dwcmd-KWEimage { background-image: url('../../images/admin/dw_kwe_image.png') !important; }
 
-/* Cells and Sections */
+/* Sections */
 
-.cell
+.left-section, .half-section, .third-section, .two-thirds-section
   {
   float: left;
-  margin: 1% 1% 1% 0;
-  width: 49%;
+  margin: 1%;
+  width: 74%;
   }
 
-.cell, section, fieldset
+.box
   {
-  background: #224967;
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
-  border-radius: 7px;
-  box-shadow: 0 0 15px #074cd3;
-  color: #fff;
+  overflow: hidden;
+  background: #75bad8;
   }
 
-.cell h2, section h2, fieldset h2 { color: #fff; }
-
-section, fieldset
+.box > h1
   {
-  padding: 0.1px 0 0 0;
-  margin: 1% 0;
+  margin: 0;
+  padding: 10px 5px;
+  background: #eaa852;
+  font-size: 1em;
   }
 
-.toggle-collapse
+.box a
   {
-  display: block;
-  padding-left: 20px;
-  background: no-repeat url('../../images/admin/collapse.png');
+  color: #000;
   }
 
-.collapsed > * { height: 1.3em; display: none; }
-.collapsed h2 { display: block; border: 0; }
-.collapsed .toggle-collapse { background-image: url('../../images/admin/expand.png'); }
+.right-section
+  {
+  float: left;
+  width: 25%;
+  }
+
+.half-section { width: 48%; }
+.third-section { width: 32%; }
+.two-thirds-section { width: 65%; }
+
+.list ul
+  {
+  margin: 1% 1px;
+  list-style: none;
+  }
+
+.list ul li
+  {
+  margin: 0;
+  padding: 8px 4px 8px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  }
+
+.list li:last-child
+  {
+  border: none;
+  }
 
 /* Shortcuts */
 
 .shortcuts li
   {
   margin: 1% 0;
-  padding: 5px 14px;
-  background-color: #306791;
-  background-position: 3px -310px;
+  padding: 5px 0;
+  border-bottom: 1px solid #8e8e8e;
   }
-
-.shortcuts li:nth-child(2n), tr:nth-child(2n) { background-color: #5796c7; }
-.shortcuts li:hover, tr:hover { background-color: #0597da; }
-.shortcuts li a, td a { color: #101010; }
 
 /* SubNavigation */
 
@@ -335,7 +325,7 @@ section, fieldset
   color: #505050;
   }
 
-#footer #version
+#version
   {
   border-right-width: 1px;
   font-size: 1.9em;

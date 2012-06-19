@@ -1,20 +1,23 @@
     <h1>Moduler</h1>
 
 <?php if (access::$user->rank == 1): ?>
-    <form action="<?php echo urlModr($route, $params); ?>" method="post" enctype="multipart/form-data">
-      <fieldset class="collapsable<?php if (!$install_controller) echo ' start-collapsed'; ?>">
-        <h2>Installera modul</h2>
-        <ol>
-          <li><label for="file">Installationsfil</label> <input type="file" name="file" id="file" />
-            <span class="description">En installationsfil ska ha filändelsen .kwe</span></li>
-          <li><button type="submit" name="install_controller" value="yes">Installera</button></li>
-        </ol>
-      </fieldset>
-    </form>
+    <section class="half-section box">
+      <h1>Installera modul</h1>
+
+      <form action="<?php echo urlModr($route, $params); ?>" method="post" enctype="multipart/form-data">
+        <fieldset>
+          <ol>
+            <li><label for="file">Installationsfil</label> <input type="file" name="file" id="file" />
+              <span class="description">En installationsfil ska ha filändelsen .kwe</span></li>
+            <li><button type="submit" name="install_controller" value="yes">Installera</button></li>
+          </ol>
+        </fieldset>
+      </form>
+    </section>
 <?php endif; ?>
 
-    <section class="collapsable">
-      <h2>Modullista</h2>
+    <section class="half-section box">
+      <h1>Modullista</h1>
 
       <table>
         <tr>

@@ -34,31 +34,33 @@ function menuLink($current_page, $new_page)
 <?php endforeach; ?>
   <script src="<?php echo FULLPATH_SITE; ?>/js/domiwyg.min.js"></script>
   <script src="<?php echo FULLPATH_SITE; ?>/js/domiwyg.swedish.min.js"></script>
-  <script>kwf.FULLPATH = '<?php echo FULLPATH; ?>'; kwf.FULLPATH_SITE = '<?php echo FULLPATH_SITE; ?>';
-    kwf.MODR = '<?php echo urlModr(); ?>'; kwf.MODR_SITE = '<?php echo urlModrSite(); ?>';</script>
+  <script>Kwf.FULLPATH = '<?php echo FULLPATH; ?>'; Kwf.FULLPATH_SITE = '<?php echo FULLPATH_SITE; ?>';
+    Kwf.MODR = '<?php echo urlModr(); ?>'; Kwf.MODR_SITE = '<?php echo urlModrSite(); ?>';</script>
 </head>
 
 <body id="kwe_<?php if (isset($data['body_id'])) echo $data['body_id']; else echo 'default'; ?>">
 
 <header id="header">
-  <h1><a href="<?php echo urlModr(); ?>" id="kwe_logo">KWE</a></h1>
+  <div id="header_inner">
+    <h1><a href="<?php echo urlModr(); ?>" id="kwe_logo">KWE</a></h1>
 
-  <nav id="navigation">
-    <ul>
+    <nav id="navigation">
+      <ul>
 <?php if (access::$is_logged_in): ?>
-      <li><?php echo menuLink($page, 'index'); ?>Översikt</a></li>
-      <li><?php echo menuLink($page, 'users'); ?>Användare</a></li>
-      <li><?php echo menuLink($page, 'page'); ?>Sidor</a></li>
-      <li><?php echo menuLink($page, 'controllers'); ?>Moduler</a></li>
+        <li><?php echo menuLink($page, 'index'); ?>Översikt</a></li>
+        <li><?php echo menuLink($page, 'users'); ?>Användare</a></li>
+        <li><?php echo menuLink($page, 'page'); ?>Sidor</a></li>
+        <li><?php echo menuLink($page, 'controllers'); ?>Moduler</a></li>
 <?php if (access::$user->rank == 1): ?>
-      <li><?php echo menuLink($page, 'settings'); ?>Inställningar</a></li>
+        <li><?php echo menuLink($page, 'settings'); ?>Inställningar</a></li>
 <?php endif; ?>
-      <li><?php echo menuLink($page, 'logout'); ?>Logga ut</a></li>
+        <li><?php echo menuLink($page, 'logout'); ?>Logga ut</a></li>
 <?php else: ?>
-      <li><?php echo menuLink($page, 'index'); ?>Logga in</a></li>
+        <li><?php echo menuLink($page, 'index'); ?>Logga in</a></li>
 <?php endif; ?>
-    </ul>
-  </nav>
+      </ul>
+    </nav>
+  </div>
 </header>
 
 <div id="page">
@@ -82,29 +84,29 @@ if (count($this->info_messages)): ?>
 <?php echo $this->content_data; ?>
 
   </div>
-</div>
 
 <?php if (isset($data['subnavigation'])): ?>
-<nav id="subnavigation">
-  <ul>
-<?php foreach ($data['subnavigation'] as $subnav): ?>
-    <li><a href="<?php echo urlModr($this->request->params[0], $subnav[1]); ?>"<?php if (isset($this->request->params[1]) && $subnav[1] == $this->request->params[1]) echo ' class="active"'; ?>><?php echo $subnav[0]; ?></a></li>
-<?php endforeach; ?>
-  </ul>
-</nav>
-<?php endif; ?>
-
-<footer id="footer">
-  <p id="version"><?php echo KWE_VERSION; ?></p>
-  <p id="copyright">Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2012</p>
-  <p id="user-info"><?php if (access::$is_logged_in): ?>Inloggad som <?php echo access::$user->name; ?><?php endif; ?></p>
-  <nav id="footer_nav">
+  <nav id="subnavigation">
     <ul>
-      <li><a href="<?php echo FULLPATH_SITE; ?>/">Till din förstasida</a></li>
-      <li><a href="<?php echo urlModr('update'); ?>">Leta efter uppdateringar</a></li>
+<?php foreach ($data['subnavigation'] as $subnav): ?>
+      <li><a href="<?php echo urlModr($this->request->params[0], $subnav[1]); ?>"<?php if (isset($this->request->params[1]) && $subnav[1] == $this->request->params[1]) echo ' class="active"'; ?>><?php echo $subnav[0]; ?></a></li>
+<?php endforeach; ?>
     </ul>
   </nav>
-</footer>
+<?php endif; ?>
+
+  <footer id="footer">
+    <p id="version"><?php echo KWE_VERSION; ?></p>
+    <p id="copyright">Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2012</p>
+    <p id="user-info"><?php if (access::$is_logged_in): ?>Inloggad som <?php echo access::$user->name; ?><?php endif; ?></p>
+    <nav id="footer_nav">
+      <ul>
+        <li><a href="<?php echo FULLPATH_SITE; ?>/">Till din förstasida</a></li>
+        <li><a href="<?php echo urlModr('update'); ?>">Leta efter uppdateringar</a></li>
+      </ul>
+    </nav>
+  </footer>
+</div>
 
 </body>
 

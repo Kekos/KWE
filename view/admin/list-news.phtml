@@ -1,17 +1,20 @@
     <h1>Nyheter</h1>
 
-    <form action="<?php echo urlModr($route, $params); ?>" method="post">
-      <fieldset class="collapsable<?php if (!$new_news) echo ' start-collapsed'; ?>">
-        <h2>Ny nyhet</h2>
-        <ol>
-          <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php request::formStatePost('title', 'text'); ?> /></li>
-          <li><button type="submit" name="new_news" value="yes">Spara</button></li>
-        </ol>
-      </fieldset>
-    </form>
+    <section class="half-section box">
+      <h1>Ny nyhet</h1>
 
-    <section class="collapsable">
-      <h2>Nyhetslista</h2>
+      <form action="<?php echo urlModr($route, $params); ?>" method="post">
+        <fieldset>
+          <ol>
+            <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php request::formStatePost('title', 'text'); ?> /></li>
+            <li><button type="submit" name="new_news" value="yes">Spara</button></li>
+          </ol>
+        </fieldset>
+      </form>
+    </section>
+
+    <section class="half-section box">
+      <h1>Nyhetslista</h1>
 
       <table>
         <tr>
