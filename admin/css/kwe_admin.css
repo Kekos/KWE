@@ -94,9 +94,7 @@ body
 
 #page
   {
-  padding: 0.1px 0;
-  margin: 0 auto;
-  width: 100%;
+  margin: 15px auto;
   max-width: 1000px;
   overflow: auto;
   background: #fdfdfd;
@@ -116,6 +114,13 @@ h1 { font-size: 1.4em; }
 h2 { font-size: 1em; }
 h3 { font-size: 0.8em; }
 
+#content > h1
+  {
+  margin: 0;
+  padding: 10px;
+  background: #eaa852;
+  }
+
 li
   {
   margin: 1% 0;
@@ -123,16 +128,18 @@ li
   line-height: 1.4;
   }
 
-th
-  {
-  font-size: 0.8em;
-  text-align: left;
-  }
-
 th, td
   {
-  padding: 0.4em;
+  padding: 7px 2px;
   vertical-align: middle;
+  border-bottom: 1px solid #d8d8d8;
+  }
+
+th
+  {
+  border-bottom: 1px solid #353535;
+  font-size: 0.8em;
+  text-align: left;
   }
 
 a { color: #04aeec; }
@@ -195,6 +202,14 @@ form span.description
   font-size: 0.9em;
   }
 
+button
+  {
+  padding: 10px;
+  height: 60px;
+  background: #75bad8;
+  border: 1px solid #306791;
+  }
+
 #dw_KWE_cd { padding: 2px; background: #224967; color: #fff; }
 .dwcmd-KWElink, .dwcmd-KWEimage { background: no-repeat 2px 2px; }
 .dwcmd-KWElink { background-image: url('../../images/admin/dw_kwe_link.png') !important; }
@@ -212,14 +227,14 @@ form span.description
 .box
   {
   overflow: hidden;
-  background: #75bad8;
+  background: #d8d8d8;
   }
 
 .box > h1
   {
   margin: 0;
   padding: 10px 5px;
-  background: #eaa852;
+  background: #75bad8;
   font-size: 1em;
   }
 
@@ -310,7 +325,7 @@ form span.description
 #footer
   {
   clear: left;
-  border-top: 1px solid #cdcdcd;
+  border-top: 15px solid #d8d8d8;
   }
 
 #footer p
@@ -319,7 +334,7 @@ form span.description
   margin: 0;
   padding: 1%;
   height: 40px;
-  border: 0px solid #cdcdcd;
+  border: 0px solid #d8d8d8;
   border-right-width: 1px;
   font-size: 0.7em;
   color: #505050;
@@ -328,7 +343,7 @@ form span.description
 #version
   {
   border-right-width: 1px;
-  font-size: 1.9em;
+  font-size: 1.9em !important;
   font-weight: bold;
   }
 
