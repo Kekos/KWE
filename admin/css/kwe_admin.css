@@ -57,6 +57,17 @@ body
 
 /* Navigation */
 
+#goto_firstpage
+  {
+  float: left;
+  display: block;
+  margin: 15px 0 0 20%;
+  width: 20px;
+  height: 20px;
+  background: url('../../images/admin/house.png') no-repeat;
+  text-indent: -9999px;
+  }
+
 #navigation ul
   {
   float: right;
@@ -71,7 +82,7 @@ body
   background: none;
   }
 
-#navigation a
+#navigation li a
   {
   display: block;
   margin: 2px;
@@ -87,8 +98,8 @@ body
   color: #fff;
   }
 
-#navigation a:hover { background: #3a7baa; }
-#navigation .active, #navigation a:focus { background: #0597da; }
+#navigation ul a:hover { background: #3a7baa; }
+#navigation .active, #navigation ul a:focus { background: #0597da; }
 
 /* Main */
 

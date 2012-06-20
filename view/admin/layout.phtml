@@ -45,6 +45,9 @@ function menuLink($current_page, $new_page)
     <h1><a href="<?php echo urlModr(); ?>" id="kwe_logo">KWE</a></h1>
 
     <nav id="navigation">
+      <a href="<?php echo FULLPATH_SITE; ?>/" id="goto_firstpage" title="Till din förstasida">Till din förstasida</a>
+      <!--<a href="<?php echo urlModr('update'); ?>">Leta efter uppdateringar</a>-->
+
       <ul>
 <?php if (access::$is_logged_in): ?>
         <li><?php echo menuLink($page, 'index'); ?>Översikt</a></li>
@@ -99,12 +102,6 @@ if (count($this->info_messages)): ?>
     <p id="version"><?php echo KWE_VERSION; ?></p>
     <p id="copyright">Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2012</p>
     <p id="user-info"><?php if (access::$is_logged_in): ?>Inloggad som <?php echo access::$user->name; ?><?php endif; ?></p>
-    <nav id="footer_nav">
-      <ul>
-        <li><a href="<?php echo FULLPATH_SITE; ?>/">Till din förstasida</a></li>
-        <li><a href="<?php echo urlModr('update'); ?>">Leta efter uppdateringar</a></li>
-      </ul>
-    </nav>
   </footer>
 </div>
 
