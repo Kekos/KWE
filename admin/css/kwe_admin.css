@@ -2,7 +2,7 @@
  * KWF Style: kwe_admin.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-06-23
  * @version 2.0
  */
 
@@ -155,27 +155,46 @@ th
 
 a { color: #04aeec; }
 .subpage { padding-left: 20px; }
-.actions-head { display: none; }
+/*.actions-head { display: none; }*/
 
 .actions
   {
   }
 
-.edit-link, .delete-link, .permission-link
+.delete-link, .permission-link, .more-link
   {
-  padding: 0.3em;
-  font-size: 0.9em;
-  color: #fff;
-  text-transform: uppercase;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: no-repeat;
+  text-indent: -9999px;
   text-decoration: none !important;
   }
 
-.edit-link { background: #7cef14; }
-.edit-link:hover, .edit-link:focus { background: #30ef14; }
-.delete-link { background: #ef5914; }
-.delete-link:hover, .delete-link:focus { background: #ce4d11; }
-.permission-link { background: #04aeec; }
-.permission-link:hover, .permission-link:focus { background: #074cd3; }
+.less-link, .edit-link
+  {
+  position: relative;
+  padding-left: 18px;
+  }
+
+.less-link::before, .edit-link::before
+  {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  background: no-repeat;
+  }
+
+.edit-link { color: #04ce14; }
+.edit-link:hover, .edit-link:focus { color: #02930f; }
+.edit-link::before { background-image: url('../../images/admin/edit.png'); }
+.delete-link { background-image: url('../../images/admin/delete.png'); }
+.permission-link { background-image: url('../../images/admin/permissions.png'); }
+.more-link { background-image: url('../../images/admin/more.png'); }
+.less-link::before { background-image: url('../../images/admin/less.png'); }
 
 form ol { margin: 0 1%; padding: 0; }
 form ol li:last-child { background: none; }
@@ -249,10 +268,10 @@ button
   font-size: 1em;
   }
 
-.box a
+/*.box a
   {
   color: #000;
-  }
+  }*/
 
 .right-section
   {
