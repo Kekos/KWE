@@ -1,5 +1,8 @@
     <h1>Sidor</h1>
 
+    <p class="help-text">Klicka på en sidas URL för att besöka den på din webbsida. 
+      Använd pilen för att se undersidor.</p>
+
 <?php if (access::$user->rank == 1 || ($active_page && ($active_page->permission & PERMISSION_ADD))): ?>
     <p><a href="<?php echo urlModr($route, $params, 'new'); ?>">Skapa ny <?php if ($active_page) echo 'under'; ?>sida</a></p>
 <?php endif; ?>
@@ -15,26 +18,24 @@
       </tr>
 <?php if ($active_page): ?>
       <tr>
-        <td colspan="6"><a href="<?php echo urlModr('page'); ?>" class="clink">Visa alla sidor</a></td>
+        <td colspan="6"><a href="<?php echo urlModr('page'); ?>" class="less-link clink">Visa alla sidor</a></td>
       </tr>
 <?php endif;
 $max_pages = count($pages) - 1;
 $i = 0;
 foreach ($pages as $page): ?>
       <tr>
-        <td><?php echo htmlspecialchars($page->title); ?></td>
+        <td><?php if (!$active_page): ?><a href="<?php echo urlModr('page', 'list', $page->url); ?>" class="more-link clink">Visa undersidor</a>
+          <?php endif; ?><a href="<?php echo urlModr('edit-page', $page->url); ?>" class="edit-link"><?php echo htmlspecialchars($page->title); ?></a></td>
         <td><a href="<?php echo urlModrSite($page->url); ?>"><?php echo htmlspecialchars($page->url); ?></a></td>
         <td><?php echo ($page->public ? 'Ja' : 'Nej'); ?></td>
         <td><?php echo ($page->show_in_menu ? 'Ja' : 'Nej'); ?></td>
         <td><?php echo easyDate('', $page->edited); ?></td>
-        <td class="actions"><?php if (!$active_page): ?><a href="<?php echo urlModr('page', 'list', $page->url); ?>" class="subpages-link clink">Visa undersidor</a>
-          <?php endif; ?><a href="<?php echo urlModr('edit-page', $page->url); ?>" class="edit-link">Redigera</a>
+        <td class="actions"><a href="<?php echo urlModr('page', 'delete', $page->url); ?>" class="delete-link">Ta bort</a>
 <?php if (($active_page && $i > 0) || !$active_page): ?>
-          <?php if (($active_page && $i > 1) || (!$active_page && $i > 0)): ?><a href="<?php echo urlModr('page', 'up', $page->url); ?>" class="edit-link clink">Upp</a>
-          <?php endif; if ($i < $max_pages): ?><a href="<?php echo urlModr('page', 'down', $page->url); ?>" class="edit-link clink">Ner</a>
-          <?php endif; ?><a href="<?php echo urlModr('page', 'delete', $page->url); ?>" class="delete-link">Ta bort</a></td>
+          <?php if (($active_page && $i > 1) || (!$active_page && $i > 0)): ?><a href="<?php echo urlModr('page', 'up', $page->url); ?>" class="clink">Upp</a>
+          <?php endif; if ($i < $max_pages): ?><a href="<?php echo urlModr('page', 'down', $page->url); ?>" class="clink">Ner</a><?php endif; ?></td>
 <?php endif; ?>
       </tr>
 <?php ++$i; endforeach; ?>
     </table>
-  </section>

@@ -33,10 +33,9 @@
 <?php foreach ($users as $user): ?>
         <tr>
           <td><?php echo htmlspecialchars($user->name); ?></td>
-          <td><?php echo htmlspecialchars($user->username); ?></td>
+          <td><a href="<?php echo urlModr('users', 'edit', $user->id); ?>" class="edit-link"><?php echo htmlspecialchars($user->username); ?></a></td>
           <td><?php echo easyDate('H:i', $user->online_time); ?></td>
-          <td class="actions"><a href="<?php echo urlModr('users', 'edit', $user->id); ?>" class="edit-link">Redigera</a>
-<?php if ($user->rank > 1): ?>          <a href="<?php echo urlModr('users', 'permissions', $user->id); ?>" class="permission-link">Rättigheter</a><?php endif; ?>
+          <td class="actions"><?php if ($user->rank > 1): ?><a href="<?php echo urlModr('users', 'permissions', $user->id); ?>" class="permission-link">Rättigheter</a><?php endif; ?>
             <a href="<?php echo urlModr('users', 'delete', $user->id); ?>" class="delete-link">Ta bort</a></td>
         </tr>
 <?php endforeach; ?>
