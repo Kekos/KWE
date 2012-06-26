@@ -3,7 +3,7 @@
  * KWF Class: access, handles log in and access check
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-10
+ * @date 2012-06-26
  * @version 1.1
  */
 
@@ -52,7 +52,7 @@ class access
     if (access::$user->rank == 1)
       return true;
 
-    $db = db_mysqli::getInstance();
+    $db = DbMysqli::getInstance();
     $model_controller_permission = new controller_permission_model($db);
     return $model_controller_permission->fetch(access::$user->id, $controller);
     }
