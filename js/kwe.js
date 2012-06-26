@@ -3,7 +3,7 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-06-26
  * @version 3.0
  */
 
@@ -51,8 +51,8 @@ Kwf.onload = function(e)
     }
   else
     {
-    Ajax.onbeforeAjax = k.beforeAjax;
-    Ajax.onafterAjax = k.afterAjax;
+    Ajax.setBeforeCallback(k.beforeAjax);
+    Ajax.setAfterCallback(k.afterAjax);
     }
 
   k.initWysiwygs();
@@ -76,23 +76,23 @@ Kwf.onload = function(e)
 var kwe = {
   beforeAjax: function()
     {
-    var Ajax_loader = elem('Ajax_loader'),
+    var ajax_loader = elem('ajax_loader'),
       doc = document;
 
-    if (!Ajax_loader)
+    if (!ajax_loader)
       {
-      Ajax_loader = doc.createElement('div');
-      Ajax_loader.id = 'Ajax_loader';
-      Ajax_loader.appendChild(doc.createTextNode('Laddar...'));
-      elem('header').appendChild(Ajax_loader);
+      ajax_loader = doc.createElement('div');
+      ajax_loader.id = 'ajax_loader';
+      ajax_loader.appendChild(doc.createTextNode('Laddar...'));
+      elem('header').appendChild(ajax_loader);
       }
 
-    Ajax_loader.style.display = 'block';
+    ajax_loader.style.display = 'block';
     },
 
   afterAjax: function()
     {
-    elem('Ajax_loader').style.display = 'none';
+    elem('ajax_loader').style.display = 'none';
     },
 
   findCollapsables: function()
