@@ -3,7 +3,7 @@
  * KWF Controller: admin_edit_page
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-06-26
  * @version 1.0
  */
 
@@ -58,11 +58,17 @@ class admin_edit_page extends Controller
       $this->active_page->permission = PERMISSION_ADD | PERMISSION_EDIT | PERMISSION_DELETE;
 
     if (!($this->active_page->permission & PERMISSION_EDIT))
-      return $this->response->addError('Du har inte tillräckliga rättigheter att redigera denna sida.');
+      {
+      $this->active_page = false;
+      $this->response->addError('Du har inte tillräckliga rättigheter att redigera denna sida.');
+      }
     }
 
   public function _default()
     {
+    if (!$this->active_page)
+      return;
+
     if ($this->request->post('controller_id'))
       {
       if (!$this->controller = $this->model_page_controller->fetch($this->request->post('controller_id')))
