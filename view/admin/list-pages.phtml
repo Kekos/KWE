@@ -25,7 +25,7 @@ $max_pages = count($pages) - 1;
 $i = 0;
 foreach ($pages as $page): ?>
       <tr>
-        <td><?php if (!$active_page): ?><a href="<?php echo urlModr('page', 'list', $page->url); ?>" class="more-link clink">Visa undersidor</a>
+        <td<?php if ($active_page && $i > 0) echo ' class="subpage-row"'; ?>><?php if (!$active_page): ?><a href="<?php echo urlModr('page', 'list', $page->url); ?>" class="more-link clink">Visa undersidor</a>
           <?php endif; ?><a href="<?php echo urlModr('edit-page', $page->url); ?>" class="edit-link"><?php echo htmlspecialchars($page->title); ?></a></td>
         <td><a href="<?php echo urlModrSite($page->url); ?>"><?php echo htmlspecialchars($page->url); ?></a></td>
         <td><?php echo ($page->public ? 'Ja' : 'Nej'); ?></td>
