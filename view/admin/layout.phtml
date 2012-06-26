@@ -50,11 +50,11 @@ function menuLink($current_page, $new_page)
       <ul>
 <?php if (access::$is_logged_in): ?>
         <li><?php echo menuLink($page, 'index'); ?>Översikt</a></li>
-        <li><?php echo menuLink($page, 'users'); ?>Användare</a></li>
         <li><?php echo menuLink($page, 'page'); ?>Sidor</a></li>
         <li><?php echo menuLink($page, 'controllers'); ?>Moduler</a></li>
 <?php if (access::$user->rank == 1): ?>
         <li><?php echo menuLink($page, 'settings'); ?>Inställningar</a></li>
+        <li><?php echo menuLink($page, 'users'); ?>Användare</a></li>
 <?php endif; ?>
         <li><?php echo menuLink($page, 'logout'); ?>Logga ut</a></li>
 <?php else: ?>
