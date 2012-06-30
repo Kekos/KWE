@@ -3,7 +3,7 @@
  * KWF Controller: admin_controllers
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-06-30
  * @version 2.2
  */
 
@@ -213,8 +213,7 @@ class admin_controllers extends Controller
     $controller = 'admin_controller_' . $this->controller->class_name;
     if ($controller::uninstall())
       {
-      $model_controller_permission = new controller_permission_model($this->db);
-      $model_controller_permission->deleteByController($this->controller->id);
+      $this->model_controller_permission->deleteByController($this->controller->id);
 
       $this->controller->delete();
       $this->controller = false;
