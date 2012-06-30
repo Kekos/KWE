@@ -3,7 +3,7 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-26
+ * @date 2012-06-30
  * @version 3.0
  */
 
@@ -54,6 +54,11 @@ Kwf.onload = function(e)
     Ajax.setBeforeCallback(k.beforeAjax);
     Ajax.setAfterCallback(k.afterAjax);
     }
+
+  /*if (elem('controllers_menu'))
+    {
+    addEvent(elem('controllers_menu'), 'mouseover'
+    }*/
 
   k.initWysiwygs();
 

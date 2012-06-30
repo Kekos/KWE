@@ -2,7 +2,7 @@
  * KWF Style: kwe_admin.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-26
+ * @date 2012-06-30
  * @version 2.0
  */
 
@@ -26,7 +26,6 @@ body
   {
   height: 50px;
   width: 100%;
-  overflow: hidden;
   background-color: #353535;
   background-repeat: repeat-x;
   }
@@ -102,7 +101,7 @@ body
   background: none;
   }
 
-#navigation li a
+.menu-item
   {
   display: block;
   margin: 2px;
@@ -118,8 +117,45 @@ body
   color: #fff;
   }
 
-#navigation ul a:hover { background: #3a7baa; }
-#navigation .active, #navigation ul a:focus { background: #0597da; }
+.menu-item:hover { background: #3a7baa; }
+.menu-item.active, .menu-item:focus { background: #0597da; }
+
+.submenu-link
+  {
+  position: relative;
+  }
+
+.submenu-link:hover .submenu
+  {
+  display: block;
+  }
+
+.submenu
+  {
+  display: none;
+  position: absolute;
+  top: 20px;
+  background: #fff;
+  border: 1px solid #353535;
+  }
+
+.submenu li
+  {
+  float: none !important;
+  }
+
+.submenu-item
+  {
+  display: block;
+  padding: 4px;
+  color: #000;
+  }
+
+.submenu-item:hover
+  {
+  background: #3a7baa;
+  text-decoration: none;
+  }
 
 /* Main */
 

@@ -5,7 +5,7 @@ $data['scripts'] = array_unique($data['scripts']);
 
 function menuLink($current_page, $new_page)
   {
-  return '<a href="' . urlModr($new_page) . '"' . ($current_page == $new_page ? ' class="active"' : '') . '>';
+  return '<a href="' . urlModr($new_page) . '" class="menu-item' . ($current_page == $new_page ? ' active' : '') . '">';
   }
 ?>
 <!DOCTYPE html>
@@ -51,7 +51,15 @@ function menuLink($current_page, $new_page)
 <?php if (access::$is_logged_in): ?>
         <li><?php echo menuLink($page, 'index'); ?>Översikt</a></li>
         <li><?php echo menuLink($page, 'page'); ?>Sidor</a></li>
-        <li><?php echo menuLink($page, 'controllers'); ?>Moduler</a></li>
+        <li class="submenu-link"><?php echo menuLink($page, 'controllers'); ?>Moduler</a>
+<?php
+$controllers = $this->request->session->get('controllers');
+if ($controllers): ?>
+          <ul class="submenu">
+<?php foreach ($controllers as $controller): ?>
+            <li><a href="<?php echo urlModr($controller[1]); ?>" class="submenu-item"><?php echo $controller[0]; ?></a></li>
+<?php endforeach; ?>
+          </ul><?php endif; ?></li>
 <?php if (access::$user->rank == 1): ?>
         <li><?php echo menuLink($page, 'settings'); ?>Inställningar</a></li>
         <li><?php echo menuLink($page, 'users'); ?>Användare</a></li>
@@ -86,16 +94,6 @@ if (count($this->info_messages)): ?>
 <?php echo $this->content_data; ?>
 
   </div>
-
-<?php if (isset($data['subnavigation'])): ?>
-  <nav id="subnavigation">
-    <ul>
-<?php foreach ($data['subnavigation'] as $subnav): ?>
-      <li><a href="<?php echo urlModr($this->request->params[0], $subnav[1]); ?>"<?php if (isset($this->request->params[1]) && $subnav[1] == $this->request->params[1]) echo ' class="active"'; ?>><?php echo $subnav[0]; ?></a></li>
-<?php endforeach; ?>
-    </ul>
-  </nav>
-<?php endif; ?>
 
   <footer id="footer">
     <p id="version"><?php echo KWE_VERSION; ?></p>

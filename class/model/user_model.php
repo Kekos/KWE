@@ -3,7 +3,7 @@
  * KWF Model: user_model
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-05-20
+ * @date 2012-06-30
  * @version 2.1
  */
 
@@ -18,7 +18,7 @@ class user_model
 
   public function login($username, $password)
     {
-    $q_select_user = "SELECT `id`, `online_time` FROM `PREFIX_users` WHERE "
+    $q_select_user = "SELECT `id`, `rank`, `online_time` FROM `PREFIX_users` WHERE "
       . "`username` = ? AND `password` = ?";
 
     $this->db->exec($q_select_user, 'ss', array($username, $password));

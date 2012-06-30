@@ -3,7 +3,7 @@
  * KWE Controller: admin_login
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-06-30
  * @version 2.2
  */
 
@@ -48,6 +48,11 @@ class admin_login extends Controller
       $user->setOnline(1);
       $user->save();
 
+      // Store all available controllers in a session so it can be used in navigation menu
+      $model_controller = new controller_model($this->db);
+      $controllers = $model_controller->fetchAllWithPermissions($user->id, ($user->rank == 1));
+      setControllerMenuSession($controllers, $this->request);
+
       $this->response->redirect(urlModr());
       }
     else
@@ -65,6 +70,7 @@ class admin_login extends Controller
       access::$user->save();
 
       $this->request->session->delete($this->settings->session_name);
+      $this->request->session->delete('controllers');
       }
 
     $this->response->redirect(urlModr());

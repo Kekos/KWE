@@ -40,16 +40,17 @@ class admin_controllers extends Controller
         return $this->response->addError('Hittade inte modulen ' . htmlspecialchars($controller_id));
       }
 
+    $this->fetchPermittedControllers();
+    }
+
+  private function fetchPermittedControllers($reset_session = false)
+    {
     $this->controllers = $this->model_controller->fetchAllWithPermissions(access::$user->id, (access::$user->rank == 1));
 
-    $nav = array();
-    foreach ($this->controllers as $controller)
+    if ($reset_session)
       {
-      if ($controller->configurable)
-        $nav[] = array($controller->name, '../' . $controller->class_name);
+      setControllerMenuSession($this->controllers, $this->request);
       }
-
-    $this->response->data['subnavigation'] = $nav;
     }
 
   public function _default($action = false)
@@ -175,6 +176,7 @@ class admin_controllers extends Controller
               $controller = 'admin_controller_' . $this->controller->class_name;
               $controller::install();
 
+              $this->fetchPermittedControllers(true);
               $this->response->addInfo('Modulen har installerats.');
               }
             else
@@ -214,6 +216,7 @@ class admin_controllers extends Controller
     if ($controller::uninstall())
       {
       $this->model_controller_permission->deleteByController($this->controller->id);
+      $this->fetchPermittedControllers(true);
 
       $this->controller->delete();
       $this->controller = false;
