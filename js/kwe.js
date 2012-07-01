@@ -21,14 +21,6 @@ Kwf.onclick = function(e, targ)
     k.boxingLink(e, targ);
   else if (hasClass(targ, 'delete-link'))
     breq.load(e, targ.getAttribute('href'), 300, 200);
-  else if (hasClass(targ, 'delete-controller'))
-    {
-    returnFalse(e);
-    breq.width = 300;
-    breq.height = 200;
-    Ajax.post(targ.form.action, breq.parseResponse, breq.parseResponse, 
-        {controller_id: targ.form.controller_id.value, delete_controller: 1});
-    }
   else if (targ.name == 'select-page')
     elem('dw_link_url').value = targ.parentNode.getAttribute('data-url');
   else if (hasClass(targ, 'browse-to-link'))
