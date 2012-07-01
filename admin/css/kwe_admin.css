@@ -218,11 +218,6 @@ th
 
 a { color: #04aeec; }
 .subpage-row { padding-left: 18px; }
-/*.actions-head { display: none; }*/
-
-.actions
-  {
-  }
 
 .delete-link, .permission-link, .more-link, .controller-delete, .icon-up, .icon-down
   {
@@ -263,7 +258,6 @@ a { color: #04aeec; }
 .icon-down { background-image: url('../../images/admin/down.png'); }
 
 form ol { margin: 0 1%; padding: 0; }
-form ol li:last-child { background: none; }
 input, select, textarea { float: left; margin: 2px 0; }
 
 form ol li
@@ -289,7 +283,7 @@ input[type='text'], input[type='password'], select, textarea
   width: 65%;
   }
 
-form span.description
+form .description
   {
   float: left;
   clear: both;
@@ -340,11 +334,6 @@ button:focus
   background: #75bad8;
   font-size: 1em;
   }
-
-/*.box a
-  {
-  color: #000;
-  }*/
 
 .right-section
   {
