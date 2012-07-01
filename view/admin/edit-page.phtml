@@ -1,5 +1,9 @@
-<?php $self_url = urlModr($route, $params); ?>
+<?php $self_url = urlModr($route, $params);
+if ($active_page->id): ?>
     <h1>Redigera sida</h1>
+<?php else: ?>
+    <h1>Ny sida</h1>
+<?php endif; ?>
 
     <section class="half-section box">
       <h1>Sidegenskaper</h1>
@@ -15,7 +19,7 @@
         </fieldset>
       </form>
     </section>
-
+<?php if ($active_page->id): ?>
     <section class="half-section box">
       <h1>Lägg till modul på sidan</h1>
 
@@ -46,4 +50,5 @@ foreach ($controllers as $controller): ?>
 <?php endif; if ($i < $max_controllers): ?>      <a href="<?php echo urlModr($route, 'orderdown', $active_page->url, $controller->id); ?>" class="controller-down icon-down clink" title="Ner i ordningen">Ner i ordningen</a>
 <?php endif; ?>    </div>
 
-<?php ++$i; endforeach; ?>
+<?php ++$i; endforeach;
+endif; ?>

@@ -3,7 +3,7 @@
  * KWF Controller: admin_pages
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-07-01
  * @version 2.2
  */
 
@@ -55,23 +55,30 @@ class admin_pages extends Controller
 
   public function _default()
     {
+    $data['active_page'] = $this->active_page;
+    $data['pages'] = (!$this->kpage ? $this->model_page->fetchPageList(0, 1) : $this->model_page->fetchSubPageList($this->kpage->id, 0, 1));
+    $this->view = new View('admin/list-pages', $data);
+    }
+
+  public function addnew()
+    {
     if (!$this->subpage)
       {
-      if ($this->request->post('new_page') && 
-          (access::$user->rank == 1 || $this->kpage->permission & PERMISSION_ADD))
+      if ($this->request->post('edit_page') && (access::$user->rank == 1 || $this->kpage->permission & PERMISSION_ADD))
         {
         $this->newPage();
         }
       }
     else
       {
-      if ($this->request->post('new_page') && access::$user->rank == 1)
+      if ($this->request->post('edit_page') && access::$user->rank == 1)
         {
         $this->newPage();
         }
       }
 
-    $this->listPages();
+    $data['active_page'] = new kpage($this->model_page);
+    $this->view = new View('admin/edit-page', $data);
     }
 
   public function up()
@@ -95,7 +102,7 @@ class admin_pages extends Controller
     if (!$this->subpage)
       $this->kpage = $this->active_page = false;
 
-    $this->listPages();
+    $this->_default();
     }
 
   public function down()
@@ -119,7 +126,7 @@ class admin_pages extends Controller
     if (!$this->subpage)
       $this->kpage = $this->active_page = false;
 
-    $this->listPages();
+    $this->_default();
     }
 
   public function delete()
@@ -137,7 +144,7 @@ class admin_pages extends Controller
       else
         $this->deletePage();
 
-      $this->listPages();
+      $this->_default();
       }
     else if ($this->request->post('delete_page_no'))
       {
@@ -160,19 +167,12 @@ class admin_pages extends Controller
     $this->response->addContent(json_encode($json));
     }
 
-  private function listPages()
-    {
-    $data['active_page'] = $this->active_page;
-    $data['new_page'] = $this->request->post('new_page');
-    $data['pages'] = (!$this->kpage ? $this->model_page->fetchPageList(0, 1) : 
-        $this->model_page->fetchSubPageList($this->kpage->id, 0, 1));
-    $this->view = new View('admin/list-pages', $data);
-    }
-
   private function newPage()
     {
     $errors = array();
     $title = $this->request->post('title');
+    $public = $this->request->post('public');
+    $show_in_menu = $this->request->post('show_in_menu');
 
     $this->active_page = new kpage($this->model_page);
 
@@ -207,15 +207,15 @@ class admin_pages extends Controller
 
       $this->active_page->setUrl($url . $i);
       $this->active_page->setParent($parent);
-      $this->active_page->setPublic(0);
-      $this->active_page->setShowInMenu(0);
+      $this->active_page->setPublic($public);
+      $this->active_page->setShowInMenu($show_in_menu);
       $this->active_page->setCreator(access::$user->id);
       $this->active_page->setCreated(time());
 
       /* Set last editor and save */
       $this->updateEdited();
 
-      $this->response->redirect(urlModr('page', 'list', $url));
+      $this->response->redirect(urlModr('edit-page', 'show', $url));
       }
     else
       {
