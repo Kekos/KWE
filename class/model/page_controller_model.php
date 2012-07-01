@@ -3,7 +3,7 @@
  * KWE Model: page_controller_model
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-07-02
+ * @date 2012-07-01
  * @version 2.0
  */
 
@@ -39,7 +39,7 @@ class page_controller_model
 
   public function fetchAll($page)
     {
-    $q_select_controllers = "SELECT p.*, `class_name` FROM `PREFIX_page_controllers` "
+    $q_select_controllers = "SELECT p.*, c.`name`, `class_name` FROM `PREFIX_page_controllers` "
       . "AS p INNER JOIN `PREFIX_controllers` AS c ON c.`id` = `controller` "
       . "WHERE `page` = ? ORDER BY `order` ASC";
 
