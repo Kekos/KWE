@@ -39,7 +39,7 @@ class page_controller_model
 
   public function fetchAll($page)
     {
-    $q_select_controllers = "SELECT p.*, c.`name`, `class_name` FROM `PREFIX_page_controllers` "
+    $q_select_controllers = "SELECT p.id, c.`name`, `class_name` FROM `PREFIX_page_controllers` "
       . "AS p INNER JOIN `PREFIX_controllers` AS c ON c.`id` = `controller` "
       . "WHERE `page` = ? ORDER BY `order` ASC";
 
