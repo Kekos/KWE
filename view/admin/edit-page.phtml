@@ -1,45 +1,49 @@
 <?php $self_url = urlModr($route, $params); ?>
     <h1>Redigera sida</h1>
 
-    <form action="<?php echo $self_url; ?>" method="post" class="ajax-form no-content">
-      <fieldset class="collapsable<?php if (!$edit_page) echo ' start-collapsed'; ?>">
-        <h2>Sidegenskaper</h2>
-        <ol>
-          <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php request::formStatePost('title', 'text', '', $active_page->title); ?> /></li>
-          <li><label for="public">Publicerad?</label> <input type="checkbox" name="public" id="public" value="1"<?php request::formStatePost('public', 'checkbox', 1, $active_page->public); ?> /></li>
-          <li><label for="show_in_menu">Synlig i menyn?</label> <input type="checkbox" name="show_in_menu" id="show_in_menu" value="1"<?php request::formStatePost('show_in_menu', 'checkbox', 1, $active_page->show_in_menu); ?> /></li>
-          <li><button type="submit" name="edit_page" value="yes">Spara ändringar</button></li>
-        </ol>
-      </fieldset>
-    </form>
+    <section class="half-section box">
+      <h1>Sidegenskaper</h1>
 
-    <form action="<?php echo $self_url; ?>" method="post" class="ajax-form">
-      <fieldset class="collapsable<?php if (!$add_controller) echo ' start-collapsed'; ?>">
-        <h2>Lägg till modul på sidan</h2>
-        <ol>
-          <li><label for="controller">Modul</label> <select name="controller" id="controller">
+      <form action="<?php echo $self_url; ?>" method="post" class="ajax-form">
+        <fieldset>
+          <ol>
+            <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php request::formStatePost('title', 'text', '', $active_page->title); ?> /></li>
+            <li><label for="public">Publicerad?</label> <input type="checkbox" name="public" id="public" value="1"<?php request::formStatePost('public', 'checkbox', 1, $active_page->public); ?> /></li>
+            <li><label for="show_in_menu">Synlig i menyn?</label> <input type="checkbox" name="show_in_menu" id="show_in_menu" value="1"<?php request::formStatePost('show_in_menu', 'checkbox', 1, $active_page->show_in_menu); ?> /></li>
+            <li><button type="submit" name="edit_page" value="yes">Spara ändringar</button></li>
+          </ol>
+        </fieldset>
+      </form>
+    </section>
+
+    <section class="half-section box">
+      <h1>Lägg till modul på sidan</h1>
+
+      <form action="<?php echo $self_url; ?>" method="post" class="ajax-form">
+        <p>
+          <label for="controller">Modul</label>
+            <select name="controller" id="controller">
 <?php foreach ($installed_controllers as $controller): ?>
               <option value="<?php echo $controller->id; ?>"><?php echo $controller->name; ?></option>
 <?php endforeach; ?>
-            </select></li>
-          <li><button type="submit" name="add_controller" value="yes">Lägg till modul</button></li>
-        </ol>
-      </fieldset>
-    </form>
+            </select>
+          <button type="submit" name="add_controller" value="yes">Lägg till modul</button>
+        </p>
+      </form>
+    </section>
+
+    <p class="clear">Klicka på någon av följande moduler för att redigera innehållet.</p>
 
 <?php
 $max_controllers = count($controllers) - 1;
 $i = 0;
 foreach ($controllers as $controller): ?>
-    <form action="<?php echo $self_url; ?>" method="post">
-<?php require(BASE . 'view/admin/controller.page.' . $controller->class_name . '.phtml'); ?>
-      <p class="controller-actions">
-        <input type="hidden" name="controller_id" value="<?php echo $controller->id; ?>" />
-        <button type="submit" name="save_controller" class="save-domiwyg" value="yes">Spara modul</button>
-        <button type="submit" name="delete_controller" value="yes" class="delete-controller">Ta bort modul</button>
-        <?php if ($i > 0): ?><button type="submit" name="controller_order_up" value="yes">Upp i ordningen</button>
-        <?php endif; if ($i < $max_controllers): ?><button type="submit" name="controller_order_down" value="yes">Ner i ordningen</button><?php endif; ?>
-      </p>
-    </form>
+    <div class="controller-actions">
+      <span class="controller-num"><?php echo $i + 1; ?></span>
+      <a href="<?php echo urlModr($route, 'edit', $active_page->url, $controller->id); ?>" class="controller-name blink dim90x90"><?php echo $controller->name; ?></a>
+      <a href="<?php echo urlModr($route, 'delete', $active_page->url, $controller->id); ?>" class="controller-delete delete-link" title="Ta bort">Ta bort modul</a>
+<?php if ($i > 0): ?>      <a href="<?php echo urlModr($route, 'orderup', $active_page->url, $controller->id); ?>" class="controller-up clink" title="Upp i ordningen">Upp i ordningen</a>
+<?php endif; if ($i < $max_controllers): ?>      <a href="<?php echo urlModr($route, 'orderdown', $active_page->url, $controller->id); ?>" class="controller-down clink" title="Ner i ordningen">Ner i ordningen</a>
+<?php endif; ?>    </div>
 
 <?php ++$i; endforeach; ?>

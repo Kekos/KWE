@@ -3,7 +3,7 @@
  * KWF Controller: admin_edit_page
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-26
+ * @date 2012-07-01
  * @version 1.0
  */
 
@@ -16,9 +16,8 @@ class admin_edit_page extends Controller
   private $subpage = false;
   private $active_page = false;
   private $controller = false;
-  private $ignore_view = false;
 
-  public function before($page_url = false, $subpage_url = false)
+  public function before($action = false, $page_url = false, $subpage_url = false, $controller_id = false)
     {
     if (!access::$is_logged_in || !access::$is_administrator)
       {
@@ -28,6 +27,13 @@ class admin_edit_page extends Controller
     $this->db = DbMysqli::getInstance();
     $this->model_page = new PageModel($this->db);
     $this->model_page_controller = new page_controller_model($this->db);
+
+    // If an other action than "show" is selected, the controller ID might be in parameter 3 instead (subpage_url)
+    if ($action != 'show' && $controller_id === false)
+      {
+      $controller_id = $subpage_url;
+      $subpage_url = false;
+      }
 
     if ($page_url)
       {
@@ -54,66 +60,137 @@ class admin_edit_page extends Controller
       $this->response->redirect(urlModr('page'));
       }
 
+    // Super Administrators (rank 1) can access everything, so give them all permissions
     if ($this->active_page && access::$user->rank == 1)
       $this->active_page->permission = PERMISSION_ADD | PERMISSION_EDIT | PERMISSION_DELETE;
 
     if (!($this->active_page->permission & PERMISSION_EDIT))
       {
       $this->active_page = false;
-      $this->response->addError('Du har inte tillräckliga rättigheter att redigera denna sida.');
+      return $this->response->addError('Du har inte tillräckliga rättigheter att redigera denna sida.');
+      }
+
+    if ($controller_id)
+      {
+      if (!$this->controller = $this->model_page_controller->fetch($controller_id))
+        {
+        $this->active_page = false;
+        $this->response->addError('Hittade inte modulen med ID ' . $controller_id);
+        }
       }
     }
 
   public function _default()
     {
+    $this->response->redirect(urlModr('page'));
+    }
+
+  public function show()
+    {
+    // First, check if an page could be found in before() (might be removed if user has no permission)
     if (!$this->active_page)
       return;
 
-    if ($this->request->post('controller_id'))
+    // Did the user save changes (like title and visibility)
+    if ($this->request->post('edit_page'))
       {
-      if (!$this->controller = $this->model_page_controller->fetch($this->request->post('controller_id')))
-        $this->response->addError('Hittade inte modulen med ID ' . $this->request->post('controller_id'));
+      $this->editPage();
+      if ($this->request->ajax_request)
+        {
+        return;
+        }
+      }
+    // Did the user add a new controller to page
+    else if ($this->request->post('add_controller'))
+      {
+      $this->addController();
       }
 
-    $data['edit_page'] = 0;
-    $data['add_controller'] = 0;
-    $data['active_page'] = $this->active_page;
+    $model_controller = new controller_model($this->db);
 
-    if ($this->request->post('delete_controller') && $this->controller)
+    $data['active_page'] = $this->active_page;
+    $data['installed_controllers'] = $model_controller->fetchAll();
+    $data['controllers'] = $this->model_page_controller->fetchAll($this->active_page->id);
+    $this->view = new View('admin/edit-page', $data);
+    }
+
+  public function edit()
+    {
+    // First, check if an page could be found in before() (might be removed if user has no permission)
+    if (!$this->active_page || !$this->controller)
+      return;
+
+    if ($this->request->post('save_controller'))
       {
-      $data['controller'] = $this->controller;
-      $this->view = new View('admin/delete-page-controller', $data);
+      $this->saveController();
+      }
+
+    $data['active_page'] = $this->active_page;
+    $data['controller'] = $this->controller;
+    $this->view = new View('admin/edit-page-controller', $data);
+    }
+
+  public function delete()
+    {
+    // First, check if an page could be found in before() (might be removed if user has no permission)
+    if (!$this->active_page || !$this->controller)
+      return;
+
+    if ($this->request->post('delete_pcontroller_yes'))
+      {
+      $this->deleteController();
+      $this->show();
+      }
+    else if ($this->request->post('delete_pcontroller_no'))
+      {
+      $this->show();
       }
     else
       {
-      if ($this->request->post('edit_page'))
-        {
-        $this->editPage();
-        $data['edit_page'] = 1;
-        }
-      else if ($this->request->post('add_controller'))
-        {
-        $this->addController();
-        $data['add_controller'] = 1;
-        }
-      else if ($this->request->post('save_controller') && $this->controller)
-        $this->saveController();
-      else if ($this->request->post('delete_pcontroller_yes') && $this->controller)
-        $this->deleteController();
-      else if ($this->request->post('controller_order_up') && $this->controller)
-        $this->orderUpController();
-      else if ($this->request->post('controller_order_down') && $this->controller)
-        $this->orderDownController();
-
-      if (!($this->ignore_view && $this->request->ajax_request))
-        {
-        $model_controller = new controller_model($this->db);
-
-        $data['installed_controllers'] = $model_controller->fetchAll();
-        $data['controllers'] = $this->model_page_controller->fetchAll($this->active_page->id);
-        $this->view = new View('admin/edit-page', $data);
-        }
+      $data['active_page'] = $this->active_page;
+      $data['controller'] = $this->controller;
+      $this->view = new View('admin/delete-page-controller', $data);
       }
+    }
+
+  public function orderup()
+    {
+    // First, check if an page could be found in before() (might be removed if user has no permission)
+    if (!$this->active_page || !$this->controller)
+      return;
+
+    $sorter = new step_sorter($this->model_page_controller);
+    if ($sorter->up($this->controller, array($this->active_page->id, $this->controller->id)))
+      {
+      $this->updateEdited();
+      $this->response->addInfo('Modulen flyttades uppåt på sidan.');
+      }
+    else
+      {
+      $this->response->addError('Det gick inte att flytta sidan.');
+      }
+
+    $this->show();
+    }
+
+  public function orderdown()
+    {
+    // First, check if an page could be found in before() (might be removed if user has no permission)
+    if (!$this->active_page || !$this->controller)
+      return;
+
+    $sorter = new step_sorter($this->model_page_controller);
+    if ($sorter->down($this->controller, array($this->active_page->id, $this->controller->id)))
+      {
+      $this->updateEdited();
+      $this->response->addInfo('Modulen flyttades neråt på sidan.');
+      }
+    else
+      {
+      $this->response->addError('Det gick inte att flytta sidan.');
+      }
+
+    $this->show();
     }
 
   private function updateEdited()
@@ -146,8 +223,6 @@ class admin_edit_page extends Controller
       {
       $this->response->addError($errors);
       }
-
-    $this->ignore_view = true;
     }
 
   private function addController()
@@ -199,41 +274,9 @@ class admin_edit_page extends Controller
     $this->response->addInfo('Modulen ' . htmlspecialchars($this->controller->name) . ' togs bort.');
     }
 
-  private function orderUpController()
-    {
-    $sorter = new step_sorter($this->model_page_controller);
-    if ($sorter->up($this->controller, array($this->active_page->id, $this->controller->id)))
-      {
-      $this->updateEdited();
-      $this->response->addInfo('Modulen flyttades uppåt på sidan.');
-      }
-    else
-      {
-      $this->response->addError('Det gick inte att flytta sidan.');
-      }
-
-    $this->ignore_view = true;
-    }
-
-  private function orderDownController()
-    {
-    $sorter = new step_sorter($this->model_page_controller);
-    if ($sorter->down($this->controller, array($this->active_page->id, $this->controller->id)))
-      {
-      $this->updateEdited();
-      $this->response->addInfo('Modulen flyttades neråt på sidan.');
-      }
-    else
-      {
-      $this->response->addError('Det gick inte att flytta sidan.');
-      }
-
-    $this->ignore_view = true;
-    }
-
   public function run()
     {
-    if ($this->view != null && !($this->ignore_view && $this->request->ajax_request))
+    if ($this->view != null)
       {
       $this->response->setContentType('html');
       $this->response->addContent($this->view->compile($this->route, $this->params));

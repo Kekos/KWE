@@ -1,0 +1,6 @@
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
+<?php require(BASE . 'view/admin/controller.page.' . $controller->class_name . '.phtml'); ?>
+      <p>
+        <button type="submit" name="save_controller" class="save-domiwyg" value="yes">Spara modul</button>
+      </p>
+    </form>

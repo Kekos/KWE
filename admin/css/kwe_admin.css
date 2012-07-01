@@ -366,6 +366,60 @@ button
   border-bottom: 1px solid #8e8e8e;
   }
 
+/* Edit page view */
+
+.controller-actions
+  {
+  position: relative;
+  margin: 1%;
+  float: left;
+  width: 200px;
+  height: 90px;
+  border: 1px solid #353535;
+  }
+
+.controller-num
+  {
+  padding: 2px;
+  font-size: 0.9em;
+  }
+
+.controller-name
+  {
+  display: block;
+  position: absolute;
+  padding-top: 35px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  }
+
+.controller-delete, .controller-up, .controller-down
+  {
+  display: block;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
+  background: url('../../images/admin/delete-x.png') no-repeat;
+  text-indent: -999px;
+  }
+
+.controller-up
+  {
+  top: 20px;
+  background-image: url('../../images/admin/up.png');
+  }
+
+.controller-down
+  {
+  top: 38px;
+  background-image: url('../../images/admin/down.png');
+  }
+
 /* Footer */
 
 #footer
