@@ -42,8 +42,8 @@ foreach ($controllers as $controller): ?>
       <span class="controller-num"><?php echo $i + 1; ?></span>
       <a href="<?php echo urlModr($route, 'edit', $active_page->url, $controller->id); ?>" class="controller-name blink dim90x90"><?php echo $controller->name; ?></a>
       <a href="<?php echo urlModr($route, 'delete', $active_page->url, $controller->id); ?>" class="controller-delete delete-link" title="Ta bort">Ta bort modul</a>
-<?php if ($i > 0): ?>      <a href="<?php echo urlModr($route, 'orderup', $active_page->url, $controller->id); ?>" class="controller-up clink" title="Upp i ordningen">Upp i ordningen</a>
-<?php endif; if ($i < $max_controllers): ?>      <a href="<?php echo urlModr($route, 'orderdown', $active_page->url, $controller->id); ?>" class="controller-down clink" title="Ner i ordningen">Ner i ordningen</a>
+<?php if ($i > 0): ?>      <a href="<?php echo urlModr($route, 'orderup', $active_page->url, $controller->id); ?>" class="controller-up icon-up clink" title="Upp i ordningen">Upp i ordningen</a>
+<?php endif; if ($i < $max_controllers): ?>      <a href="<?php echo urlModr($route, 'orderdown', $active_page->url, $controller->id); ?>" class="controller-down icon-down clink" title="Ner i ordningen">Ner i ordningen</a>
 <?php endif; ?>    </div>
 
 <?php ++$i; endforeach; ?>

@@ -33,8 +33,8 @@ foreach ($pages as $page): ?>
         <td><?php echo easyDate('', $page->edited); ?></td>
         <td class="actions"><a href="<?php echo urlModr('page', 'delete', $page->url); ?>" class="delete-link">Ta bort</a>
 <?php if (($active_page && $i > 0) || !$active_page): ?>
-          <?php if (($active_page && $i > 1) || (!$active_page && $i > 0)): ?><a href="<?php echo urlModr('page', 'up', $page->url); ?>" class="clink">Upp</a>
-          <?php endif; if ($i < $max_pages): ?><a href="<?php echo urlModr('page', 'down', $page->url); ?>" class="clink">Ner</a><?php endif; ?></td>
+          <?php if (($active_page && $i > 1) || (!$active_page && $i > 0)): ?><a href="<?php echo urlModr('page', 'up', $page->url); ?>" class="icon-up clink">Upp</a>
+          <?php endif; if ($i < $max_pages): ?><a href="<?php echo urlModr('page', 'down', $page->url); ?>" class="icon-down clink">Ner</a><?php endif; ?></td>
 <?php endif; ?>
       </tr>
 <?php ++$i; endforeach; ?>
