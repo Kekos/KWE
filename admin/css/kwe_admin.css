@@ -20,7 +20,7 @@ body
   background-repeat: no-repeat;
   }
 
-.controller-actions, button
+#errorlist, #infolist, .controller-actions, button
   {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -165,6 +165,24 @@ body
   }
 
 /* Main */
+
+#boxing-window #errorlist, #boxing-window #infolist
+  {
+  margin: 5px;
+  max-width: none;
+  }
+
+#errorlist, #infolist
+  {
+  margin: 5px auto;
+  padding: 0;
+  max-width: 1000px;
+  }
+
+#errorlist li, #infolist li
+  {
+  margin: 5px;
+  }
 
 #page
   {

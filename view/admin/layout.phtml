@@ -73,24 +73,24 @@ if ($controllers): ?>
   </div>
 </header>
 
-<div id="page">
-  <div id="content">
 <?php if (count($this->error_messages)): ?>
-    <ul id="errorlist">
+<ul id="errorlist">
 <?php foreach ($this->error_messages as $msg): ?>
-      <li><?php echo $msg; ?></li>
+  <li><?php echo $msg; ?></li>
 <?php endforeach; ?>
-    </ul>
+</ul>
 <?php endif; 
 
 if (count($this->info_messages)): ?>
-    <ul id="infolist">
+<ul id="infolist">
 <?php foreach ($this->info_messages as $msg): ?>
-      <li><?php echo $msg; ?></li>
+  <li><?php echo $msg; ?></li>
 <?php endforeach; ?>
-    </ul>
+</ul>
 <?php endif; ?>
 
+<div id="page">
+  <div id="content">
 <?php echo $this->content_data; ?>
 
   </div>
