@@ -297,10 +297,17 @@ form span.description
 
 button
   {
+  margin: 4px;
   padding: 10px;
   height: 60px;
   background: #75bad8;
   border: 1px solid #306791;
+  box-shadow: 0 3px 5px #306791, 0px 10px 30px -5px #fff inset;
+  }
+
+button:focus
+  {
+  box-shadow: 0 3px 5px #306791, 0px 10px 30px -5px #306791 inset;
   }
 
 #dw_KWE_cd { padding: 2px; background: #224967; color: #fff; }
