@@ -51,6 +51,7 @@ Kwf.onload = function(e)
   addEvent(content_request, 'ready', domiwyg.find);
 
   addEvent(boxing_request, 'afterload', k.noRespContent);
+  addEvent(boxing_request, 'ready', domiwyg.find);
   addEvent(boxing_request, 'afterload', function(e)
     {
     var targ = e.target;
