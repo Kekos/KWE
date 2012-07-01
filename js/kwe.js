@@ -3,7 +3,7 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-30
+ * @date 2012-07-01
  * @version 3.0
  */
 
@@ -15,8 +15,6 @@ Kwf.onclick = function(e, targ)
 
   if (hasClass(targ, 'save-domiwyg'))
     k.saveDomiwyg(e, targ);
-  else if (hasClass(targ, 'toggle-collapse'))
-    k.toggleCollapse(e, targ);
   else if (hasClass(targ, 'clink'))
     k.contentLink(e, targ);
   else if (hasClass(targ, 'blink'))
@@ -55,15 +53,9 @@ Kwf.onload = function(e)
     Ajax.setAfterCallback(k.afterAjax);
     }
 
-  /*if (elem('controllers_menu'))
-    {
-    addEvent(elem('controllers_menu'), 'mouseover'
-    }*/
-
   k.initWysiwygs();
 
   addEvent(content_request, 'afterload', k.noRespContent);
-  addEvent(content_request, 'ready', k.findCollapsables);
   addEvent(content_request, 'ready', domiwyg.find);
 
   addEvent(boxing_request, 'afterload', k.noRespContent);
@@ -98,49 +90,6 @@ var kwe = {
   afterAjax: function()
     {
     elem('ajax_loader').style.display = 'none';
-    },
-
-  findCollapsables: function()
-    {
-    var sections = document.getElementsByTagName('section'), 
-      fieldsets = document.getElementsByTagName('fieldset'), 
-      s, section, h2;
-
-    function prepare(element)
-      {
-      if (hasClass(element, 'collapsable'))
-        {
-        element.className = element.className.replace(/\bcollapsable\b/, '');
-        h2 = element.getElementsByTagName('h2')[0];
-        h2.innerHTML = '<a href="" class="toggle-collapse">' + h2.innerHTML + '</a>';
-        if (hasClass(element, 'start-collapsed'))
-          {
-          removeClass(element, 'start-collapsed');
-          addClass(element, 'collapsed');
-          }
-        }
-      }
-
-    for (s = 0; s < sections.length; s++)
-      {
-      prepare(sections[s]);
-      }
-
-    for (s = 0; s < fieldsets.length; s++)
-      {
-      prepare(fieldsets[s]);
-      }
-    },
-
-  toggleCollapse: function(e, toggler)
-    {
-    returnFalse(e);
-    var section = toggler.parentNode.parentNode;
-
-    if (hasClass(section, 'collapsed'))
-      removeClass(section, 'collapsed');
-    else
-      addClass(section, 'collapsed');
     },
 
   contentLink: function(e, link)
