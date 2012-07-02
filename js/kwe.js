@@ -3,7 +3,7 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-01
+ * @date 2012-07-02
  * @version 3.0
  */
 
@@ -92,14 +92,14 @@ var kwe = {
 
   boxingLink: function(e, link)
     {
-    var temp, width = 400, height = 300, 
-      cls = link.className;
+    var width = 400, height = 300, 
+      cls = link.className, match;
 
     if (cls.indexOf('dim') > -1)
       {
-      temp = cls.substring(cls.indexOf('dim') + 3);
-      width = temp.substring(0, temp.indexOf('x'));
-      height = temp.substring(temp.indexOf('x') + 1, cls.indexOf(' ') - 2);
+      match = new RegExp('dim(\\d+)x(\\d+)').exec(cls);
+      width = match[1];
+      height = match[2];
       }
 
     boxing_request.load(e, link.getAttribute('href'), width, height);
