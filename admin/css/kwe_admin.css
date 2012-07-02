@@ -20,7 +20,7 @@ body
   background-repeat: no-repeat;
   }
 
-#errorlist, #infolist, .controller-actions, button
+#errorlist, #infolist, .controller-actions, button, .toolbar-button
   {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -322,7 +322,7 @@ form .description
   font-size: 0.9em;
   }
 
-button
+button, .toolbar-button
   {
   margin: 4px;
   padding: 10px;
@@ -330,9 +330,12 @@ button
   background: #75bad8;
   border: 1px solid #306791;
   box-shadow: 0 3px 5px #306791, 0px 10px 30px -5px #fff inset;
+  font-size: 10pt;
+  color: #000;
+  text-decoration: none;
   }
 
-button:focus
+button:focus, .toolbar-button:focus
   {
   box-shadow: 0 3px 5px #306791, 0px 10px 30px -5px #306791 inset;
   }
