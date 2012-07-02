@@ -2,7 +2,7 @@
  * KWF Style: kwe_admin.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-01
+ * @date 2012-07-02
  * @version 2.0
  */
 
@@ -170,11 +170,17 @@ body
   {
   margin: 5px;
   max-width: none;
+  border: none;
+  }
+
+#content #errorlist, #content #infolist
+  {
+  margin: 0 0 15px;
   }
 
 #errorlist, #infolist
   {
-  margin: 5px auto;
+  margin: 15px auto 0;
   padding: 0;
   max-width: 1000px;
   }
@@ -186,11 +192,17 @@ body
 
 #page
   {
-  margin: 15px auto;
+  margin: 0 auto 15px;
   max-width: 1000px;
   overflow: auto;
-  background: #fdfdfd;
   font-size: 1.1em;
+  }
+
+#content
+  {
+  overflow: auto;
+  background: #fdfdfd;
+  border-top: 15px solid #d8d8d8;
   }
 
 h1, h2, h3, legend
@@ -434,7 +446,8 @@ button:focus
 
 #footer
   {
-  clear: left;
+  overflow: auto;
+  background: #fdfdfd;
   border-top: 15px solid #d8d8d8;
   }
 
