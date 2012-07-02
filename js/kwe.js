@@ -55,7 +55,7 @@ Kwf.onload = function(e)
   addEvent(boxing_request, 'afterload', function(e)
     {
     var targ = e.target;
-    if (hasClass(targ, 'delete-dialog'))
+    if (hasClass(targ, 'content-on-close'))
       {
       content_request.parseResponse(this.response);
       this.response.page = '';

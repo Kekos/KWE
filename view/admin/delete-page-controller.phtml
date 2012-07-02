@@ -1,6 +1,6 @@
     <h1>Ta bort sidmodul</h1>
 
-    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form delete-dialog">
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form content-on-close">
       <p>Är du säker på att du vill ta bort modulen <strong><?php echo htmlspecialchars($controller->name); ?></strong> 
         på den aktuella sidan <strong><?php echo htmlspecialchars($active_page->title); ?></strong>?</p>
 
