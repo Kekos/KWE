@@ -1,9 +1,9 @@
 <?php
 $content = array();
-$content['num_events'] = $this->request->post('num_events_' . $this->controller['id']);
-$content['html_before'] = $this->request->post('html_before_' . $this->controller['id']);
-$content['html_after'] = $this->request->post('html_after_' . $this->controller['id']);
-$content['html_format'] = $this->request->post('html_format_' . $this->controller['id']);
+$content['num_events'] = $this->request->post('num_events_' . $this->controller->id);
+$content['html_before'] = $this->request->post('html_before_' . $this->controller->id);
+$content['html_after'] = $this->request->post('html_after_' . $this->controller->id);
+$content['html_format'] = $this->request->post('html_format_' . $this->controller->id);
 
 if (!is_numeric($content['num_events']))
   $errors[] = 'Du måste ange en siffra i fältet "Visa antal händelser".';

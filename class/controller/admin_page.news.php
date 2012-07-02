@@ -1,10 +1,10 @@
 <?php
 $content = array();
-$content['num_news'] = $this->request->post('num_news_' . $this->controller['id']);
-$content['order'] = $this->request->post('order_' . $this->controller['id']);
-$content['html_before'] = $this->request->post('html_before_' . $this->controller['id']);
-$content['html_after'] = $this->request->post('html_after_' . $this->controller['id']);
-$content['html_format'] = $this->request->post('html_format_' . $this->controller['id']);
+$content['num_news'] = $this->request->post('num_news_' . $this->controller->id);
+$content['order'] = $this->request->post('order_' . $this->controller->id);
+$content['html_before'] = $this->request->post('html_before_' . $this->controller->id);
+$content['html_after'] = $this->request->post('html_after_' . $this->controller->id);
+$content['html_format'] = $this->request->post('html_format_' . $this->controller->id);
 
 if (!is_numeric($content['num_news']))
   $errors[] = 'Du måste ange hur många nyheter som ska visas, ange ett tal.';
