@@ -3,7 +3,7 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-02
+ * @date 2012-07-04
  * @version 3.0
  */
 
@@ -57,8 +57,11 @@ Kwf.onload = function(e)
     var targ = e.target;
     if (hasClass(targ, 'content-on-close'))
       {
-      content_request.parseResponse(this.response);
-      this.response.page = '';
+      if (hasClass(targ, 'also-success') || !(this.response.page.errors || this.response.page.infos))
+        {
+        content_request.parseResponse(this.response);
+        this.response.page = '';
+        }
       }
     });
   };
