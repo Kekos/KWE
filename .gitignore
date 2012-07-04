@@ -5,10 +5,6 @@ images/*
 upload/
 req_events.html
 
-#Ignore Domiwyg
-js/domiwyg*
-js/images/
-
 #Ignore KWF
 class/Controller.php
 class/Cookie.php
