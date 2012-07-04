@@ -1,0 +1,9 @@
+    <h1>Ladda upp fil</h1>
+
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" enctype="multipart/form-data" id="upload_form">
+      <p>
+        <label for="file">Fil</label>
+        <input type="file" name="file" id="file" />
+        <button type="submit" name="upload_file" value="yes">Ladda upp</button>
+      </p>
+    </form>

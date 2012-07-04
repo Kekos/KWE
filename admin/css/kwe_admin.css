@@ -445,6 +445,50 @@ button:focus, .toolbar-button:focus
 .controller-up { top: 20px; }
 .controller-down { top: 38px; }
 
+/* File uploading */
+
+.toolbar
+  {
+  margin: 2% 1%;
+  }
+
+.file-thumb
+  {
+  position: relative;
+  margin: 1%;
+  float: left;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #353535;
+  }
+
+.file, .folder
+  {
+  display: block;
+  position: absolute;
+  padding: 2px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url('../../images/admin/folder.png') center center no-repeat;
+  font-size: 0.7em;
+  text-align: center;
+  word-wrap: break-word;
+  }
+
+.file
+  {
+  background-image: url('../../images/admin/file.png');
+  }
+
+.file-thumb .delete-link
+  {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  }
+
 /* Footer */
 
 #footer

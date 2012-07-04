@@ -3,7 +3,7 @@
  * KWF Controller: admin_controller_upload
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-07-04
  * @version 1.0
  */
 
@@ -59,59 +59,6 @@ class admin_controller_upload extends Controller
 
   public function _default()
     {
-    if ($this->request->post('upload_file'))
-      {
-      $this->uploadFile();
-      }
-    else if ($this->request->post('new_folder'))
-      {
-      $this->newFolder();
-      }
-
-    $this->listFiles();
-    }
-
-  public function delete()
-    {
-    if (!$this->path)
-      return;
-
-    if (is_dir($this->real_path))
-      {
-      if ($this->request->post('delete_folder_yes'))
-        {
-        $this->deleteFolder();
-        $this->listFiles();
-        }
-      else if ($this->request->post('delete_folder_no'))
-        {
-        $this->response->redirect(urlModr($this->route, 'browse', $this->path));
-        }
-      else
-        {
-        $this->view = new View('admin/delete-folder', array('path' => $this->path));
-        }
-      }
-    else
-      {
-      if ($this->request->post('delete_file_yes'))
-        {
-        $this->deleteFile();
-        $this->listFiles();
-        }
-      else if ($this->request->post('delete_file_no'))
-        {
-        $this->response->redirect(urlModr($this->route, 'browse', $this->lvlUpFolder($this->path)));
-        }
-      else
-        {
-        $this->view = new View('admin/delete-file', array('path' => $this->path));
-        }
-      }
-    }
-
-  private function listFiles()
-    {
     if (is_dir($this->real_path))
       {
       $data['path'] = $this->path;
@@ -139,22 +86,98 @@ class admin_controller_upload extends Controller
       }
     }
 
+  public function addfolder()
+    {
+    if ($this->request->post('new_folder'))
+      {
+      if ($this->newFolder())
+        {
+        return $this->_default();
+        }
+      }
+
+    $this->view = new View('admin/new-folder', array('path' => $this->path));
+    }
+
+  public function upload()
+    {
+    if ($this->request->file('file'))
+      {
+      if ($this->uploadFile())
+        {
+        return $this->_default();
+        }
+      }
+
+    $this->view = new View('admin/upload-file', array('path' => $this->path));
+    }
+
+  public function delete()
+    {
+    if (!$this->path)
+      return;
+
+    if (is_dir($this->real_path))
+      {
+      if ($this->request->post('delete_folder_yes'))
+        {
+        $this->deleteFolder();
+        $this->_default();
+        }
+      else if ($this->request->post('delete_folder_no'))
+        {
+        $this->response->redirect(urlModr($this->route, 'browse', $this->path));
+        }
+      else
+        {
+        $this->view = new View('admin/delete-folder', array('path' => $this->path));
+        }
+      }
+    else
+      {
+      if ($this->request->post('delete_file_yes'))
+        {
+        $this->deleteFile();
+        $this->_default();
+        }
+      else if ($this->request->post('delete_file_no'))
+        {
+        $this->response->redirect(urlModr($this->route, 'browse', $this->lvlUpFolder($this->path)));
+        }
+      else
+        {
+        $this->view = new View('admin/delete-file', array('path' => $this->path));
+        }
+      }
+    }
+
   private function uploadFile()
     {
     $errors = array();
-    $filename = $_FILES['file']['name'];
+    $file = $this->request->file('file');
+    $filename = $file['name'];
 
     if (empty($filename))
       $errors[] = 'Bläddra efter en fil och tryck på "Ladda upp" för att ladda upp!';
 
     if (!count($errors))
       {
-      move_uploaded_file($_FILES['file']['tmp_name'], $this->real_path . '/' . $filename);
+      if (isset($file['ajax']))
+        {
+        move_ajax_uploaded_file($file['stream'], $this->real_path . '/' . $filename);
+        }
+      else
+        {
+        move_uploaded_file($file['tmp_name'], $this->real_path . '/' . $filename);
+        }
+
       $this->response->addInfo('Filen laddades upp.');
+      return true;
       }
     else
       {
       $this->response->addError($errors);
+      return false;
       }
     }
 
@@ -174,6 +197,7 @@ class admin_controller_upload extends Controller
       if (mkdir($folder_path))
         {
         $this->response->addInfo('Mappen skapades.');
+        return true;
         }
       else
         {
@@ -184,6 +208,8 @@ class admin_controller_upload extends Controller
       {
       $this->response->addError($errors);
       }
+
+    return false;
     }
 
   private function deleteFile()
@@ -198,9 +224,14 @@ class admin_controller_upload extends Controller
 
   private function deleteFolder()
     {
-    $this->response->addInfo('Mappen ' . htmlspecialchars($this->path) . ' togs bort.');
-
-    rmdir($this->real_path);
+    if (@rmdir($this->real_path))
+      {
+      $this->response->addInfo('Mappen ' . htmlspecialchars($this->path) . ' togs bort.');
+      }
+    else
+      {
+      $this->response->addError('Det gick inte att ta bort mappen. Kontrollera att den är tom först!');
+      }
 
     $this->path = $this->lvlUpFolder($this->path);
     $this->real_path = $this->lvlUpFolder($this->real_path);

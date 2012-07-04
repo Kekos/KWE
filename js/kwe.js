@@ -51,7 +51,16 @@ Kwf.onload = function(e)
   addEvent(content_request, 'ready', domiwyg.find);
 
   addEvent(boxing_request, 'afterload', k.noRespContent);
-  addEvent(boxing_request, 'ready', domiwyg.find);
+
+  addEvent(boxing_request, 'ready', function(e)
+    {
+    domiwyg.find();
+    if (elem('upload_form'))
+      {
+      addSubmitEvent(elem('upload_form'), k.uploadFile);
+      }
+    });
+
   addEvent(boxing_request, 'afterload', function(e)
     {
     var targ = e.target;
@@ -244,5 +253,16 @@ var kwe = {
       if (hasClass(textareas[t], 'has-domiwyg'))
         textareas[t].value = textareas[t].domiwyg.save();
       }
+    },
+
+  uploadFile: function(e)
+    {
+    returnFalse(e);
+
+    Ajax.upload(getTarget(e).action, function(response)
+      {
+      Boxing.hide();
+      content_request.parseResponse(response);
+      }, boxing_request.parseResponse, elem('file'));
     }
   };
