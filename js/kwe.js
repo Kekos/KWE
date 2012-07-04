@@ -138,7 +138,7 @@ var kwe = {
       }
     },
 
-  KWElink: function()
+  KWElink: function(btn)
     {
     var self = this, lang = domiwyg.lang, 
       element = self.getSelectedAreaElement(), 
@@ -149,11 +149,11 @@ var kwe = {
       node_name = element.nodeName.toLowerCase();
       self.storeCursor();
 
-      Boxing.show('<h1>' + lang.create_link + '</h1>'
+      domiwyg.showDialog('<h1>' + lang.create_link + '</h1>'
         + '<p>Bläddra dig fram till den interna sida du vill länka till.</p><p id="dw_KWE_cd">/</p><ul id="dw_KWE_page_browser"></ul>'
         + '<p><input type="hidden" id="dw_link_protocol" value="" /><input type="text" id="dw_link_url" value="" /></p>'
         + '<p>' + lang.info_link_delete + '</p>'
-        + '<p><button id="btn_create_link" class="hide-boxing">' + lang.ok + '</button> <button class="hide-boxing">' + lang.cancel + '</button></p>', 500, 400);
+        + '<p><button id="btn_create_link" class="hide-dialog">' + lang.ok + '</button> <button class="hide-dialog">' + lang.cancel + '</button></p>', btn);
 
       kwe.KWElinkBrowse('');
 
@@ -170,7 +170,7 @@ var kwe = {
         }
       else
         {
-        Boxing.hide();
+        domiwyg.hideDialog();
         }
       }
     },
@@ -194,7 +194,7 @@ var kwe = {
       }, function() {});
     },
 
-  KWEimage: function()
+  KWEimage: function(btn)
     {
     var self = this, lang = domiwyg.lang;
 
@@ -202,10 +202,10 @@ var kwe = {
       {
       self.storeCursor();
 
-      Boxing.show('<h1>' + lang.insert_image + '</h1>'
+      domiwyg.showDialog('<h1>' + lang.insert_image + '</h1>'
         + '<p>Bläddra dig fram till den bildfil du vill infoga.</p><p id="dw_KWE_cd">/</p><ul id="dw_KWE_image_browser"></ul>'
         + '<p>' + lang.image_url + ': <input type="text" id="dw_img_url" value="" /></p>'
-        + '<p><button id="btn_insert_image" class="hide-boxing">' + lang.ok + '</button> <button class="hide-boxing">' + lang.cancel + '</button></p>', 500, 400);
+        + '<p><button id="btn_insert_image" class="hide-dialog">' + lang.ok + '</button> <button class="hide-dialog">' + lang.cancel + '</button></p>', btn);
 
       kwe.KWEimageBrowse('');
 
