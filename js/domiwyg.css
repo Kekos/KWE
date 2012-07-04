@@ -2,8 +2,8 @@
  * DOMIWYG Style: domiwyg.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-08-09
- * @version 1.0.1
+ * @date 2012-07-04
+ * @version 1.2
  */
 
 .has-domiwyg { display: none; }
@@ -36,7 +36,7 @@
   height: 22px;
   background-color: #ccc;
   background-repeat: no-repeat;
-  background-image: url('images/sprite.png');
+  background-image: url('images/domiwyg_sprite.png');
   border: 1px solid #777;
   font-size: 0;
   }
@@ -84,6 +84,22 @@
   width: 99%;
   border: 0;
   font-family: 'Courier New', Courier, monospace;
+  }
+
+#domiwyg_dialog
+  {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #777;
+  z-index: 999;
+  }
+
+#domiwyg_dialog h1
+  {
+  margin: 0;
+  padding: 5px;
+  background: #ccc;
+  font-size: 1.1em;
   }
 
 .domiwyg-form { overflow: hidden; }
