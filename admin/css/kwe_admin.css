@@ -2,7 +2,7 @@
  * KWF Style: kwe_admin.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-02
+ * @date 2012-07-04
  * @version 2.0
  */
 
@@ -581,6 +581,7 @@ button:focus, .toolbar-button:focus
   float: none;
   width: 340px;
   margin: 100px auto 0;
+  border: 0;
   }
 
 #kwe_login h1 { text-align: center; }
