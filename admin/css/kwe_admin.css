@@ -2,7 +2,7 @@
  * KWF Style: kwe_admin.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-04
+ * @date 2012-07-05
  * @version 2.0
  */
 
@@ -249,7 +249,7 @@ th
 a { color: #04aeec; }
 .subpage-row { padding-left: 18px; }
 
-.delete-link, .permission-link, .more-link, .controller-delete, .icon-up, .icon-down
+.delete-link, .permission-link, .more-link, .controller-delete, .icon-up, .icon-down, .favorite-link, .not-favorite-link
   {
   display: inline-block;
   width: 16px;
@@ -286,6 +286,8 @@ a { color: #04aeec; }
 .controller-delete { background-image: url('../../images/admin/delete-x.png'); }
 .icon-up { background-image: url('../../images/admin/up.png'); }
 .icon-down { background-image: url('../../images/admin/down.png'); }
+.favorite-link { background-image: url('../../images/admin/favorite.png'); }
+.not-favorite-link { background-image: url('../../images/admin/not-favorite.png'); }
 
 form ol { margin: 0 1%; padding: 0; }
 input, select, textarea { float: left; margin: 2px 0; }

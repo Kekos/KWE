@@ -33,8 +33,9 @@
 <?php endif; ?>
           <td class="actions"><?php if (access::$user->rank == 1): ?><a href="<?php echo urlModr('controllers', 'uninstall', $controller->class_name); ?>" class="delete-link">Avinstallera</a><?php
 endif;
+$favorite_descr = ($controller->favorite ? 'Inte favorit' : 'Favorit');
 if ($controller->configurable): ?>
-<a href="<?php echo urlModr('controllers', 'favorite', $controller->class_name); ?>" class="permission-link"><?php echo ($controller->favorite ? 'Inte favorit' : 'Favorit'); ?></a><?php endif; ?></td>
+<a href="<?php echo urlModr('controllers', 'favorite', $controller->class_name); ?>" class="<?php if (!$controller->favorite) echo 'not-'; ?>favorite-link clink" title="<?php echo $favorite_descr; ?>"><?php echo $favorite_descr; ?></a><?php endif; ?></td>
         </tr>
 <?php endforeach; ?>
       </table>
