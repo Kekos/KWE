@@ -14,9 +14,9 @@ body
   background: #d8d8d8;
   }
 
-#header, #kwe_logo, #login_logo
+#header, #kwe_logo, #login_logo, #goto_firstpage, .edit-link::before, .less-link::before, .dwcmd-KWElink, .dwcmd-KWEimage, .file::after, .folder::after
   {
-  background-image: url('../../images/admin/sprite.png');
+  background-image: url('../../images/admin/sprite.png') !important;
   background-repeat: no-repeat;
   }
 
@@ -57,7 +57,7 @@ body
   margin: 3px 0;
   height: 43px;
   width: 138px;
-  background-position: 0 -90px;
+  background-position: 0 -55px;
   text-indent: -9999px;
   }
 
@@ -90,7 +90,8 @@ body
   margin: 15px 0 0 20%;
   width: 20px;
   height: 20px;
-  background: url('../../images/admin/house.png') no-repeat;
+  /*background: url('../../images/admin/house.png') no-repeat;*/
+  background-position: -144px -52px;
   text-indent: -9999px;
   }
 
@@ -254,7 +255,7 @@ a { color: #04aeec; }
   display: inline-block;
   width: 16px;
   height: 16px;
-  background: no-repeat;
+  background: url('../../images/admin/sprite.png') no-repeat;
   text-indent: -9999px;
   text-decoration: none !important;
   }
@@ -273,12 +274,12 @@ a { color: #04aeec; }
   left: 0;
   width: 16px;
   height: 16px;
-  background: no-repeat;
+  /*background: no-repeat;*/
   }
 
 .edit-link { color: #04ce14; }
 .edit-link:hover, .edit-link:focus { color: #02930f; }
-.edit-link::before { background-image: url('../../images/admin/edit.png'); }
+/*.edit-link::before { background-image: url('../../images/admin/edit.png'); }
 .delete-link { background-image: url('../../images/admin/delete.png'); }
 .permission-link { background-image: url('../../images/admin/permissions.png'); }
 .more-link { background-image: url('../../images/admin/more.png'); }
@@ -287,7 +288,17 @@ a { color: #04aeec; }
 .icon-up { background-image: url('../../images/admin/up.png'); }
 .icon-down { background-image: url('../../images/admin/down.png'); }
 .favorite-link { background-image: url('../../images/admin/favorite.png'); }
-.not-favorite-link { background-image: url('../../images/admin/not-favorite.png'); }
+.not-favorite-link { background-image: url('../../images/admin/not-favorite.png'); }*/
+.edit-link::before { background-position: 0 -100px; }
+.delete-link { background-position: -16px -100px; }
+.permission-link { background-position: -32px -100px; }
+.more-link { background-position: -48px -100px; }
+.less-link::before { background-position: -64px -100px; }
+.controller-delete { background-position: -80px -100px; }
+.icon-up { background-position: -96px -100px; }
+.icon-down { background-position: -112px -100px; }
+.favorite-link { background-position: -128px -100px; }
+.not-favorite-link { background-position: -144px -100px; }
 
 form ol { margin: 0 1%; padding: 0; }
 input, select, textarea { float: left; margin: 2px 0; }
@@ -344,8 +355,10 @@ button:focus, .toolbar-button:focus
 
 #dw_KWE_cd { padding: 2px; background: #224967; color: #fff; }
 .dwcmd-KWElink, .dwcmd-KWEimage { background: no-repeat 2px 2px; }
-.dwcmd-KWElink { background-image: url('../../images/admin/dw_kwe_link.png') !important; }
-.dwcmd-KWEimage { background-image: url('../../images/admin/dw_kwe_image.png') !important; }
+/*.dwcmd-KWElink { background-image: url('../../images/admin/dw_kwe_link.png') !important; }
+.dwcmd-KWEimage { background-image: url('../../images/admin/dw_kwe_image.png') !important; }*/
+.dwcmd-KWElink { background-position: -160px -100px; }
+.dwcmd-KWEimage { background-position: -176px -100px; }
 
 /* Sections */
 
@@ -468,20 +481,32 @@ button:focus, .toolbar-button:focus
   {
   display: block;
   position: absolute;
-  padding: 2px;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: url('../../images/admin/folder.png') center center no-repeat;
+  padding: 2px;
   font-size: 0.7em;
   text-align: center;
   word-wrap: break-word;
   }
 
-.file
+.file::after, .folder::after
   {
-  background-image: url('../../images/admin/file.png');
+  content: '';
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  top: 26px;
+  left: 26px;
+  /*background: url('../../images/admin/folder.png') center center no-repeat;*/
+  background-position: 0 -116px;
+  }
+
+.file::after
+  {
+  /*background-image: url('../../images/admin/file.png');*/
+  background-position: -48px -116px;
   }
 
 .file-thumb .delete-link
