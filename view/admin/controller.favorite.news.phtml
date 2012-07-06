@@ -3,7 +3,7 @@
       <form action="<?php echo urlModr('news'); ?>" method="post">
         <fieldset>
           <ol>
-            <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php request::formStatePost('title', 'text'); ?> /></li>
+            <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text'); ?> /></li>
             <li><button type="submit" name="new_news" value="yes">Spara</button></li>
           </ol>
         </fieldset>

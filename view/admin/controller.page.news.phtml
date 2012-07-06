@@ -9,11 +9,11 @@ $settings = json_decode($controller->content);
 ?>
       <fieldset>
         <ol>
-          <li><label for="num_news_<?php echo $id; ?>">Visa antal nyheter</label> <input type="text" name="num_news_<?php echo $id; ?>" id="num_news_<?php echo $id; ?>"<?php request::formStatePost('num_news_' . $id, 'text', '', $settings->num_news); ?> /></li>
-          <li><label for="order_asc_<?php echo $id; ?>">Sortera stigande</label> <input type="radio" name="order_<?php echo $id; ?>" id="order_asc_<?php echo $id; ?>" value="ASC"<?php request::formStatePost('order_' . $id, 'radio', 'ASC', $settings->order); ?> />
-            <label for="order_desc_<?php echo $id; ?>">Sortera fallande</label> <input type="radio" name="order_<?php echo $id; ?>" id="order_desc_<?php echo $id; ?>" value="DESC"<?php request::formStatePost('order_' . $id, 'radio', 'DESC', $settings->order); ?> /></li>
-          <li><label for="html_before_<?php echo $id; ?>">HTML före</label> <input type="text" name="html_before_<?php echo $id; ?>" id="html_before_<?php echo $id; ?>"<?php request::formStatePost('html_before_' . $id, 'text', '', $settings->html_before); ?> /></li>
-          <li><label for="html_after_<?php echo $id; ?>">HTML efter</label> <input type="text" name="html_after_<?php echo $id; ?>" id="html_after_<?php echo $id; ?>"<?php request::formStatePost('html_after_' . $id, 'text', '', $settings->html_after); ?> /></li>
-          <li><label for="html_format_<?php echo $id; ?>">HTML för nyheten</label> <textarea name="html_format_<?php echo $id; ?>" id="html_format_<?php echo $id; ?>" cols="50" rows="3"><?php request::formStatePost('html_format_' . $id, 'textarea', '', $settings->html_format); ?></textarea></li>
+          <li><label for="num_news_<?php echo $id; ?>">Visa antal nyheter</label> <input type="text" name="num_news_<?php echo $id; ?>" id="num_news_<?php echo $id; ?>"<?php Request::formStatePost('num_news_' . $id, 'text', '', $settings->num_news); ?> /></li>
+          <li><label for="order_asc_<?php echo $id; ?>">Sortera stigande</label> <input type="radio" name="order_<?php echo $id; ?>" id="order_asc_<?php echo $id; ?>" value="ASC"<?php Request::formStatePost('order_' . $id, 'radio', 'ASC', $settings->order); ?> />
+            <label for="order_desc_<?php echo $id; ?>">Sortera fallande</label> <input type="radio" name="order_<?php echo $id; ?>" id="order_desc_<?php echo $id; ?>" value="DESC"<?php Request::formStatePost('order_' . $id, 'radio', 'DESC', $settings->order); ?> /></li>
+          <li><label for="html_before_<?php echo $id; ?>">HTML före</label> <input type="text" name="html_before_<?php echo $id; ?>" id="html_before_<?php echo $id; ?>"<?php Request::formStatePost('html_before_' . $id, 'text', '', $settings->html_before); ?> /></li>
+          <li><label for="html_after_<?php echo $id; ?>">HTML efter</label> <input type="text" name="html_after_<?php echo $id; ?>" id="html_after_<?php echo $id; ?>"<?php Request::formStatePost('html_after_' . $id, 'text', '', $settings->html_after); ?> /></li>
+          <li><label for="html_format_<?php echo $id; ?>">HTML för nyheten</label> <textarea name="html_format_<?php echo $id; ?>" id="html_format_<?php echo $id; ?>" cols="50" rows="3"><?php Request::formStatePost('html_format_' . $id, 'textarea', '', $settings->html_format); ?></textarea></li>
         </ol>
       </fieldset>

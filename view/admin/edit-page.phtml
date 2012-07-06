@@ -11,9 +11,9 @@ if ($active_page->id): ?>
       <form action="<?php echo $self_url; ?>" method="post" class="ajax-form">
         <fieldset>
           <ol>
-            <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php request::formStatePost('title', 'text', '', $active_page->title); ?> /></li>
-            <li><label for="public">Publicerad?</label> <input type="checkbox" name="public" id="public" value="1"<?php request::formStatePost('public', 'checkbox', 1, $active_page->public); ?> /></li>
-            <li><label for="show_in_menu">Synlig i menyn?</label> <input type="checkbox" name="show_in_menu" id="show_in_menu" value="1"<?php request::formStatePost('show_in_menu', 'checkbox', 1, $active_page->show_in_menu); ?> /></li>
+            <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text', '', $active_page->title); ?> /></li>
+            <li><label for="public">Publicerad?</label> <input type="checkbox" name="public" id="public" value="1"<?php Request::formStatePost('public', 'checkbox', 1, $active_page->public); ?> /></li>
+            <li><label for="show_in_menu">Synlig i menyn?</label> <input type="checkbox" name="show_in_menu" id="show_in_menu" value="1"<?php Request::formStatePost('show_in_menu', 'checkbox', 1, $active_page->show_in_menu); ?> /></li>
             <li><button type="submit" name="edit_page" value="yes">Spara ändringar</button></li>
           </ol>
         </fieldset>

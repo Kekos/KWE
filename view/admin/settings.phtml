@@ -3,20 +3,20 @@
     <form action="<?php echo urlModr($route, $params); ?>" method="post">
       <fieldset>
         <ol>
-          <li><label for="mysql_server">MySQL-server</label> <input type="text" name="setting[MySQL_SERVER]" id="mysql_server"<?php request::formStatePost('setting[MySQL_SERVER]', 'text', '', MySQL_SERVER); ?> /></li>
-          <li><label for="mysql_user">MySQL-användare</label> <input type="text" name="setting[MySQL_USER]" id="mysql_user"<?php request::formStatePost('setting[MySQL_USER]', 'text', '', MySQL_USER); ?> /></li>
-          <li><label for="mysql_password">MySQL-lösenord</label> <input type="password" name="setting[MySQL_PASSWORD]" id="mysql_password"<?php request::formStatePost('setting[MySQL_PASSWORD]', 'text', '', MySQL_PASSWORD); ?> /></li>
-          <li><label for="mysql_db">MySQL-databas</label> <input type="text" name="setting[MySQL_DB]" id="mysql_db"<?php request::formStatePost('setting[MySQL_DB]', 'text', '', MySQL_DB); ?> /></li>
-          <li><label for="db_prefix">Prefix för tabeller i databasen</label> <input type="text" name="setting[DB_PREFIX]" id="db_prefix"<?php request::formStatePost('setting[DB_PREFIX]', 'text', '', DB_PREFIX); ?> /></li>
-          <li><label for="base">Sökväg till KWE-installation</label> <input type="text" name="setting[BASE]" id="base"<?php request::formStatePost('setting[BASE]', 'text', '', BASE_SITE); ?> />
+          <li><label for="mysql_server">MySQL-server</label> <input type="text" name="setting[MySQL_SERVER]" id="mysql_server"<?php Request::formStatePost('setting[MySQL_SERVER]', 'text', '', MySQL_SERVER); ?> /></li>
+          <li><label for="mysql_user">MySQL-användare</label> <input type="text" name="setting[MySQL_USER]" id="mysql_user"<?php Request::formStatePost('setting[MySQL_USER]', 'text', '', MySQL_USER); ?> /></li>
+          <li><label for="mysql_password">MySQL-lösenord</label> <input type="password" name="setting[MySQL_PASSWORD]" id="mysql_password"<?php Request::formStatePost('setting[MySQL_PASSWORD]', 'text', '', MySQL_PASSWORD); ?> /></li>
+          <li><label for="mysql_db">MySQL-databas</label> <input type="text" name="setting[MySQL_DB]" id="mysql_db"<?php Request::formStatePost('setting[MySQL_DB]', 'text', '', MySQL_DB); ?> /></li>
+          <li><label for="db_prefix">Prefix för tabeller i databasen</label> <input type="text" name="setting[DB_PREFIX]" id="db_prefix"<?php Request::formStatePost('setting[DB_PREFIX]', 'text', '', DB_PREFIX); ?> /></li>
+          <li><label for="base">Sökväg till KWE-installation</label> <input type="text" name="setting[BASE]" id="base"<?php Request::formStatePost('setting[BASE]', 'text', '', BASE_SITE); ?> />
             <span class="description">Måste sluta med snedstreck om den INTE är tom.</span></li>
-          <li><label for="fullpath">URL till din index-fil relativt till webbserverns rot</label> <input type="text" name="setting[FULLPATH]" id="fullpath"<?php request::formStatePost('setting[FULLPATH]', 'text', '', FULLPATH_SITE); ?> />
+          <li><label for="fullpath">URL till din index-fil relativt till webbserverns rot</label> <input type="text" name="setting[FULLPATH]" id="fullpath"<?php Request::formStatePost('setting[FULLPATH]', 'text', '', FULLPATH_SITE); ?> />
             <span class="description">Får inte sluta med snedstreck.</span></li>
-          <li><label for="fullurl">Fullständig URL till din index-fil</label> <input type="text" name="setting[FULLURL]" id="fullurl"<?php request::formStatePost('setting[FULLURL]', 'text', '', FULLURL_SITE); ?> />
+          <li><label for="fullurl">Fullständig URL till din index-fil</label> <input type="text" name="setting[FULLURL]" id="fullurl"<?php Request::formStatePost('setting[FULLURL]', 'text', '', FULLURL_SITE); ?> />
             <span class="description">Får inte sluta med snedstreck.</span></li>
-          <li><label for="mod_rewrite_on">Använd URL-omskrivning</label> <input type="radio" name="setting[MOD_REWRITE]" value="1" id="mod_rewrite_on"<?php request::formStatePost('setting[MOD_REWRITE]', 'radio', 1, MOD_REWRITE); ?> />
-            <label for="mod_rewrite_off">Använd INTE URL-omskrivning</label> <input type="radio" name="setting[MOD_REWRITE]" value="0" id="mod_rewrite_off"<?php request::formStatePost('setting[MOD_REWRITE]', 'radio', 0, MOD_REWRITE); ?> /></li>
-          <li><label for="error_mail">E-postadress till webbplatsansvarig</label> <input type="text" name="setting[ERROR_MAIL]" id="error_mail"<?php request::formStatePost('setting[ERROR_MAIL]', 'text', '', ERROR_MAIL); ?> /></li>
+          <li><label for="mod_rewrite_on">Använd URL-omskrivning</label> <input type="radio" name="setting[MOD_REWRITE]" value="1" id="mod_rewrite_on"<?php Request::formStatePost('setting[MOD_REWRITE]', 'radio', 1, MOD_REWRITE); ?> />
+            <label for="mod_rewrite_off">Använd INTE URL-omskrivning</label> <input type="radio" name="setting[MOD_REWRITE]" value="0" id="mod_rewrite_off"<?php Request::formStatePost('setting[MOD_REWRITE]', 'radio', 0, MOD_REWRITE); ?> /></li>
+          <li><label for="error_mail">E-postadress till webbplatsansvarig</label> <input type="text" name="setting[ERROR_MAIL]" id="error_mail"<?php Request::formStatePost('setting[ERROR_MAIL]', 'text', '', ERROR_MAIL); ?> /></li>
           <li><button type="submit" name="save_settings" value="yes">Spara inställningar</button></li>
         </ol>
       </fieldset>

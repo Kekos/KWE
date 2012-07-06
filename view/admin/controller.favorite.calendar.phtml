@@ -3,11 +3,11 @@
       <form action="<?php echo urlModr('calendar'); ?>" method="post">
         <fieldset>
           <ol>
-            <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php request::formStatePost('title', 'text'); ?> /></li>
-            <li><label for="event_content">Innehåll</label> <textarea name="content" id="event_content" cols="80" rows="10"><?php request::formStatePost('content', 'textarea'); ?></textarea></li>
-            <li><label for="starttime">Startdatum &amp; -tid</label> <input type="text" name="starttime" id="starttime" maxlength="16"<?php request::formStatePost('starttime', 'text'); ?> />
+            <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text'); ?> /></li>
+            <li><label for="event_content">Innehåll</label> <textarea name="content" id="event_content" cols="80" rows="10"><?php Request::formStatePost('content', 'textarea'); ?></textarea></li>
+            <li><label for="starttime">Startdatum &amp; -tid</label> <input type="text" name="starttime" id="starttime" maxlength="16"<?php Request::formStatePost('starttime', 'text'); ?> />
               <span class="description">Anges i formatet ÅÅÅÅ-MM-DD TT:MM</span></li>
-            <li><label for="endtime">Slutdatum &amp; -tid</label> <input type="text" name="endtime" id="endtime" maxlength="16"<?php request::formStatePost('endtime', 'text'); ?> />
+            <li><label for="endtime">Slutdatum &amp; -tid</label> <input type="text" name="endtime" id="endtime" maxlength="16"<?php Request::formStatePost('endtime', 'text'); ?> />
               <span class="description">Anges i formatet ÅÅÅÅ-MM-DD TT:MM</span></li>
             <li><button type="submit" name="new_event" value="yes">Spara</button></li>
           </ol>

@@ -6,13 +6,13 @@
       <form action="<?php echo urlModr($route, $params); ?>" method="post">
         <fieldset>
           <ol>
-            <li><label for="name">Namn</label> <input type="text" name="name" id="name" maxlength="50"<?php request::formStatePost('name', 'text'); ?> /></li>
-            <li><label for="username">Användarnamn</label> <input type="text" name="username" id="username" maxlength="20"<?php request::formStatePost('username', 'text'); ?> /></li>
+            <li><label for="name">Namn</label> <input type="text" name="name" id="name" maxlength="50"<?php Request::formStatePost('name', 'text'); ?> /></li>
+            <li><label for="username">Användarnamn</label> <input type="text" name="username" id="username" maxlength="20"<?php Request::formStatePost('username', 'text'); ?> /></li>
             <li><label for="password">Lösenord</label> <input type="password" name="password" id="password" />
               <span class="description">Lämna tomt för att slumpa ett lösenord.</span></li>
             <li><label for="rank">Rang</label> <select name="rank" id="rank">
-                <option value="1"<?php request::formStatePost('rank', 'select', '', 1); ?>>Administratör</option>
-                <option value="2"<?php request::formStatePost('rank', 'select', '', 2); ?>>Skribent</option>
+                <option value="1"<?php Request::formStatePost('rank', 'select', '', 1); ?>>Administratör</option>
+                <option value="2"<?php Request::formStatePost('rank', 'select', '', 2); ?>>Skribent</option>
               </select></li>
             <li><button type="submit" name="new_user" value="yes">Spara</button></li>
           </ol>
