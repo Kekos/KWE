@@ -99,7 +99,7 @@ if (count($this->info_messages)): ?>
   <footer id="footer">
     <p id="version"><?php echo KWE_VERSION; ?></p>
     <p id="copyright">Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2012</p>
-    <p id="user-info"><?php if (access::$is_logged_in): ?>Inloggad som <?php echo access::$user->name; ?> <a href="<?php echo urlModr('change-password'); ?>">(Byt lösenord)</a><?php endif; ?></p>
+    <p id="user-info"><?php if (access::$is_logged_in): ?>Inloggad som <?php echo access::$user->name; ?> <a href="<?php echo urlModr('change-password'); ?>" class="blink dim500x300">(Byt lösenord)</a><?php endif; ?></p>
   </footer>
 </div>
 
