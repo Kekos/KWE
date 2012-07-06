@@ -30,11 +30,10 @@
         </tr>
 <?php foreach ($events as $event): ?>
         <tr>
-          <td><?php echo htmlspecialchars($event->title); ?></td>
+          <td><a href="<?php echo urlModr($route, 'edit', $event->id); ?>" class="edit-link"><?php echo htmlspecialchars($event->title); ?></a></td>
           <td><?php echo easyDate('H:i', $event->starttime); ?></td>
           <td><?php echo easyDate('H:i', $event->endtime); ?></td>
-          <td class="actions"><a href="<?php echo urlModr($route, 'edit', $event->id); ?>" class="edit-link">Redigera</a>
-            <a href="<?php echo urlModr($route, 'delete', $event->id); ?>" class="delete-link">Ta bort</a></td>
+          <td class="actions"><a href="<?php echo urlModr($route, 'delete', $event->id); ?>" class="delete-link">Ta bort</a></td>
         </tr>
 <?php endforeach; ?>
       </table>

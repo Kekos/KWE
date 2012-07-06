@@ -24,10 +24,9 @@
         </tr>
 <?php foreach ($news as $news_item): ?>
         <tr>
-          <td><?php echo htmlspecialchars($news_item->title); ?></td>
+          <td><a href="<?php echo urlModr($route, 'edit', $news_item->id); ?>" class="edit-link"><?php echo htmlspecialchars($news_item->title); ?></a></td>
           <td><?php echo easyDate('H:i', $news_item->created); ?></td>
-          <td class="actions"><a href="<?php echo urlModr($route, 'edit', $news_item->id); ?>" class="edit-link">Redigera</a>
-            <a href="<?php echo urlModr($route, 'delete', $news_item->id); ?>" class="delete-link">Ta bort</a></td>
+          <td class="actions"><a href="<?php echo urlModr($route, 'delete', $news_item->id); ?>" class="delete-link">Ta bort</a></td>
         </tr>
 <?php endforeach; ?>
       </table>
