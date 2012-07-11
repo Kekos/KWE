@@ -1,19 +1,19 @@
 <?php
 /**
- * KWF Controller: admin_settings
+ * KWF Controller: AdminSettings
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-07-11
  * @version 1.0
  */
 
-class admin_settings extends Controller
+class AdminSettings extends Controller
   {
   private $db = null;
 
   public function before($action = false, $controller_id = false)
     {
-    if (!access::$is_logged_in || access::$user->rank != 1)
+    if (!Access::$is_logged_in || Access::$user->rank != 1)
       {
       $this->response->redirect(urlModr());
       }

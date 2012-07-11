@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Controller: admin_edit_page
+ * KWF Controller: AdminEditPage
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-01
+ * @date 2012-07-11
  * @version 1.0
  */
 
-class admin_edit_page extends Controller
+class AdminEditPage extends Controller
   {
   private $db = null;
   private $model_page = null;
@@ -19,14 +19,14 @@ class admin_edit_page extends Controller
 
   public function before($action = false, $page_url = false, $subpage_url = false, $controller_id = false)
     {
-    if (!access::$is_logged_in || !access::$is_administrator)
+    if (!Access::$is_logged_in || !Access::$is_administrator)
       {
       $this->response->redirect(urlModr());
       }
 
     $this->db = DbMysqli::getInstance();
     $this->model_page = new PageModel($this->db);
-    $this->model_page_controller = new page_controller_model($this->db);
+    $this->model_page_controller = new PageControllerModel($this->db);
 
     // If an other action than "show" is selected, the controller ID might be in parameter 3 instead (subpage_url)
     if ($action != 'show' && $controller_id === false)
@@ -37,12 +37,12 @@ class admin_edit_page extends Controller
 
     if ($page_url)
       {
-      if (!$this->kpage = $this->model_page->fetchPagePermission($page_url, access::$user->id))
+      if (!$this->kpage = $this->model_page->fetchPagePermission($page_url, Access::$user->id))
         return $this->response->addInfo('Hittade inte sidan med URL:en ' . htmlspecialchars($page_url));
 
       if ($subpage_url)
         {
-        if (!$this->subpage = $this->model_page->fetchPagePermission($page_url . '/' . $subpage_url, access::$user->id))
+        if (!$this->subpage = $this->model_page->fetchPagePermission($page_url . '/' . $subpage_url, Access::$user->id))
           return $this->response->addInfo('Hittade inte sidan med URL:en ' . htmlspecialchars($page_url . '/' . $subpage_url));
         }
       }
@@ -61,7 +61,7 @@ class admin_edit_page extends Controller
       }
 
     // Super Administrators (rank 1) can access everything, so give them all permissions
-    if ($this->active_page && access::$user->rank == 1)
+    if ($this->active_page && Access::$user->rank == 1)
       $this->active_page->permission = PERMISSION_ADD | PERMISSION_EDIT | PERMISSION_DELETE;
 
     if (!($this->active_page->permission & PERMISSION_EDIT))
@@ -106,7 +106,7 @@ class admin_edit_page extends Controller
       $this->addController();
       }
 
-    $model_controller = new controller_model($this->db);
+    $model_controller = new ControllerModel($this->db);
 
     $data['active_page'] = $this->active_page;
     $data['installed_controllers'] = $model_controller->fetchAll();
@@ -159,7 +159,7 @@ class admin_edit_page extends Controller
     if (!$this->active_page || !$this->controller)
       return;
 
-    $sorter = new step_sorter($this->model_page_controller);
+    $sorter = new StepSorter($this->model_page_controller);
     if ($sorter->up($this->controller, array($this->active_page->id, $this->controller->id)))
       {
       $this->updateEdited();
@@ -179,7 +179,7 @@ class admin_edit_page extends Controller
     if (!$this->active_page || !$this->controller)
       return;
 
-    $sorter = new step_sorter($this->model_page_controller);
+    $sorter = new StepSorter($this->model_page_controller);
     if ($sorter->down($this->controller, array($this->active_page->id, $this->controller->id)))
       {
       $this->updateEdited();
@@ -195,7 +195,7 @@ class admin_edit_page extends Controller
 
   private function updateEdited()
     {
-    $this->active_page->setEditor(access::$user->id);
+    $this->active_page->setEditor(Access::$user->id);
     $this->active_page->setEdited(time());
     $this->active_page->save();
     }
@@ -230,10 +230,10 @@ class admin_edit_page extends Controller
     $errors = array();
     $controller = $this->request->post('controller');
 
-    $this->controller = new page_controller($this->model_page_controller);
+    $this->controller = new PageController($this->model_page_controller);
 
     /* Append this controller to bottom of page with step sorter */
-    $sorter = new step_sorter($this->model_page_controller);
+    $sorter = new StepSorter($this->model_page_controller);
     $sorter->append($this->controller, array($this->active_page->id, 0));
 
     $this->controller->setPage($this->active_page->id);
@@ -250,7 +250,7 @@ class admin_edit_page extends Controller
     $error = 0;
     $content = $this->request->post('content_' . $this->controller->id);
 
-    $controller_path = BASE . 'class/controller/admin_page.' . $this->controller->class_name . '.php';
+    $controller_path = BASE . 'class/controller/AdminPage.' . $this->controller->class_name . '.php';
     if (file_exists($controller_path))
       $error = require($controller_path);
 

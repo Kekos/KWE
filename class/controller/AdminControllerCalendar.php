@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Controller: admin_controller_calendar
+ * KWF Controller: AdminControllerCalendar
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-07-11
  * @version 2.2
  */
 
-class admin_controller_calendar extends Controller
+class AdminControllerCalendar extends Controller
   {
   private $db = null;
   private $model_calendar = null;
@@ -15,13 +15,13 @@ class admin_controller_calendar extends Controller
 
   public function before($action = false, $event_id = false)
     {
-    if (!access::$is_logged_in || !access::$is_administrator || !access::hasControllerPermission('calendar'))
+    if (!Access::$is_logged_in || !Access::$is_administrator || !Access::hasControllerPermission('calendar'))
       {
       $this->response->redirect(urlModr());
       }
 
     $this->db = DbMysqli::getInstance();
-    $this->model_calendar = new calendar_model($this->db);
+    $this->model_calendar = new CalendarModel($this->db);
     $this->response->title = 'Kalender';
 
     if ($action && $event_id)
@@ -91,7 +91,7 @@ class admin_controller_calendar extends Controller
     $starttime = $this->request->post('starttime');
     $endtime = $this->request->post('endtime');
 
-    $this->event = new kevent($this->model_calendar);
+    $this->event = new Kevent($this->model_calendar);
 
     if (!$this->event->setTitle($title))
       $errors[] = 'Du måste ange en titel på minst 2 tecken.';
@@ -103,7 +103,7 @@ class admin_controller_calendar extends Controller
     if (!count($errors))
       {
       $this->event->setContent($content);
-      $this->event->setCreator(access::$user->id);
+      $this->event->setCreator(Access::$user->id);
       $this->event->setCreated(time());
       $this->event->save();
       $this->response->addInfo('Händelsen ' . htmlspecialchars($title) . ' sparades.');
@@ -151,7 +151,7 @@ class admin_controller_calendar extends Controller
 
   static function install()
     {
-    $db = db_mysqli::getInstance();
+    $db = DbMysqli::getInstance();
     $db->exec("CREATE TABLE `PREFIX_calendar` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `title` varchar(30) collate utf8_unicode_ci NOT NULL,
@@ -167,10 +167,10 @@ class admin_controller_calendar extends Controller
 
   static function uninstall()
     {
-    $files = array('../class/controller/admin_controller_calendar.php', 
-        '../class/controller/calendar.php', 
-        '../class/model/calendar_model.php', 
-        '../class/model/kcalendar.php', 
+    $files = array('../class/controller/AdminControllerCalendar.php', 
+        '../class/controller/Calendar.php', 
+        '../class/model/CalendarModel.php', 
+        '../class/model/Kcalendar.php', 
         '../view/calendar.phtml', 
         '../view/admin/delete-event.phtml', 
         '../view/admin/edit-event.phtml', 
@@ -184,7 +184,7 @@ class admin_controller_calendar extends Controller
         }
       }
 
-    $db = db_mysqli::getInstance();
+    $db = DbMysqli::getInstance();
     $db->exec("DROP TABLE `PREFIX_calendar`");
 
     return true;

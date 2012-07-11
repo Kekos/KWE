@@ -1,13 +1,13 @@
 <?php
 /**
- * KWE Controller: calendar
+ * KWE Controller: Calendar
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-07-11
  * @version 2.2
  */
 
-class calendar extends Controller
+class Calendar extends Controller
   {
   private $db;
   private $model_calendar = null;
@@ -16,7 +16,7 @@ class calendar extends Controller
   public function _default($event_id = false)
     {
     $this->db = DbMysqli::getInstance();
-    $this->model_calendar = new calendar_model($this->db);
+    $this->model_calendar = new CalendarModel($this->db);
     $this->settings = json_decode($this->controller_data->content);
 
     $data['settings'] = $this->settings;

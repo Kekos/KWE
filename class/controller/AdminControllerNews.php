@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Controller: admin_controller_news
+ * KWF Controller: AdminControllerNews
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-07-11
  * @version 2.2
  */
 
-class admin_controller_news extends Controller
+class AdminControllerNews extends Controller
   {
   private $db = null;
   private $model_news = null;
@@ -15,13 +15,13 @@ class admin_controller_news extends Controller
 
   public function before($action = false, $news_id = false)
     {
-    if (!access::$is_logged_in || !access::$is_administrator || !access::hasControllerPermission('news'))
+    if (!Access::$is_logged_in || !Access::$is_administrator || !Access::hasControllerPermission('news'))
       {
       $this->response->redirect(urlModr());
       }
 
     $this->db = DbMysqli::getInstance();
-    $this->model_news = new news_model($this->db);
+    $this->model_news = new NewsModel($this->db);
     $this->response->title = 'Nyheter';
 
     if ($action && $news_id)
@@ -88,7 +88,7 @@ class admin_controller_news extends Controller
     $errors = array();
     $title = $this->request->post('title');
 
-    $this->news = new knews($this->model_news);
+    $this->news = new Knews($this->model_news);
 
     if (!$this->news->setTitle($title))
       $errors[] = 'Du måste ange en nyhetstitel på minst 2 tecken.';
@@ -96,7 +96,7 @@ class admin_controller_news extends Controller
     if (!count($errors))
       {
       $this->news->setContent('');
-      $this->news->setCreator(access::$user->id);
+      $this->news->setCreator(Access::$user->id);
       $this->news->setCreated(time());
       $this->news->save();
       $this->response->redirect(urlModr($this->route, 'edit', $this->news->id));
@@ -138,7 +138,7 @@ class admin_controller_news extends Controller
 
   static function uninstall()
     {
-    /*$files = array('../class/controller/admin_controller_news.php');
+    /*$files = array('../class/controller/AdminControllerNews.php');
     foreach ($files as $file)
       {
       if (file_exists($file))

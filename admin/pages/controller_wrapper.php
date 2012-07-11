@@ -1,4 +1,4 @@
 <?php
-$this->page['title'] = 'controller_wrapper';
-$this->addController('admin_controller_' . $page_name, '');
+$this->page['title'] = 'ControllerWrapper';
+$this->addController('AdminController' . $page_name, '');
 ?>

@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Controller: admin_users
+ * KWF Controller: AdminUsers
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-07-11
  * @version 2.2
  */
 
-class admin_users extends Controller
+class AdminUsers extends Controller
   {
   private $db = null;
   private $model_user = null;
@@ -20,13 +20,13 @@ class admin_users extends Controller
 
   public function before($action = false, $user_id = false)
     {
-    if (!access::$is_logged_in || access::$user->rank > 1)
+    if (!Access::$is_logged_in || Access::$user->rank > 1)
       {
       $this->response->redirect(urlModr());
       }
 
     $this->db = DbMysqli::getInstance();
-    $this->model_user = new user_model($this->db);
+    $this->model_user = new UserModel($this->db);
 
     if ($action && $user_id)
       {
@@ -67,9 +67,9 @@ class admin_users extends Controller
     if (!$this->user || $this->user->rank < 2)
       return;
 
-    $this->model_permission = new permission_model($this->db);
-    $this->model_controller_permission = new controller_permission_model($this->db);
-    $this->model_controller = new controller_model($this->db);
+    $this->model_permission = new PermissionModel($this->db);
+    $this->model_controller_permission = new ControllerPermissionModel($this->db);
+    $this->model_controller = new ControllerModel($this->db);
 
     $this->listPermissions();
 
@@ -136,7 +136,7 @@ class admin_users extends Controller
     $name = $this->request->post('name');
     $rank = $this->request->post('rank');
 
-    $this->user = new user($this->model_user);
+    $this->user = new User($this->model_user);
 
     if (strlen($password) == 0)
       {

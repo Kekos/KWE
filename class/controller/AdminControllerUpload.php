@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Controller: admin_controller_upload
+ * KWF Controller: AdminControllerUpload
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-04
+ * @date 2012-07-11
  * @version 1.0
  */
 
-class admin_controller_upload extends Controller
+class AdminControllerUpload extends Controller
   {
   private $upload_dir;
   private $path = '';
@@ -15,7 +15,7 @@ class admin_controller_upload extends Controller
 
   public function before($action = false)
     {
-    if ((!access::$is_logged_in || !access::$is_administrator) || ($action != 'js_browse' && !access::hasControllerPermission('upload')))
+    if ((!Access::$is_logged_in || !Access::$is_administrator) || ($action != 'js_browse' && !Access::hasControllerPermission('upload')))
       {
       $this->response->redirect(urlModr());
       }

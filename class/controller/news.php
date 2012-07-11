@@ -1,13 +1,13 @@
 <?php
 /**
- * KWE Controller: news
+ * KWE Controller: News
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-07-11
  * @version 2.2
  */
 
-class news extends Controller
+class News extends Controller
   {
   private $db;
   private $model_news = null;
@@ -16,7 +16,7 @@ class news extends Controller
   public function _default($news_id = false)
     {
     $this->db = DbMysqli::getInstance();
-    $this->model_news = new news_model($this->db);
+    $this->model_news = new NewsModel($this->db);
     $this->settings = json_decode($this->controller_data->content);
 
     $data['settings'] = $this->settings;

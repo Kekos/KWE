@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Class: step_sorter, sets a "sort" attribute on table rows step by step by ordering up-/downwards
+ * KWF Class: StepSorter, sets a "sort" attribute on table rows step by step by ordering up-/downwards
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-07-02
+ * @date 2012-07-11
  * @version 1.0
  */
 
-class step_sorter
+class StepSorter
   {
   private $model;
 

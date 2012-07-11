@@ -3,7 +3,7 @@ define('PERMISSION_ADD', 1);
 define('PERMISSION_EDIT', 2);
 define('PERMISSION_DELETE', 4);
 define('KWE_VERSION', '3.0');
-define('KWE_BUILD', '120619');
+define('KWE_BUILD', '120711');
 
 require('admin_config.php');
 require(BASE . 'include/init.php');
@@ -12,12 +12,12 @@ $route = (isset($_GET['r']) ? $_GET['r'] : '');
 $db = DbMysqli::getInstance();
 
 $request = new Request(new Session(), new Cookie());
-$page_model = new page_model_admin();
+$page_model = new PageModelAdmin();
 
 if ($user = $request->session->get('admin'))
   {
-  $model_user = new user_model($db);
-  new access($model_user, $user);
+  $model_user = new UserModel($db);
+  new Access($model_user, $user);
   }
 
 $router = new Router($route, $request, $page_model);

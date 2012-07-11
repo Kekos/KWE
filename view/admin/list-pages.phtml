@@ -3,7 +3,7 @@
     <p class="help-text">Klicka på en sidas URL för att besöka den på din webbsida. 
       Använd pilen för att se undersidor.</p>
 
-<?php if (access::$user->rank == 1 || ($active_page && ($active_page->permission & PERMISSION_ADD))): ?>
+<?php if (Access::$user->rank == 1 || ($active_page && ($active_page->permission & PERMISSION_ADD))): ?>
     <p><a href="<?php echo urlModr($route, 'addnew', ($active_page ? $active_page->url : '')); ?>">Skapa ny <?php if ($active_page) echo 'under'; ?>sida</a></p>
 <?php endif; ?>
 

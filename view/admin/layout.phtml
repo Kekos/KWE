@@ -48,7 +48,7 @@ function menuLink($current_page, $new_page)
       <a href="<?php echo FULLPATH_SITE; ?>/" id="goto_firstpage" title="Till din förstasida">Till din förstasida</a>
 
       <ul>
-<?php if (access::$is_logged_in): ?>
+<?php if (Access::$is_logged_in): ?>
         <li><?php echo menuLink($page, 'index'); ?>Översikt</a></li>
         <li><?php echo menuLink($page, 'page'); ?>Sidor</a></li>
         <li class="submenu-link"><?php echo menuLink($page, 'controllers'); ?>Moduler</a>
@@ -60,7 +60,7 @@ if ($controllers): ?>
             <li><a href="<?php echo urlModr($controller[1]); ?>" class="submenu-item"><?php echo $controller[0]; ?></a></li>
 <?php endforeach; ?>
           </ul><?php endif; ?></li>
-<?php if (access::$user->rank == 1): ?>
+<?php if (Access::$user->rank == 1): ?>
         <li><?php echo menuLink($page, 'settings'); ?>Inställningar</a></li>
         <li><?php echo menuLink($page, 'users'); ?>Användare</a></li>
 <?php endif; ?>
@@ -99,7 +99,7 @@ if (count($this->info_messages)): ?>
   <footer id="footer">
     <p id="version"><?php echo KWE_VERSION; ?></p>
     <p id="copyright">Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2012</p>
-    <p id="user-info"><?php if (access::$is_logged_in): ?>Inloggad som <?php echo access::$user->name; ?> <a href="<?php echo urlModr('change-password'); ?>" class="blink dim500x300">(Byt lösenord)</a><?php endif; ?></p>
+    <p id="user-info"><?php if (Access::$is_logged_in): ?>Inloggad som <?php echo Access::$user->name; ?> <a href="<?php echo urlModr('change-password'); ?>" class="blink dim500x300">(Byt lösenord)</a><?php endif; ?></p>
   </footer>
 </div>
 

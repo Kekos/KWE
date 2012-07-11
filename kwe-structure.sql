@@ -38,10 +38,10 @@ CREATE TABLE `kwe_controllers` (
 -- Controllers value --
 
 INSERT INTO `kwe_controllers` (`id`, `name`, `class_name`, `configurable`, `has_favorite_config`) VALUES 
-(1, 'Artikel', 'text', 0, 0),
-(2, 'Nyheter', 'news', 1, 1),
-(3, 'Kalender', 'calendar', 1, 1),
-(4, 'Omdirigering', 'redirect', 0, 0);
+(1, 'Artikel', 'Text', 0, 0),
+(2, 'Nyheter', 'News', 1, 1),
+(3, 'Kalender', 'Calendar', 1, 1),
+(4, 'Omdirigering', 'Redirect', 0, 0);
 
 -- Pages table --
 

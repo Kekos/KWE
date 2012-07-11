@@ -3,7 +3,7 @@
  * KWE Model: PageModel
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-12
+ * @date 2012-07-11
  * @version 2.1
  */
 
@@ -21,7 +21,7 @@ class PageModel
     {
     $q_select_page = "SELECT * FROM `PREFIX_pages` WHERE `url` = ? AND `public` = 1";
     $this->db->exec($q_select_page, 's', array($page_name));
-    $this->active_page = $this->db->fetch('kpage', array($this));
+    $this->active_page = $this->db->fetch('Kpage', array($this));
     return $this->active_page;
     }
 
@@ -32,7 +32,7 @@ class PageModel
       . "AND pe.`user` = ? WHERE p.`url` = ?";
 
     $this->db->exec($q_select_page, 'is', array($user, $page_name));
-    return $this->db->fetch('kpage', array($this));
+    return $this->db->fetch('Kpage', array($this));
     }
 
   public function getControllers($page_name)
@@ -88,7 +88,7 @@ class PageModel
 
     $args[] = $order;
     $this->db->exec($q_select_page, 'iii', $args);
-    return $this->db->fetch('kpage', array($this));
+    return $this->db->fetch('Kpage', array($this));
     }
 
   public function insert($query, $types, $values)

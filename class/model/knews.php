@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Model: knews
+ * KWF Model: Knews
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-19
+ * @date 2012-07-11
  * @version 1.1
  */
 
-class knews extends DbObject
+class Knews extends DbObject
   {
   protected $id = null;
   protected $title = '';

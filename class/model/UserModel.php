@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Model: user_model
+ * KWF Model: UserModel
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-30
+ * @date 2012-07-11
  * @version 2.1
  */
 
-class user_model
+class UserModel
   {
   private $db = null;
 
@@ -22,7 +22,7 @@ class user_model
       . "`username` = ? AND `password` = ?";
 
     $this->db->exec($q_select_user, 'ss', array($username, $password));
-    return $this->db->fetch('user', array($this));
+    return $this->db->fetch('User', array($this));
     }
 
   public function fetch($id)
@@ -31,7 +31,7 @@ class user_model
       . "`PREFIX_users` WHERE `id` = ?";
 
     $this->db->exec($q_select_user, 'i', array($id));
-    return $this->db->fetch('user', array($this));
+    return $this->db->fetch('User', array($this));
     }
 
   public function availableUsername($username)

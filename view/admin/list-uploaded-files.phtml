@@ -4,10 +4,10 @@
 
     <p class="toolbar">
 <?php if (!empty($path)): ?>
-      <a href="<?php echo urlModr('upload', 'browse', $up_path); ?>" class="toolbar-button clink">Upp en nivå</a>
+      <a href="<?php echo urlModr($route, 'browse', $up_path); ?>" class="toolbar-button clink">Upp en nivå</a>
 <?php endif; ?>
-      <a href="<?php echo urlModr('upload', 'addfolder', $path); ?>" class="toolbar-button blink dim400x200">Ny mapp</a>
-      <a href="<?php echo urlModr('upload', 'upload', $path); ?>" class="toolbar-button blink dim300x200">Ladda upp fil</a>
+      <a href="<?php echo urlModr($route, 'addfolder', $path); ?>" class="toolbar-button blink dim400x200">Ny mapp</a>
+      <a href="<?php echo urlModr($route, 'upload', $path); ?>" class="toolbar-button blink dim300x200">Ladda upp fil</a>
     </p>
 
     <p>Visar innehållet i mappen: <strong><?php echo htmlspecialchars($path); ?></strong></p>
@@ -16,8 +16,8 @@
 $is_dir = is_dir($real_path . '/' . $file);
 if ($file != '.' && $file != '..'): ?>
       <div class="file-thumb">
-        <a href="<?php echo urlModr('upload', 'browse', $path . $file); ?>" class="<?php echo ($is_dir ? 'folder clink' : 'file blink'); ?>"><?php echo htmlspecialchars($file); ?></a>
-        <a href="<?php echo urlModr('upload', 'delete', $path . $file); ?>" class="delete-link" title="Ta bort">Ta bort</a>
+        <a href="<?php echo urlModr($route, 'browse', $path . $file); ?>" class="<?php echo ($is_dir ? 'folder clink' : 'file blink'); ?>"><?php echo htmlspecialchars($file); ?></a>
+        <a href="<?php echo urlModr($route, 'delete', $path . $file); ?>" class="delete-link" title="Ta bort">Ta bort</a>
       </div>
 <?php endif; endforeach; ?>
     </table>

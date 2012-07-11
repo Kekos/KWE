@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Model: kpage
+ * KWF Model: Kpage
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-07-11
  * @version 1.1
  */
 
-class kpage extends DbObject
+class Kpage extends DbObject
   {
   protected $id = null;
   protected $title = '';

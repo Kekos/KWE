@@ -1,13 +1,13 @@
 <?php
 /**
- * KWE Model: page_controller_model
+ * KWE Model: PageControllerModel
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-01
+ * @date 2012-07-11
  * @version 2.0
  */
 
-class page_controller_model
+class PageControllerModel
   {
   private $db = null;
 
@@ -23,7 +23,7 @@ class page_controller_model
       . "ON c.`id` = `controller` WHERE p.`id` = ?";
 
     $this->db->exec($q_select_controller, 'i', array($id));
-    return $this->db->fetch('page_controller', array($this));
+    return $this->db->fetch('PageController', array($this));
     }
 
   public function fetchByOrder($order, $gl, $dir, $args)
@@ -34,7 +34,7 @@ class page_controller_model
 
     $args[] = $order;
     $this->db->exec($q_select_controller, 'iii', $args);
-    return $this->db->fetch('page_controller', array($this));
+    return $this->db->fetch('PageController', array($this));
     }
 
   public function fetchAll($page)

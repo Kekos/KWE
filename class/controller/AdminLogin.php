@@ -1,13 +1,13 @@
 <?php
 /**
- * KWE Controller: admin_login
+ * KWE Controller: AdminLogin
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-30
+ * @date 2012-07-11
  * @version 2.2
  */
 
-class admin_login extends Controller
+class AdminLogin extends Controller
   {
   private $db;
   private $user_model;
@@ -16,7 +16,7 @@ class admin_login extends Controller
   public function _default($logout = false)
     {
     $this->db = DbMysqli::getInstance();
-    $this->user_model = new user_model($this->db);
+    $this->user_model = new UserModel($this->db);
     $this->settings = json_decode($this->controller_data->content);
 
     if (!$this->request->session->get($this->settings->session_name))
@@ -49,7 +49,7 @@ class admin_login extends Controller
       $user->save();
 
       // Store all available controllers in a session so it can be used in navigation menu
-      $model_controller = new controller_model($this->db);
+      $model_controller = new ControllerModel($this->db);
       $controllers = $model_controller->fetchAllWithPermissions($user->id, ($user->rank == 1));
       setControllerMenuSession($controllers, $this->request);
 
@@ -66,8 +66,8 @@ class admin_login extends Controller
     if ($this->request->session->get($this->settings->session_name))
       {
       $this->user_model->clearOnlineCache(time());
-      access::$user->setOnline(0);
-      access::$user->save();
+      Access::$user->setOnline(0);
+      Access::$user->save();
 
       $this->request->session->delete($this->settings->session_name);
       $this->request->session->delete('controllers');

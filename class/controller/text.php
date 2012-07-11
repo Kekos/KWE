@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Controller: text
+ * KWF Controller: Text
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-07-11
  * @version 2.2
  */
 
-class text extends Controller
+class Text extends Controller
   {
   public function _default()
     {

@@ -1,13 +1,13 @@
 <?php
 /**
- * KWE Controller: admin_index
+ * KWE Controller: AdminIndex
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-20
+ * @date 2012-07-11
  * @version 2.2
  */
 
-class admin_index extends Controller
+class AdminIndex extends Controller
   {
   private $db;
   private $model_page = null;
@@ -17,15 +17,15 @@ class admin_index extends Controller
     {
     $this->db = DbMysqli::getInstance();
     $this->model_page = new PageModel($this->db);
-    $this->model_controller = new controller_model($this->db);
+    $this->model_controller = new ControllerModel($this->db);
 
-    if (!access::$is_logged_in || !access::$is_administrator)
+    if (!Access::$is_logged_in || !Access::$is_administrator)
       {
       $this->response->title = 'Logga in';
       return;
       }
 
-    if (access::$is_administrator)
+    if (Access::$is_administrator)
       {
       $update_session = $this->request->session->get('update');
       if (!$update_session)
@@ -46,7 +46,7 @@ class admin_index extends Controller
       }
 
     $data['last_pages'] = $this->model_page->fetchLastEdited();
-    $data['controllers'] = $this->model_controller->fetchFavorites(access::$user->id);
+    $data['controllers'] = $this->model_controller->fetchFavorites(Access::$user->id);
     $this->view = new View('admin/index', $data);
     }
 

@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Controller: admin_pages
+ * KWF Controller: AdminPages
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-01
+ * @date 2012-07-11
  * @version 2.2
  */
 
-class admin_pages extends Controller
+class AdminPages extends Controller
   {
   private $db = null;
   private $model_page = null;
@@ -19,23 +19,23 @@ class admin_pages extends Controller
 
   public function before($action = false, $page_url = false, $subpage_url = false)
     {
-    if (!access::$is_logged_in || !access::$is_administrator)
+    if (!Access::$is_logged_in || !Access::$is_administrator)
       {
       $this->response->redirect(urlModr());
       }
 
     $this->db = DbMysqli::getInstance();
     $this->model_page = new PageModel($this->db);
-    $this->model_page_controller = new page_controller_model($this->db);
+    $this->model_page_controller = new PageControllerModel($this->db);
 
     if ($action && $page_url)
       {
-      if (!$this->kpage = $this->model_page->fetchPagePermission($page_url, access::$user->id))
+      if (!$this->kpage = $this->model_page->fetchPagePermission($page_url, Access::$user->id))
         return $this->response->addInfo('Hittade inte sidan med URL:en ' . htmlspecialchars($page_url));
 
       if ($subpage_url)
         {
-        if (!$this->subpage = $this->model_page->fetchPagePermission($page_url . '/' . $subpage_url, access::$user->id))
+        if (!$this->subpage = $this->model_page->fetchPagePermission($page_url . '/' . $subpage_url, Access::$user->id))
           return $this->response->addInfo('Hittade inte sidan med URL:en ' . htmlspecialchars($page_url . '/' . $subpage_url));
         }
       }
@@ -49,7 +49,7 @@ class admin_pages extends Controller
       $this->active_page = $this->kpage;
       }
 
-    if ($this->active_page && access::$user->rank == 1)
+    if ($this->active_page && Access::$user->rank == 1)
       $this->active_page->permission = PERMISSION_ADD | PERMISSION_EDIT | PERMISSION_DELETE;
     }
 
@@ -64,14 +64,14 @@ class admin_pages extends Controller
     {
     if (!$this->subpage)
       {
-      if ($this->request->post('edit_page') && (access::$user->rank == 1 || $this->kpage->permission & PERMISSION_ADD))
+      if ($this->request->post('edit_page') && (Access::$user->rank == 1 || $this->kpage->permission & PERMISSION_ADD))
         {
         $this->newPage();
         }
       }
     else
       {
-      if ($this->request->post('edit_page') && access::$user->rank == 1)
+      if ($this->request->post('edit_page') && Access::$user->rank == 1)
         {
         $this->newPage();
         }
@@ -174,7 +174,7 @@ class admin_pages extends Controller
     $public = $this->request->post('public');
     $show_in_menu = $this->request->post('show_in_menu');
 
-    $this->active_page = new kpage($this->model_page);
+    $this->active_page = new Kpage($this->model_page);
 
     if (!$this->active_page->setTitle($title))
       $errors[] = 'Skriv in en längre sidtitel.';
@@ -202,14 +202,14 @@ class admin_pages extends Controller
         }
 
       /* Append this page to bottom of menu with step sorter */
-      $sorter = new step_sorter($this->model_page);
+      $sorter = new StepSorter($this->model_page);
       $sorter->append($this->active_page, array($parent, 0));
 
       $this->active_page->setUrl($url . $i);
       $this->active_page->setParent($parent);
       $this->active_page->setPublic($public);
       $this->active_page->setShowInMenu($show_in_menu);
-      $this->active_page->setCreator(access::$user->id);
+      $this->active_page->setCreator(Access::$user->id);
       $this->active_page->setCreated(time());
 
       /* Set last editor and save */
@@ -225,14 +225,14 @@ class admin_pages extends Controller
 
   private function updateEdited()
     {
-    $this->active_page->setEditor(access::$user->id);
+    $this->active_page->setEditor(Access::$user->id);
     $this->active_page->setEdited(time());
     $this->active_page->save();
     }
 
   private function deletePage()
     {
-    $model_permission = new permission_model($this->db);
+    $model_permission = new PermissionModel($this->db);
 
     /* Delete all permissions bound to this page and delete all subpages */
     foreach ($this->model_page->fetchSubPageList($this->kpage->id, 0) as $subpage)
@@ -254,7 +254,7 @@ class admin_pages extends Controller
   private function deleteSubpage()
     {
     /* Delete all permissions bound to this subpage */
-    $model_permission = new permission_model($this->db);
+    $model_permission = new PermissionModel($this->db);
     $model_permission->deleteByPage($this->subpage->id);
 
     /* Delete the page and it's controllers */

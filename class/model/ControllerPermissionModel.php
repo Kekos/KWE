@@ -1,13 +1,13 @@
 <?php
 /**
- * KWE Model: controller_permission_model
+ * KWE Model: ControllerPermissionModel
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-13
+ * @date 2012-07-11
  * @version 1.1
  */
 
-class controller_permission_model
+class ControllerPermissionModel
   {
   private $db = null;
 

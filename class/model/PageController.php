@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Model: page_controller
+ * KWF Model: PageController
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-07-11
  * @version 1.1
  */
 
-class page_controller extends DbObject
+class PageController extends DbObject
   {
   protected $id = null;
   protected $page = -1;

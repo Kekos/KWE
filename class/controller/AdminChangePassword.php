@@ -13,7 +13,7 @@ class AdminChangePassword extends Controller
 
   public function before()
     {
-    if (!access::$is_logged_in)
+    if (!Access::$is_logged_in)
       {
       $this->response->redirect(urlModr());
       }
@@ -41,9 +41,9 @@ class AdminChangePassword extends Controller
     $password = $this->request->post('password');
     $password_repeat = $this->request->post('password_repeat');
 
-    if (md5($password_old) != access::$user->password)
+    if (md5($password_old) != Access::$user->password)
       $errors['password_old'] = 'Du angav fel lösenord.';
-    if (!access::$user->setPassword($password))
+    if (!Access::$user->setPassword($password))
       $errors['password'] = 'Skriv in ett längre lösenord.';
 
     if (md5($password_repeat) != md5($password))
@@ -51,7 +51,7 @@ class AdminChangePassword extends Controller
 
     if (!count($errors))
       {
-      access::$user->save();
+      Access::$user->save();
       $this->response->addInfo('Du fick ett nytt lösenord.');
       return true;
       }

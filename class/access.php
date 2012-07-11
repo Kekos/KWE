@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Class: access, handles log in and access check
+ * KWF Class: Access, handles log in and access check
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-26
+ * @date 2012-07-11
  * @version 1.1
  */
 
-class access
+class Access
   {
   private $model;
 
@@ -49,12 +49,12 @@ class access
     {
     if (!self::$is_logged_in)
       return false;
-    if (access::$user->rank == 1)
+    if (self::$user->rank == 1)
       return true;
 
     $db = DbMysqli::getInstance();
-    $model_controller_permission = new controller_permission_model($db);
-    return $model_controller_permission->fetch(access::$user->id, $controller);
+    $model_controller_permission = new ControllerPermissionModel($db);
+    return $model_controller_permission->fetch(self::$user->id, $controller);
     }
   }
 ?>

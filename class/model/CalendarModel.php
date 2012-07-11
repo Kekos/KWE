@@ -1,13 +1,13 @@
 <?php
 /**
- * KWE Model: calendar_model
+ * KWE Model: CalendarModel
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-11
+ * @date 2012-07-11
  * @version 1.1
  */
 
-class calendar_model
+class CalendarModel
   {
   private $db = null;
 
@@ -21,7 +21,7 @@ class calendar_model
     $q_select_event = "SELECT * FROM `PREFIX_calendar` WHERE `id` = ?";
 
     $this->db->exec($q_select_event, 'i', array($id));
-    return $this->db->fetch('kevent', array($this));
+    return $this->db->fetch('Kevent', array($this));
     }
 
   public function fetchAll()

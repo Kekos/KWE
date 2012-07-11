@@ -1,13 +1,13 @@
 <?php
 /**
- * KWE Model: controller_model
+ * KWE Model: ControllerModel
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-13
+ * @date 2012-07-11
  * @version 1.1
  */
 
-class controller_model
+class ControllerModel
   {
   private $db = null;
 
@@ -21,7 +21,7 @@ class controller_model
     $q_select_controller = "SELECT * FROM `PREFIX_controllers` WHERE `id` = ?";
 
     $this->db->exec($q_select_controller, 'i', array($id));
-    return $this->db->fetch('kcontroller', array($this));
+    return $this->db->fetch('Kcontroller', array($this));
     }
 
   public function fetchByCName($class_name, $user)
@@ -31,7 +31,7 @@ class controller_model
       . "WHERE `class_name` = ?";
 
     $this->db->exec($q_select_controller, 'is', array($user, $class_name));
-    return $this->db->fetch('kcontroller', array($this));
+    return $this->db->fetch('Kcontroller', array($this));
     }
 
   public function fetchAll()

@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Model: user
+ * KWF Model: User
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-19
+ * @date 2012-07-11
  * @version 1.3
  */
 
-class user extends DbObject
+class User extends DbObject
   {
   protected $id = null;
   protected $name = '';

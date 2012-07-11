@@ -1,13 +1,13 @@
 <?php
 /**
- * KWE Model: news_model
+ * KWE Model: NewsModel
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-06-11
+ * @date 2012-07-11
  * @version 1.1
  */
 
-class news_model
+class NewsModel
   {
   private $db = null;
 
@@ -23,7 +23,7 @@ class news_model
       . "ON u.`id` = n.`creator` WHERE n.`id` = ?";
 
     $this->db->exec($q_select_news, 'i', array($id));
-    return $this->db->fetch('knews', array($this));
+    return $this->db->fetch('Knews', array($this));
     }
 
   public function fetchAll()

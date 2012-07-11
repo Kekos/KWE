@@ -1,13 +1,13 @@
 <?php
 /**
- * KWF Controller: admin_controllers
+ * KWF Controller: AdminControllers
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-30
+ * @date 2012-07-11
  * @version 2.2
  */
 
-class admin_controllers extends Controller
+class AdminControllers extends Controller
   {
   private $db = null;
   private $model_controller = null;
@@ -17,18 +17,18 @@ class admin_controllers extends Controller
 
   public function before($action = false, $controller_id = false)
     {
-    if (!access::$is_logged_in || !access::$is_administrator)
+    if (!Access::$is_logged_in || !Access::$is_administrator)
       {
       $this->response->redirect(urlModr());
       }
 
     $this->db = DbMysqli::getInstance();
-    $this->model_controller = new controller_model($this->db);
-    $this->model_controller_permission = new controller_permission_model($this->db);
+    $this->model_controller = new ControllerModel($this->db);
+    $this->model_controller_permission = new ControllerPermissionModel($this->db);
 
     if ($action && $controller_id)
       {
-      if ($this->controller = $this->model_controller->fetchByCName($controller_id, access::$user->id))
+      if ($this->controller = $this->model_controller->fetchByCName($controller_id, Access::$user->id))
         {
         if (!file_exists(BASE . 'class/controller/admin_controller_' . $controller_id . '.php'))
           {
@@ -45,7 +45,7 @@ class admin_controllers extends Controller
 
   private function fetchPermittedControllers($reset_session = false)
     {
-    $this->controllers = $this->model_controller->fetchAllWithPermissions(access::$user->id, (access::$user->rank == 1));
+    $this->controllers = $this->model_controller->fetchAllWithPermissions(Access::$user->id, (Access::$user->rank == 1));
 
     if ($reset_session)
       {
@@ -65,7 +65,7 @@ class admin_controllers extends Controller
 
   public function uninstall()
     {
-    if (!$this->controller || access::$user->rank != 1)
+    if (!$this->controller || Access::$user->rank != 1)
       return;
 
     if ($this->request->post('uninstall_controller_yes'))
@@ -92,10 +92,10 @@ class admin_controllers extends Controller
       {
       $favorite_config = $this->request->post('favorite_config');
       $favorite_config = ($favorite_config ? 2 : 1);
-      if (access::$user->rank == 1)
-        $this->model_controller_permission->insert(access::$user->id, $this->controller->id, $favorite_config);
+      if (Access::$user->rank == 1)
+        $this->model_controller_permission->insert(Access::$user->id, $this->controller->id, $favorite_config);
       else
-        $this->model_controller_permission->update($favorite_config, access::$user->id, $this->controller->id);
+        $this->model_controller_permission->update($favorite_config, Access::$user->id, $this->controller->id);
 
       $this->response->redirect(urlModr($this->route));
       }
@@ -105,10 +105,10 @@ class admin_controllers extends Controller
       }
     else if ($this->controller->favorite)
       {
-      if (access::$user->rank == 1)
-        $this->model_controller_permission->delete(access::$user->id, $this->controller->id);
+      if (Access::$user->rank == 1)
+        $this->model_controller_permission->delete(Access::$user->id, $this->controller->id);
       else
-        $this->model_controller_permission->update(0, access::$user->id, $this->controller->id);
+        $this->model_controller_permission->update(0, Access::$user->id, $this->controller->id);
       $this->response->redirect(urlModr($this->route));
       }
     else
@@ -153,7 +153,7 @@ class admin_controllers extends Controller
           {
           $errors = array();
 
-          $this->controller = new kcontroller($this->model_controller);
+          $this->controller = new Kcontroller($this->model_controller);
 
           if (!$this->controller->setName((string) $fileinfo_obj->name))
             $errors[] = 'Informationsfilen angav ett för kort modulnamn.';
@@ -173,7 +173,7 @@ class admin_controllers extends Controller
               $zip->extractTo('../');
 
               /* Let the controller make custom installation stuff */
-              $controller = 'admin_controller_' . $this->controller->class_name;
+              $controller = 'AdminController' . $this->controller->class_name;
               $controller::install();
 
               $this->fetchPermittedControllers(true);
@@ -212,7 +212,7 @@ class admin_controllers extends Controller
 
   private function uninstallController()
     {
-    $controller = 'admin_controller_' . $this->controller->class_name;
+    $controller = 'AdminController' . $this->controller->class_name;
     if ($controller::uninstall())
       {
       $this->model_controller_permission->deleteByController($this->controller->id);
