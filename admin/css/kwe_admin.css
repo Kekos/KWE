@@ -14,7 +14,7 @@ body
   background: #d8d8d8;
   }
 
-#header, #kwe_logo, #login_logo, #goto_firstpage, .edit-link:before, .less-link:before, .dwcmd-KWElink, .dwcmd-KWEimage, .file:after, .folder:after
+#header, #kwe_logo, #login_logo, #goto_firstpage, .edit-link:before, .less-link:before, .dwcmd-KWElink, .dwcmd-KWEimage, .file:after, .folder:after, .browse-to-img
   {
   background-image: url('../../images/admin/sprite.png') !important;
   background-repeat: no-repeat;
@@ -355,7 +355,24 @@ button:focus, .toolbar-button:focus
   box-shadow: 0 3px 5px #306791, 0px 10px 30px -5px #306791 inset;
   }
 
-#dw_KWE_cd { padding: 2px; background: #224967; color: #fff; }
+#dw_KWE_cd
+  {
+  padding: 2px;
+  background: #224967;
+  color: #fff;
+  }
+
+.browse-to-link
+  {
+  margin-left: 2px;
+  }
+
+.browse-to-img
+  {
+  padding: 0 18px 2px;
+  background-position: -96px -116px;
+  }
+
 .dwcmd-KWElink, .dwcmd-KWEimage { background: no-repeat 2px 2px; }
 /*.dwcmd-KWElink { background-image: url('../../images/admin/dw_kwe_link.png') !important; }
 .dwcmd-KWEimage { background-image: url('../../images/admin/dw_kwe_image.png') !important; }*/
