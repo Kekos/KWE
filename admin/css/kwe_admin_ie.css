@@ -2,22 +2,12 @@
  * KWF Style: kwe_admin_ie.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-07-11
+ * @date 2012-07-12
  * @version 1.0
  */
 
-body, tr { position: relative; }
-
-#subnavigation
+.delete-link, .permission-link, .more-link, .controller-delete, .icon-up, .icon-down, .favorite-link, .not-favorite-link
   {
-  position: absolute;
-  margin: 1% 0 0;
-  right: -1px;
+  text-indent: 0;
+  font-size: 0pt;
   }
-
-#page { width: 99%; }
-#footer { clear: both; }
-
-tr:hover .actions { right: auto; }
-fieldset * { display: block !important; zoom: 1; }
-.collapsed ol { display: none !important; }

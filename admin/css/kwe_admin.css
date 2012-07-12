@@ -2,7 +2,7 @@
  * KWF Style: kwe_admin.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-05
+ * @date 2012-07-12
  * @version 2.0
  */
 
@@ -14,7 +14,7 @@ body
   background: #d8d8d8;
   }
 
-#header, #kwe_logo, #login_logo, #goto_firstpage, .edit-link::before, .less-link::before, .dwcmd-KWElink, .dwcmd-KWEimage, .file::after, .folder::after
+#header, #kwe_logo, #login_logo, #goto_firstpage, .edit-link:before, .less-link:before, .dwcmd-KWElink, .dwcmd-KWEimage, .file:after, .folder:after
   {
   background-image: url('../../images/admin/sprite.png') !important;
   background-repeat: no-repeat;
@@ -266,7 +266,7 @@ a { color: #04aeec; }
   padding-left: 18px;
   }
 
-.less-link::before, .edit-link::before
+.less-link:before, .edit-link:before
   {
   content: '';
   position: absolute;
@@ -279,21 +279,21 @@ a { color: #04aeec; }
 
 .edit-link { color: #04ce14; }
 .edit-link:hover, .edit-link:focus { color: #02930f; }
-/*.edit-link::before { background-image: url('../../images/admin/edit.png'); }
+/*.edit-link:before { background-image: url('../../images/admin/edit.png'); }
 .delete-link { background-image: url('../../images/admin/delete.png'); }
 .permission-link { background-image: url('../../images/admin/permissions.png'); }
 .more-link { background-image: url('../../images/admin/more.png'); }
-.less-link::before { background-image: url('../../images/admin/less.png'); }
+.less-link:before { background-image: url('../../images/admin/less.png'); }
 .controller-delete { background-image: url('../../images/admin/delete-x.png'); }
 .icon-up { background-image: url('../../images/admin/up.png'); }
 .icon-down { background-image: url('../../images/admin/down.png'); }
 .favorite-link { background-image: url('../../images/admin/favorite.png'); }
 .not-favorite-link { background-image: url('../../images/admin/not-favorite.png'); }*/
-.edit-link::before { background-position: 0 -100px; }
+.edit-link:before { background-position: 0 -100px; }
 .delete-link { background-position: -16px -100px; }
 .permission-link { background-position: -32px -100px; }
 .more-link { background-position: -48px -100px; }
-.less-link::before { background-position: -64px -100px; }
+.less-link:before { background-position: -64px -100px; }
 .controller-delete { background-position: -80px -100px; }
 .icon-up { background-position: -96px -100px; }
 .icon-down { background-position: -112px -100px; }
@@ -491,7 +491,7 @@ button:focus, .toolbar-button:focus
   word-wrap: break-word;
   }
 
-.file::after, .folder::after
+.file:after, .folder:after
   {
   content: '';
   position: absolute;
@@ -503,7 +503,7 @@ button:focus, .toolbar-button:focus
   background-position: 0 -116px;
   }
 
-.file::after
+.file:after
   {
   /*background-image: url('../../images/admin/file.png');*/
   background-position: -48px -116px;
@@ -520,7 +520,7 @@ button:focus, .toolbar-button:focus
 
 #footer
   {
-  overflow: auto;
+  overflow: hidden;
   background: #fdfdfd;
   border-top: 15px solid #d8d8d8;
   }
