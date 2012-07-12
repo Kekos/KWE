@@ -303,7 +303,7 @@ a { color: #04aeec; }
 .not-favorite-link { background-position: -144px -100px; }
 
 form ol { margin: 0 1%; padding: 0; }
-input, select, textarea { float: left; margin: 2px 0; }
+li input, li select, li textarea { float: left; margin: 2px 0; }
 
 form ol li
   {
@@ -364,7 +364,7 @@ button:focus, .toolbar-button:focus
 
 /* Sections */
 
-  .left-section, .half-section, .third-section, .two-thirds-section
+.left-section, .half-section, .third-section, .two-thirds-section
   {
   float: left;
   margin: 1%;
