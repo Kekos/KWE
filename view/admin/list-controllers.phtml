@@ -27,7 +27,7 @@
 <?php foreach ($controllers as $controller): ?>
         <tr>
 <?php if ($controller->configurable): ?>
-          <td><a href="<?php echo urlModr($controller->class_name); ?>"><?php echo htmlspecialchars($controller->name); ?></a></td>
+          <td><a href="<?php echo urlModr($controller->class_name); ?>" class="clink"><?php echo htmlspecialchars($controller->name); ?></a></td>
 <?php else: ?>
           <td><?php echo htmlspecialchars($controller->name); ?></td>
 <?php endif; ?>

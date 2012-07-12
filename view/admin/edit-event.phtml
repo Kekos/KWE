@@ -1,7 +1,8 @@
     <h1>Redigera händelse</h1>
 
-    <p><a href="<?php echo urlModr($route); ?>">Gå till händelselistan</a></p>
-    <form action="<?php echo urlModr($route, $params); ?>" method="post">
+    <p><a href="<?php echo urlModr($route); ?>" class="clink">Gå till händelselistan</a></p>
+
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
       <fieldset>
         <ol>
           <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text', '', $event->title); ?> /></li>

@@ -10,20 +10,20 @@
         <li>
           <a href="<?php echo urlModrSite($page->url); ?>"><?php echo htmlspecialchars($page->title); ?></a> 
           (<?php echo easyDate('H:i', $page->edited) . ' av ' . htmlspecialchars($page->name); ?>) 
-          <a href="<?php echo urlModr('edit-page', 'show', $page->url); ?>" class="edit-link">Redigera</a>
+          <a href="<?php echo urlModr('edit-page', 'show', $page->url); ?>" class="clink edit-link">Redigera</a>
         </li>
 <?php endforeach; ?>
       </ul>
     </section>
 
     <section class="half-section list">
-      <h1><a href="<?php echo urlModr('controllers'); ?>">Moduler</a></h1>
+      <h1><a href="<?php echo urlModr('controllers'); ?>" class="clink">Moduler</a></h1>
 <?php if (count($controllers)): ?>
       <p>Dina favoritmoduler:</p>
 
       <ul class="shortcuts">
 <?php foreach ($controllers as $controller): ?>
-        <li><a href="<?php echo urlModr($controller->class_name); ?>"><?php echo htmlspecialchars($controller->name); ?></a></li>
+        <li><a href="<?php echo urlModr($controller->class_name); ?>" class="clink"><?php echo htmlspecialchars($controller->name); ?></a></li>
 <?php endforeach; ?>
       </ul>
 <?php endif; ?>

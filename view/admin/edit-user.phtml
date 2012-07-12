@@ -3,7 +3,7 @@
     <section class="half-section box">
       <h1>Redigera användare</h1>
 
-      <form action="<?php echo urlModr($route, $params); ?>" method="post">
+      <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
         <fieldset>
           <ol>
             <li><label for="name">Namn</label> <input type="text" name="name" id="name" maxlength="50"<?php Request::formStatePost('name', 'text', '', $user->name); ?> /></li>
@@ -20,7 +20,7 @@
     <section class="half-section box">
       <h1>Sätt nytt lösenord</h1>
 
-      <form action="" method="post">
+      <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
         <fieldset>
           <ol>
             <li><label for="password">Nytt lösenord</label> <input type="password" name="password" id="password" />

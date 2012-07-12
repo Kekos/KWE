@@ -5,7 +5,7 @@ $data['scripts'] = array_unique($data['scripts']);
 
 function menuLink($current_page, $new_page)
   {
-  return '<a href="' . urlModr($new_page) . '" class="menu-item' . ($current_page == $new_page ? ' active' : '') . '">';
+  return '<a href="' . urlModr($new_page) . '" class="clink menu-item' . ($current_page == $new_page ? ' active' : '') . '">';
   }
 ?>
 <!DOCTYPE html>
@@ -58,7 +58,7 @@ $controllers = $this->request->session->get('controllers');
 if ($controllers): ?>
           <ul class="submenu">
 <?php foreach ($controllers as $controller): ?>
-            <li><a href="<?php echo urlModr($controller[1]); ?>" class="submenu-item"><?php echo $controller[0]; ?></a></li>
+            <li><a href="<?php echo urlModr($controller[1]); ?>" class="clink submenu-item"><?php echo $controller[0]; ?></a></li>
 <?php endforeach; ?>
           </ul><?php endif; ?></li>
 <?php if (Access::$user->rank == 1): ?>

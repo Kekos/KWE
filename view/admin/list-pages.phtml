@@ -4,7 +4,7 @@
       Använd pilen för att se undersidor.</p>
 
 <?php if (Access::$user->rank == 1 || ($active_page && ($active_page->permission & PERMISSION_ADD))): ?>
-    <p><a href="<?php echo urlModr($route, 'addnew', ($active_page ? $active_page->url : '')); ?>">Skapa ny <?php if ($active_page) echo 'under'; ?>sida</a></p>
+    <p><a href="<?php echo urlModr($route, 'addnew', ($active_page ? $active_page->url : '')); ?>" class="clink">Skapa ny <?php if ($active_page) echo 'under'; ?>sida</a></p>
 <?php endif; ?>
 
     <table>
@@ -26,7 +26,7 @@ $i = 0;
 foreach ($pages as $page): ?>
       <tr>
         <td<?php if ($active_page && $i > 0) echo ' class="subpage-row"'; ?>><?php if (!$active_page): ?><a href="<?php echo urlModr('page', 'list', $page->url); ?>" class="more-link clink">Visa undersidor</a>
-          <?php endif; ?><a href="<?php echo urlModr('edit-page', 'show', $page->url); ?>" class="edit-link"><?php echo htmlspecialchars($page->title); ?></a></td>
+          <?php endif; ?><a href="<?php echo urlModr('edit-page', 'show', $page->url); ?>" class="clink edit-link"><?php echo htmlspecialchars($page->title); ?></a></td>
         <td><a href="<?php echo urlModrSite($page->url); ?>"><?php echo htmlspecialchars($page->url); ?></a></td>
         <td><?php echo ($page->public ? 'Ja' : 'Nej'); ?></td>
         <td><?php echo ($page->show_in_menu ? 'Ja' : 'Nej'); ?></td>

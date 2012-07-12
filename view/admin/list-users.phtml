@@ -3,7 +3,7 @@
     <section class="half-section box">
       <h1>Lägg till användare</h1>
 
-      <form action="<?php echo urlModr($route, $params); ?>" method="post">
+      <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
         <fieldset>
           <ol>
             <li><label for="name">Namn</label> <input type="text" name="name" id="name" maxlength="50"<?php Request::formStatePost('name', 'text'); ?> /></li>
@@ -33,9 +33,9 @@
 <?php foreach ($users as $user): ?>
         <tr>
           <td><?php echo htmlspecialchars($user->name); ?></td>
-          <td><a href="<?php echo urlModr('users', 'edit', $user->id); ?>" class="edit-link"><?php echo htmlspecialchars($user->username); ?></a></td>
+          <td><a href="<?php echo urlModr('users', 'edit', $user->id); ?>" class="clink edit-link"><?php echo htmlspecialchars($user->username); ?></a></td>
           <td><?php echo easyDate('H:i', $user->online_time); ?></td>
-          <td class="actions"><?php if ($user->rank > 1): ?><a href="<?php echo urlModr('users', 'permissions', $user->id); ?>" class="permission-link">Rättigheter</a><?php endif; ?>
+          <td class="actions"><?php if ($user->rank > 1): ?><a href="<?php echo urlModr('users', 'permissions', $user->id); ?>" class="clink permission-link">Rättigheter</a><?php endif; ?>
             <a href="<?php echo urlModr('users', 'delete', $user->id); ?>" class="delete-link">Ta bort</a></td>
         </tr>
 <?php endforeach; ?>

@@ -3,7 +3,7 @@
     <section class="half-section box">
       <h1>Ny nyhet</h1>
 
-      <form action="<?php echo urlModr($route, $params); ?>" method="post">
+      <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
         <fieldset>
           <ol>
             <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text'); ?> /></li>
@@ -24,7 +24,7 @@
         </tr>
 <?php foreach ($news as $news_item): ?>
         <tr>
-          <td><a href="<?php echo urlModr($route, 'edit', $news_item->id); ?>" class="edit-link"><?php echo htmlspecialchars($news_item->title); ?></a></td>
+          <td><a href="<?php echo urlModr($route, 'edit', $news_item->id); ?>" class="clink edit-link"><?php echo htmlspecialchars($news_item->title); ?></a></td>
           <td><?php echo easyDate('H:i', $news_item->created); ?></td>
           <td class="actions"><a href="<?php echo urlModr($route, 'delete', $news_item->id); ?>" class="delete-link">Ta bort</a></td>
         </tr>

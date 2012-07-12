@@ -1,6 +1,6 @@
     <h1>Inställningar</h1>
 
-    <form action="<?php echo urlModr($route, $params); ?>" method="post">
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
       <fieldset>
         <ol>
           <li><label for="mysql_server">MySQL-server</label> <input type="text" name="setting[MySQL_SERVER]" id="mysql_server"<?php Request::formStatePost('setting[MySQL_SERVER]', 'text', '', MySQL_SERVER); ?> /></li>
