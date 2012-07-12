@@ -195,6 +195,7 @@ body
 #page
   {
   margin: 0 auto 15px;
+  width: 100%;
   max-width: 1000px;
   overflow: auto;
   font-size: 1.1em;
@@ -363,7 +364,7 @@ button:focus, .toolbar-button:focus
 
 /* Sections */
 
-.left-section, .half-section, .third-section, .two-thirds-section
+  .left-section, .half-section, .third-section, .two-thirds-section
   {
   float: left;
   margin: 1%;
@@ -606,10 +607,101 @@ button:focus, .toolbar-button:focus
 
 #kwe_login #content
   {
-  float: none;
   width: 340px;
   margin: 100px auto 0;
   border: 0;
   }
 
 #kwe_login h1 { text-align: center; }
+
+/* Media queries */
+
+@media screen and (max-width: 320px)
+  {
+  #header
+    {
+    height: 25px;
+    }
+
+  #kwe_logo
+    {
+    top: 2px;
+    left: 2px;
+    height: 25px;
+    width: 25px;
+    margin: 0;
+    /*background-image: url('../../images/admin/logo-25.png') !important;*/
+    background-position: -144px -72px;
+    }
+
+  #goto_firstpage
+    {
+    margin: 2px;
+    }
+
+  #navigation ul
+    {
+    margin: 0;
+    }
+
+  .menu-item
+    {
+    margin: 0;
+    padding: 4px 4px;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    box-shadow: none;
+    }
+
+  #page
+    {
+    margin: 0;
+    }
+
+  #content, #footer
+    {
+    border: 0;
+    }
+
+  #content > h1
+    {
+    padding: 5px;
+    }
+
+  .left-section, .half-section, .third-section, .two-thirds-section
+    {
+    float: none;
+    margin: 0;
+    width: 100%;
+    }
+
+  #footer
+    {
+    font-size: 0.8em;
+    }
+
+  #footer p
+    {
+    height: auto;
+    border: 0;
+    }
+
+  #version
+    {
+    font-size: inherit !important;
+    }
+
+  #kwe_login #content
+    {
+    margin: 0;
+    width: 100%;
+    }
+
+  #login_form
+    {
+    margin: 0;
+    top: 0;
+    left: 0;
+    }
+  }
