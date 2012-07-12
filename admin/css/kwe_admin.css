@@ -20,7 +20,7 @@ body
   background-repeat: no-repeat;
   }
 
-#errorlist, #infolist, .controller-actions, button, .toolbar-button
+.submenu, #errorlist, #infolist, .controller-actions, button, .toolbar-button
   {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -144,7 +144,7 @@ body
   position: absolute;
   top: 20px;
   background: #fff;
-  border: 1px solid #353535;
+  border: 1px solid #d8d8d8;
   }
 
 .submenu li
@@ -155,13 +155,14 @@ body
 .submenu-item
   {
   display: block;
-  padding: 4px;
+  padding: 6px 16px;
   color: #000;
   }
 
 .submenu-item:hover
   {
   background: #3a7baa;
+  color: #fff;
   text-decoration: none;
   }
 
