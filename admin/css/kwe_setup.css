@@ -1,0 +1,50 @@
+/**
+ * KWF Style: kwe_setup.css
+ * 
+ * @author Christoffer Lindahl <christoffer@kekos.se>
+ * @date 2012-07-13
+ * @version 1.0
+ */
+
+html
+  {
+  height: 100%;
+  background: #306791;
+  background: -moz-linear-gradient(top, #306791 0%, #0597da 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#306791), color-stop(100%,#0597da));
+  background: -webkit-linear-gradient(top, #306791 0%,#0597da 100%);
+  background: -o-linear-gradient(top, #306791 0%,#0597da 100%);
+  background: -ms-linear-gradient(top, #306791 0%,#0597da 100%);
+  background: linear-gradient(to bottom, #306791 0%,#0597da 100%);
+  background-attachment: fixed;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#306791', endColorstr='#0597da',GradientType=0 );
+  }
+
+body
+  {
+  margin: 20px auto;
+  width: 600px;
+  background: #fff;
+  border: 1px solid #306791;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  }
+
+#header, #footer p
+  {
+  height: auto;
+  border: 0;
+  }
+
+#header h1
+  {
+  padding: 10px;
+  background: #eaa852;
+  }
+
+#content, #footer
+  {
+  background: none;
+  border: 0;
+  }
