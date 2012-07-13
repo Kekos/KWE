@@ -3,9 +3,9 @@ $page = (isset($this->request) ? $this->request->params[0] : '');
 $data['stylesheets'] = array_unique($data['stylesheets']);
 $data['scripts'] = array_unique($data['scripts']);
 
-function menuLink($current_page, $new_page)
+function menuLink($current_page, $new_page, $is_clink)
   {
-  return '<a href="' . urlModr($new_page) . '" class="clink menu-item' . ($current_page == $new_page ? ' active' : '') . '">';
+  return '<a href="' . urlModr($new_page) . '" class="' . ($is_clink ? 'clink ' : '') . 'menu-item' . ($current_page == $new_page ? ' active' : '') . '">';
   }
 ?>
 <!DOCTYPE html>
@@ -50,9 +50,9 @@ function menuLink($current_page, $new_page)
 
       <ul>
 <?php if (Access::$is_logged_in): ?>
-        <li><?php echo menuLink($page, 'index'); ?>Översikt</a></li>
-        <li><?php echo menuLink($page, 'page'); ?>Sidor</a></li>
-        <li class="submenu-link"><?php echo menuLink($page, 'controllers'); ?>Moduler</a>
+        <li><?php echo menuLink($page, 'index', true); ?>Översikt</a></li>
+        <li><?php echo menuLink($page, 'page', true); ?>Sidor</a></li>
+        <li class="submenu-link"><?php echo menuLink($page, 'controllers', true); ?>Moduler</a>
 <?php
 $controllers = $this->request->session->get('controllers');
 if ($controllers): ?>
@@ -62,12 +62,12 @@ if ($controllers): ?>
 <?php endforeach; ?>
           </ul><?php endif; ?></li>
 <?php if (Access::$user->rank == 1): ?>
-        <li><?php echo menuLink($page, 'settings'); ?>Inställningar</a></li>
-        <li><?php echo menuLink($page, 'users'); ?>Användare</a></li>
+        <li><?php echo menuLink($page, 'settings', true); ?>Inställningar</a></li>
+        <li><?php echo menuLink($page, 'users', true); ?>Användare</a></li>
 <?php endif; ?>
-        <li><?php echo menuLink($page, 'logout'); ?>Logga ut</a></li>
+        <li><?php echo menuLink($page, 'logout', false); ?>Logga ut</a></li>
 <?php else: ?>
-        <li><?php echo menuLink($page, 'index'); ?>Logga in</a></li>
+        <li><?php echo menuLink($page, 'index', false); ?>Logga in</a></li>
 <?php endif; ?>
       </ul>
     </nav>
