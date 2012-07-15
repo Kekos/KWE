@@ -1,13 +1,13 @@
 <?php
 /**
- * KWE Controller: upload
+ * KWE Controller: Upload
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2011-08-15
+ * @date 2012-07-15
  * @version 1.0
  */
 
-class upload extends controller
+class Upload extends Controller
   {
   public function _default()
     {
