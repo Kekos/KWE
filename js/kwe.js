@@ -3,7 +3,7 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-11
+ * @date 2012-07-15
  * @version 3.0
  */
 
@@ -297,9 +297,33 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
       }, boxing_request.parseResponse, elem('file'));
     }
 
+  /**
+   * Changes the active menu-item when it's clicked
+   * @method changeActiveMenuLink
+   * @private
+   * @param {HTMLAnchorElement} link The link that was clicked
+   */
+  function changeActiveMenuLink(link)
+    {
+    var links = elem('navigation').getElementsByTagName('a'), 
+      l;
+
+    for (l = 0; l < links.length; l++)
+      {
+      removeClass(links[l], 'active');
+      }
+
+    addClass(link, 'active');
+    }
+
   /* Add listeners to the KWF click event */
   Kwf.onclick = function(e, targ)
     {
+    if (hasClass(targ, 'menu-item') && !hasClass(targ, 'active'))
+      {
+      changeActiveMenuLink(targ);
+      }
+
     if (hasClass(targ, 'save-domiwyg'))
       {
       Wysiwyg.saveDomiwyg(targ);
