@@ -3,7 +3,7 @@
  * KWF Controller: AdminControllers
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-11
+ * @date 2012-07-27
  * @version 2.2
  */
 
@@ -30,7 +30,7 @@ class AdminControllers extends Controller
       {
       if ($this->controller = $this->model_controller->fetchByCName($controller_id, Access::$user->id))
         {
-        if (!file_exists(BASE . 'class/controller/admin_controller_' . $controller_id . '.php'))
+        if (!file_exists(BASE . 'class/controller/AdminController' . $controller_id . '.php'))
           {
           $this->controller = false;
           return $this->response->addError('Modulen ' . htmlspecialchars($controller_id) . ' är korrupt (fil fattas).');
