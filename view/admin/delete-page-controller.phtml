@@ -1,10 +1,9 @@
-    <h1>Ta bort sidmodul</h1>
+    <h1><?php echo _('DELETE_PAGEMOD_HEADER'); ?></h1>
 
     <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form content-on-close">
-      <p>Är du säker på att du vill ta bort modulen <strong><?php echo htmlspecialchars($controller->name); ?></strong> 
-        på den aktuella sidan <strong><?php echo htmlspecialchars($active_page->title); ?></strong>?</p>
+      <p><?php echo _('DELETE_PAGEMOD_QUESTION', '<strong>' . htmlspecialchars($controller->name) . '</strong>', '<strong>' . htmlspecialchars($active_page->title) . '</strong>'); ?></p>
 
-      <p><button type="submit" name="delete_pcontroller_yes" value="yes">Ja</button>
-        <button type="submit" name="delete_pcontroller_no" value="no" class="hide-boxing">Nej</button>
+      <p><button type="submit" name="delete_pcontroller_yes" value="yes"><?php echo _('YES'); ?></button>
+        <button type="submit" name="delete_pcontroller_no" value="no" class="hide-boxing"><?php echo _('NO'); ?></button>
         <input type="hidden" name="controller_id" value="<?php echo $controller->id; ?>" /></p>
     </form>

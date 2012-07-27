@@ -2,12 +2,12 @@
       <fieldset>
         <a href="<?php echo urlModr(); ?>" id="login_logo">KWE</a>
 
-        <h1>Logga in</h1>
+        <h1><?php echo _('HEADER_LOGIN'); ?></h1>
 
         <ol>
-          <li><label for="username">Användarnamn</label> <input type="text" name="username" id="username" maxlength="20" /></li>
-          <li><label for="password">Lösenord</label> <input type="password" name="password" id="password" /></li>
-          <li><button type="submit" name="login_submit" value="ok">Logga in</button></li>
+          <li><label for="username"><?php echo _('LOGIN_USERNAME'); ?></label> <input type="text" name="username" id="username" maxlength="20" /></li>
+          <li><label for="password"><?php echo _('LOGIN_PASSWORD'); ?></label> <input type="password" name="password" id="password" /></li>
+          <li><button type="submit" name="login_submit" value="ok"><?php echo _('LOGIN_SEND'); ?></button></li>
         </ol>
       </fieldset>
     </form>

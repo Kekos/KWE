@@ -33,11 +33,11 @@ class AdminControllers extends Controller
         if (!file_exists(BASE . 'class/controller/AdminController' . $controller_id . '.php'))
           {
           $this->controller = false;
-          return $this->response->addError('Modulen ' . htmlspecialchars($controller_id) . ' är korrupt (fil fattas).');
+          return $this->response->addError(_('MODULES_ERROR_CORRUPT', htmlspecialchars($controller_id)));
           }
         }
       else
-        return $this->response->addError('Hittade inte modulen ' . htmlspecialchars($controller_id));
+        return $this->response->addError(_('MODULES_ERROR_NOT_FOUND', htmlspecialchars($controller_id)));
       }
 
     $this->fetchPermittedControllers();
@@ -130,9 +130,9 @@ class AdminControllers extends Controller
     $filename = $_FILES['file']['name'];
 
     if (empty($filename))
-      $errors[] = 'Du måste ladda upp en installationsfil för att installera modulen.';
+      $errors[] = _('MODULES_ERROR_NO_FILE');
     else if (substr($filename, -4)  != '.kwe')
-      $errors[] = 'Installationsfilen ska vara av typen .kwe';
+      $errors[] = _('MODULES_ERROR_WRONG_TYPE');
 
     if (!count($errors))
       {
@@ -140,7 +140,7 @@ class AdminControllers extends Controller
 
       $zip = new ZipArchive();
       if ($zip->open($filename) !== true)
-        return $this->response->addError('Installationsfilen var ingen giltig KWE-fil (kunde inte öppna paketet).');
+        return $this->response->addError(_('MODULES_ERROR_INVALID_FILE'));
 
       /* First extract the Controller info file */
       if ($zip->extractTo('../', 'info.xml'))
@@ -156,13 +156,13 @@ class AdminControllers extends Controller
           $this->controller = new Kcontroller($this->model_controller);
 
           if (!$this->controller->setName((string) $fileinfo_obj->name))
-            $errors[] = 'Informationsfilen angav ett för kort modulnamn.';
+            $errors[] = _('MODULES_ERROR_INF_NAME_SHORT');
           if (!$this->controller->setClassName((string) $fileinfo_obj->class_name))
-            $errors[] = 'Informationsfilen angav ett för kort modulklassnamn.';
+            $errors[] = _('MODULES_ERROR_INF_CLASS_SHORT');
           if (!$this->controller->setConfigurable($fileinfo_obj->configurable))
-            $errors[] = 'Informationsfilen angav felaktigt alternativ för konfiguration.';
+            $errors[] = _('MODULES_ERROR_INF_CONFIG_ALT');
           if (!$this->controller->setHasFavoriteConfig($fileinfo_obj->has_favorite_config))
-            $errors[] = 'Informationsfilen angav felaktigt alternativ för favoritkonfiguration.';
+            $errors[] = _('MODULES_ERROR_INF_CONFIG_FAV');
 
           if (!count($errors))
             {
@@ -177,11 +177,11 @@ class AdminControllers extends Controller
               $controller::install();
 
               $this->fetchPermittedControllers(true);
-              $this->response->addInfo('Modulen har installerats.');
+              $this->response->addInfo(_('MODULES_INFO_INSTALLED'));
               }
             else
               {
-              $this->response->addError('Det gick inte att registrera modulen.');
+              $this->response->addError(_('MODULES_ERROR_REGISTER_INSTALL'));
               }
             }
           else
@@ -191,14 +191,14 @@ class AdminControllers extends Controller
           }
         else
           {
-          $this->response->addError('Installationsfilen var ingen giltig KWE-fil (informationsfilen var inte korrekt).');
+          $this->response->addError(_('MODULES_ERROR_CORRUPT_INFO'));
           }
 
         unlink($fileinfo);
         }
       else
         {
-        $this->response->addError('Installationsfilen var ingen giltig KWE-fil (hittade ingen informationsfil).');
+        $this->response->addError(_('MODULES_ERROR_NO_INFO'));
         }
 
       $zip->close();
@@ -220,11 +220,11 @@ class AdminControllers extends Controller
 
       $this->controller->delete();
       $this->controller = false;
-      $this->response->addInfo('Modulen har avinstallerats.');
+      $this->response->addInfo(_('MODULES_INFO_UNINSTALLED'));
       }
     else
       {
-      $this->response->addError('Modulen kunde inte avinstalleras.');
+      $this->response->addError(_('MODULES_ERROR_UNINSTALL'));
       }
     }
 

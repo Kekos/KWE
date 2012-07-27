@@ -1,32 +1,32 @@
-    <h1>Användare</h1>
+    <h1><?php echo _('HEADER_USERS'); ?></h1>
 
     <section class="half-section box">
-      <h1>Redigera användare</h1>
+      <h1><?php echo _('EDIT_USER_HEADER'); ?></h1>
 
       <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
         <fieldset>
           <ol>
-            <li><label for="name">Namn</label> <input type="text" name="name" id="name" maxlength="50"<?php Request::formStatePost('name', 'text', '', $user->name); ?> /></li>
-            <li><label for="rank">Användarrang</label> <select name="rank" id="rank">
-                <option value="1"<?php Request::formStatePost('rank', 'select', 1, $user->rank); ?>>Administratör</option>
-                <option value="2"<?php Request::formStatePost('rank', 'select', 2, $user->rank); ?>>Skribent</option>
+            <li><label for="name"><?php echo _('USERS_NAME'); ?></label> <input type="text" name="name" id="name" maxlength="50"<?php Request::formStatePost('name', 'text', '', $user->name); ?> /></li>
+            <li><label for="rank"><?php echo _('USERS_RANK'); ?></label> <select name="rank" id="rank">
+                <option value="1"<?php Request::formStatePost('rank', 'select', 1, $user->rank); ?>><?php echo _('USERRANK_1'); ?></option>
+                <option value="2"<?php Request::formStatePost('rank', 'select', 2, $user->rank); ?>><?php echo _('USERRANK_2'); ?></option>
               </select></li>
-            <li><button type="submit" name="edit_user" value="yes">Spara ändringar</button></li>
+            <li><button type="submit" name="edit_user" value="yes"><?php echo _('EDIT_USER_SAVE'); ?></button></li>
           </ol>
         </fieldset>
       </form>
     </section>
 
     <section class="half-section box">
-      <h1>Sätt nytt lösenord</h1>
+      <h1><?php echo _('EDIT_USER_PW_HEADER'); ?></h1>
 
       <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
         <fieldset>
           <ol>
-            <li><label for="password">Nytt lösenord</label> <input type="password" name="password" id="password" />
-              <span class="description">Minst 6 tecken. Lämna tomt för att systemet ska slumpa lösenord åt dig.</span></li>
-            <li><label for="password_repeat">Repetera nytt lösenord</label> <input type="password" name="password_repeat" id="password_repeat" /></li>
-            <li><button type="submit" name="edit_user_password" value="yes">Spara lösenord</button></li>
+            <li><label for="password"><?php echo _('CHANGE_PW_NEW'); ?></label> <input type="password" name="password" id="password" />
+              <span class="description"><?php echo _('EDIT_USER_PW_INFO'); ?></span></li>
+            <li><label for="password_repeat"><?php echo _('CHANGE_PW_REPEAT'); ?></label> <input type="password" name="password_repeat" id="password_repeat" /></li>
+            <li><button type="submit" name="edit_user_password" value="yes"><?php echo _('CHANGE_PW_SAVE'); ?></button></li>
           </ol>
         </fieldset>
       </form>

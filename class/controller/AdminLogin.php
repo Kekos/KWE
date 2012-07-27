@@ -3,7 +3,7 @@
  * KWE Controller: AdminLogin
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-11
+ * @date 2012-07-27
  * @version 2.2
  */
 
@@ -57,7 +57,7 @@ class AdminLogin extends Controller
       }
     else
       {
-      $this->response->addError('Du angav fel användarnamn och / eller lösenord.');
+      $this->response->addError(_('LOGIN_ERROR'));
       }
     }
 

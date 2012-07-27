@@ -46,13 +46,13 @@ function menuLink($current_page, $new_page, $is_clink)
     <h1><a href="<?php echo urlModr(); ?>" id="kwe_logo">KWE</a></h1>
 
     <nav id="navigation">
-      <a href="<?php echo FULLPATH_SITE; ?>/" id="goto_firstpage" title="Till din förstasida">Till din förstasida</a>
+      <a href="<?php echo FULLPATH_SITE; ?>/" id="goto_firstpage" title="<?php echo _('HEADER_FIRSTPAGE'); ?>"><?php echo _('HEADER_FIRSTPAGE'); ?></a>
 
       <ul>
 <?php if (Access::$is_logged_in): ?>
-        <li><?php echo menuLink($page, 'index', true); ?>Översikt</a></li>
-        <li><?php echo menuLink($page, 'page', true); ?>Sidor</a></li>
-        <li class="submenu-link"><?php echo menuLink($page, 'controllers', true); ?>Moduler</a>
+        <li><?php echo menuLink($page, 'index', true); ?><?php echo _('HEADER_DASHBOARD'); ?></a></li>
+        <li><?php echo menuLink($page, 'page', true); ?><?php echo _('HEADER_PAGES'); ?></a></li>
+        <li class="submenu-link"><?php echo menuLink($page, 'controllers', true); ?><?php echo _('HEADER_MODULES'); ?></a>
 <?php
 $controllers = $this->request->session->get('controllers');
 if ($controllers): ?>
@@ -62,12 +62,12 @@ if ($controllers): ?>
 <?php endforeach; ?>
           </ul><?php endif; ?></li>
 <?php if (Access::$user->rank == 1): ?>
-        <li><?php echo menuLink($page, 'settings', true); ?>Inställningar</a></li>
-        <li><?php echo menuLink($page, 'users', true); ?>Användare</a></li>
+        <li><?php echo menuLink($page, 'settings', true); ?><?php echo _('HEADER_SETTINGS'); ?></a></li>
+        <li><?php echo menuLink($page, 'users', true); ?><?php echo _('HEADER_USERS'); ?></a></li>
 <?php endif; ?>
-        <li><?php echo menuLink($page, 'logout', false); ?>Logga ut</a></li>
+        <li><?php echo menuLink($page, 'logout', false); ?><?php echo _('HEADER_LOGOUT'); ?></a></li>
 <?php else: ?>
-        <li><?php echo menuLink($page, 'index', false); ?>Logga in</a></li>
+        <li><?php echo menuLink($page, 'index', false); ?><?php echo _('HEADER_LOGIN'); ?></a></li>
 <?php endif; ?>
       </ul>
     </nav>
@@ -99,8 +99,8 @@ if (count($this->info_messages)): ?>
 
   <footer id="footer">
     <p id="version"><?php echo KWE_VERSION; ?></p>
-    <p id="copyright">Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2012</p>
-    <p id="user-info"><?php if (Access::$is_logged_in): ?>Inloggad som <?php echo Access::$user->name; ?> <a href="<?php echo urlModr('change-password'); ?>" class="blink dim500x300">(Byt lösenord)</a><?php endif; ?></p>
+    <p id="copyright"><?php echo _('FOOTER_COPYRIGHT', '<a href="http://kekos.se/">Christoffer Lindahl</a>', '2009-2012'); ?></p>
+    <p id="user-info"><?php if (Access::$is_logged_in): ?><?php echo _('FOOTER_LOGGED_IN_AS'); ?> <?php echo Access::$user->name; ?> <a href="<?php echo urlModr('change-password'); ?>" class="blink dim500x300">(<?php echo _('FOOTER_CHANGE_PW'); ?>)</a><?php endif; ?></p>
   </footer>
 </div>
 

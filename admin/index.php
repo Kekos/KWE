@@ -3,7 +3,7 @@ define('PERMISSION_ADD', 1);
 define('PERMISSION_EDIT', 2);
 define('PERMISSION_DELETE', 4);
 define('KWE_VERSION', '3.0');
-define('KWE_BUILD', '120711');
+define('KWE_BUILD', '120727');
 
 require('admin_config.php');
 require(BASE . 'include/init.php');
@@ -19,6 +19,10 @@ if ($user = $request->session->get('admin'))
   $model_user = new UserModel($db);
   new Access($model_user, $user);
   }
+
+Language::configure($request, LANGUAGE_SESSION, LANGUAGE_DEFAULT);
+Language::acceptHeader();
+Language::load('admin');
 
 $router = new Router($route, $request, $page_model);
 $page = $router->getPage();

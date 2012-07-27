@@ -3,7 +3,7 @@
  * KWF Controller: AdminUsers
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-11
+ * @date 2012-07-27
  * @version 2.2
  */
 
@@ -31,7 +31,7 @@ class AdminUsers extends Controller
     if ($action && $user_id)
       {
       if (!$this->user = $this->model_user->fetch($user_id))
-        return $this->response->addInfo('Hittade inte användaren med ID ' . htmlspecialchars($user_id));
+        return $this->response->addInfo(_('USERS_INFO_NOT_FOUND', htmlspecialchars($user_id)));
       }
     }
 
@@ -144,21 +144,21 @@ class AdminUsers extends Controller
       $this->user->setPassword($password);
       }
     else if (!$this->user->setPassword($password))
-      $errors[] = 'Ett lösenord måste innehålla minst 6 tecken.';
+      $errors[] = _('USERS_ERROR_SHORT_PASSWORD');
 
     if (!$this->user->setUsername($username))
-      $errors[] = 'Skriv in ett längre användarnamn eller välj ett annat användarnamn.';
+      $errors[] = _('USERS_ERROR_SHORT_USERNAME');
     if (!$this->user->setName($name))
-      $errors[] = 'Skriv in ett längre namn.';
+      $errors[] = _('USERS_ERROR_SHORT_NAME');
     if (!$this->user->setRank($rank))
-      $errors[] = 'Du angav en konstig användarrang.';
+      $errors[] = _('USERS_ERROR_INVALID_RANK');
 
     if (!count($errors))
       {
       $this->user->setOnline(0);
       $this->user->setOnlineTime(0);
       $this->user->save();
-      $this->response->addInfo('Användaren ' . htmlspecialchars($username) . ' med lösenordet ' . htmlspecialchars($password) . ' skapades.');
+      $this->response->addInfo(_('USERS_INFO_NEW_USER', htmlspecialchars($username), htmlspecialchars($password)));
       }
     else
       {
@@ -173,14 +173,14 @@ class AdminUsers extends Controller
     $rank = $this->request->post('rank');
 
     if (!$this->user->setName($name))
-      $errors[] = 'Skriv in ett längre namn.';
+      $errors[] = _('USERS_ERROR_SHORT_NAME');
     if (!$this->user->setRank($rank))
-      $errors[] = 'Du angav en konstig användarrang.';
+      $errors[] = _('USERS_ERROR_INVALID_RANK');
 
     if (!count($errors))
       {
       $this->user->save();
-      $this->response->addInfo('Användaren ' . htmlspecialchars($this->user->username) . ' är sparad med de nya uppgifterna.');
+      $this->response->addInfo(_('USERS_INFO_EDIT_USER', htmlspecialchars($this->user->username)));
       }
     else
       {
@@ -200,18 +200,18 @@ class AdminUsers extends Controller
       $this->user->setPassword($password);
       }
     else if (!$this->user->setPassword($password))
-      $errors[] = 'Skriv in ett längre lösenord.';
+      $errors[] = _('USERS_ERROR_SHORT_PASSWORD');
 
     $np_password = $password;
     $password = md5($password);
     $password_repeat = md5($password_repeat);
     if ($password != $password_repeat)
-      $errors[] = 'De två lösenorden du skrev in stämde inte överens.';
+      $errors[] = _('CHANGE_PW_ERROR_MISSMATCH');
 
     if (!count($errors))
       {
       $this->user->save();
-      $this->response->addInfo('Användaren ' . htmlspecialchars($this->user->username) . ' fick ett nytt lösenord: ' . $np_password);
+      $this->response->addInfo(_('USERS_INFO_NEW_PW', htmlspecialchars($this->user->username), $np_password));
       }
     else
       {
@@ -268,14 +268,14 @@ class AdminUsers extends Controller
         $this->model_controller_permission->delete($this->user->id, $controller);
       }
 
-    $this->response->addInfo('Användaren fick nya rättigheter.');
+    $this->response->addInfo(_('USERS_INFO_PERM_SAVED'));
 
     $this->listPermissions();
     }
 
   private function deleteUser()
     {
-    $this->response->addInfo('Användaren ' . htmlspecialchars($this->user->username) . ' togs bort.');
+    $this->response->addInfo(_('USERS_INFO_DELETED', htmlspecialchars($this->user->username)));
 
     $this->model_permission->deleteByUser($this->user->id);
     $this->model_controller_permission->deleteByUser($this->user->id);

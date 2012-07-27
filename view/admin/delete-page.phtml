@@ -1,9 +1,8 @@
-    <h1>Ta bort sida</h1>
+    <h1><?php echo _('DELETE_PAGE_HEADER'); ?></h1>
 
     <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form content-on-close">
-      <p>Är du säker på att du vill ta bort sidan <strong><?php echo htmlspecialchars($page->title); ?></strong> 
-        samt dess undersidor permanent?</p>
+      <p><?php echo _('DELETE_PAGE_QUESTION', '<strong>' . htmlspecialchars($page->title) . '</strong>'); ?></p>
 
-      <p><button type="submit" name="delete_page_yes" value="yes">Ja</button>
-        <button type="submit" name="delete_page_no" value="no" class="hide-boxing">Nej</button></p>
+      <p><button type="submit" name="delete_page_yes" value="yes"><?php echo _('YES'); ?></button>
+        <button type="submit" name="delete_page_no" value="no" class="hide-boxing"><?php echo _('NO'); ?></button></p>
     </form>

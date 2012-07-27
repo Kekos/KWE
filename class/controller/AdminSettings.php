@@ -3,7 +3,7 @@
  * KWF Controller: AdminSettings
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-11
+ * @date 2012-07-27
  * @version 1.0
  */
 
@@ -76,7 +76,7 @@ class AdminSettings extends Controller
 
     file_put_contents($config_filename,  $config_content);
     file_put_contents($admin_config_filename,  $admin_config_content);
-    $this->response->addInfo('Inställningarna har sparats.');
+    $this->response->addInfo(_('SETTINGS_INFO_SAVED'));
     }
 
   public function run()

@@ -3,7 +3,7 @@
  * KWF Controller: AdminChangePassword
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-26
+ * @date 2012-07-27
  * @version 1.0
  */
 
@@ -42,17 +42,17 @@ class AdminChangePassword extends Controller
     $password_repeat = $this->request->post('password_repeat');
 
     if (md5($password_old) != Access::$user->password)
-      $errors['password_old'] = 'Du angav fel lösenord.';
+      $errors['password_old'] = _('CHANGE_PW_ERROR_WRONG');
     if (!Access::$user->setPassword($password))
-      $errors['password'] = 'Skriv in ett längre lösenord.';
+      $errors['password'] = _('CHANGE_PW_ERROR_LENGTH');
 
     if (md5($password_repeat) != md5($password))
-      $errors['password_repeat'] = 'De två lösenorden du skrev in stämde inte överens.';
+      $errors['password_repeat'] = _('CHANGE_PW_ERROR_MISSMATCH');
 
     if (!count($errors))
       {
       Access::$user->save();
-      $this->response->addInfo('Du fick ett nytt lösenord.');
+      $this->response->addInfo(_('CHANGE_PW_INFO'));
       return true;
       }
     else

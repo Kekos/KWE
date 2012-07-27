@@ -1,23 +1,23 @@
-    <h1>Inställningar</h1>
+    <h1><?php echo _('HEADER_SETTINGS'); ?></h1>
 
     <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
       <fieldset>
         <ol>
-          <li><label for="mysql_server">MySQL-server</label> <input type="text" name="setting[MySQL_SERVER]" id="mysql_server"<?php Request::formStatePost('setting[MySQL_SERVER]', 'text', '', MySQL_SERVER); ?> /></li>
-          <li><label for="mysql_user">MySQL-användare</label> <input type="text" name="setting[MySQL_USER]" id="mysql_user"<?php Request::formStatePost('setting[MySQL_USER]', 'text', '', MySQL_USER); ?> /></li>
-          <li><label for="mysql_password">MySQL-lösenord</label> <input type="password" name="setting[MySQL_PASSWORD]" id="mysql_password"<?php Request::formStatePost('setting[MySQL_PASSWORD]', 'text', '', MySQL_PASSWORD); ?> /></li>
-          <li><label for="mysql_db">MySQL-databas</label> <input type="text" name="setting[MySQL_DB]" id="mysql_db"<?php Request::formStatePost('setting[MySQL_DB]', 'text', '', MySQL_DB); ?> /></li>
-          <li><label for="db_prefix">Prefix för tabeller i databasen</label> <input type="text" name="setting[DB_PREFIX]" id="db_prefix"<?php Request::formStatePost('setting[DB_PREFIX]', 'text', '', DB_PREFIX); ?> /></li>
-          <li><label for="base">Sökväg till KWE-installation</label> <input type="text" name="setting[BASE]" id="base"<?php Request::formStatePost('setting[BASE]', 'text', '', BASE_SITE); ?> />
-            <span class="description">Måste sluta med snedstreck om den INTE är tom.</span></li>
-          <li><label for="fullpath">URL till din index-fil relativt till webbserverns rot</label> <input type="text" name="setting[FULLPATH]" id="fullpath"<?php Request::formStatePost('setting[FULLPATH]', 'text', '', FULLPATH_SITE); ?> />
-            <span class="description">Får inte sluta med snedstreck.</span></li>
-          <li><label for="fullurl">Fullständig URL till din index-fil</label> <input type="text" name="setting[FULLURL]" id="fullurl"<?php Request::formStatePost('setting[FULLURL]', 'text', '', FULLURL_SITE); ?> />
-            <span class="description">Får inte sluta med snedstreck.</span></li>
-          <li><label for="mod_rewrite_on">Använd URL-omskrivning</label> <input type="radio" name="setting[MOD_REWRITE]" value="1" id="mod_rewrite_on"<?php Request::formStatePost('setting[MOD_REWRITE]', 'radio', 1, MOD_REWRITE); ?> />
-            <label for="mod_rewrite_off">Använd INTE URL-omskrivning</label> <input type="radio" name="setting[MOD_REWRITE]" value="0" id="mod_rewrite_off"<?php Request::formStatePost('setting[MOD_REWRITE]', 'radio', 0, MOD_REWRITE); ?> /></li>
-          <li><label for="error_mail">E-postadress till webbplatsansvarig</label> <input type="text" name="setting[ERROR_MAIL]" id="error_mail"<?php Request::formStatePost('setting[ERROR_MAIL]', 'text', '', ERROR_MAIL); ?> /></li>
-          <li><button type="submit" name="save_settings" value="yes">Spara inställningar</button></li>
+          <li><label for="mysql_server"><?php echo _('SETTINGS_MYSQL_SERVER'); ?></label> <input type="text" name="setting[MySQL_SERVER]" id="mysql_server"<?php Request::formStatePost('setting[MySQL_SERVER]', 'text', '', MySQL_SERVER); ?> /></li>
+          <li><label for="mysql_user"><?php echo _('SETTINGS_MYSQL_USER'); ?></label> <input type="text" name="setting[MySQL_USER]" id="mysql_user"<?php Request::formStatePost('setting[MySQL_USER]', 'text', '', MySQL_USER); ?> /></li>
+          <li><label for="mysql_password"><?php echo _('SETTINGS_MYSQL_PW'); ?></label> <input type="password" name="setting[MySQL_PASSWORD]" id="mysql_password"<?php Request::formStatePost('setting[MySQL_PASSWORD]', 'text', '', MySQL_PASSWORD); ?> /></li>
+          <li><label for="mysql_db"><?php echo _('SETTINGS_MYSQL_DB'); ?></label> <input type="text" name="setting[MySQL_DB]" id="mysql_db"<?php Request::formStatePost('setting[MySQL_DB]', 'text', '', MySQL_DB); ?> /></li>
+          <li><label for="db_prefix"><?php echo _('SETTINGS_DB_PREFIX'); ?></label> <input type="text" name="setting[DB_PREFIX]" id="db_prefix"<?php Request::formStatePost('setting[DB_PREFIX]', 'text', '', DB_PREFIX); ?> /></li>
+          <li><label for="base"><?php echo _('SETTINGS_BASE_PATH'); ?></label> <input type="text" name="setting[BASE]" id="base"<?php Request::formStatePost('setting[BASE]', 'text', '', BASE_SITE); ?> />
+            <span class="description"><?php echo _('SETTINGS_PASE_PATH_INFO'); ?></span></li>
+          <li><label for="fullpath"><?php echo _('SETTINGS_FULLPATH'); ?></label> <input type="text" name="setting[FULLPATH]" id="fullpath"<?php Request::formStatePost('setting[FULLPATH]', 'text', '', FULLPATH_SITE); ?> />
+            <span class="description"><?php echo _('SETTINGS_FULLPATH_INFO'); ?></span></li>
+          <li><label for="fullurl"><?php echo _('SETTINGS_FULLURL'); ?></label> <input type="text" name="setting[FULLURL]" id="fullurl"<?php Request::formStatePost('setting[FULLURL]', 'text', '', FULLURL_SITE); ?> />
+            <span class="description"><?php echo _('SETTINGS_FULLURL_INFO'); ?></span></li>
+          <li><label for="mod_rewrite_on"><?php echo _('SETTINGS_USE_REWRITE'); ?></label> <input type="radio" name="setting[MOD_REWRITE]" value="1" id="mod_rewrite_on"<?php Request::formStatePost('setting[MOD_REWRITE]', 'radio', 1, MOD_REWRITE); ?> />
+            <label for="mod_rewrite_off"><?php echo _('SETTINGS_NOT_USE_REWRITE'); ?></label> <input type="radio" name="setting[MOD_REWRITE]" value="0" id="mod_rewrite_off"<?php Request::formStatePost('setting[MOD_REWRITE]', 'radio', 0, MOD_REWRITE); ?> /></li>
+          <li><label for="error_mail"><?php echo _('SETTINGS_WEBMASTER_MAIL'); ?></label> <input type="text" name="setting[ERROR_MAIL]" id="error_mail"<?php Request::formStatePost('setting[ERROR_MAIL]', 'text', '', ERROR_MAIL); ?> /></li>
+          <li><button type="submit" name="save_settings" value="yes"><?php echo _('SETTINGS_SAVE'); ?></button></li>
         </ol>
       </fieldset>
     </form>

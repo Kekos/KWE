@@ -1,12 +1,12 @@
-    <h1>Rättigheter för användaren <?php echo htmlspecialchars($user->username); ?></h1>
+    <h1><?php echo _('USER_PERM_HEADER', htmlspecialchars($user->username)); ?></h1>
 
     <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
       <table>
         <tr>
-          <th>Sida</th>
-          <th>Lägg till sidor</th>
-          <th>Redigera innehåll</th>
-          <th>Ta bort sidor</th>
+          <th><?php echo _('USER_PERM_PAGE'); ?></th>
+          <th><?php echo _('USER_PERM_ADD'); ?></th>
+          <th><?php echo _('USER_PERM_EDIT'); ?></th>
+          <th><?php echo _('USER_PERM_DELETE'); ?></th>
         </tr>
 <?php foreach ($pages as $page):
   if ($page->permission == null)
@@ -23,8 +23,8 @@
 
       <table>
         <tr>
-          <th>Modul</th>
-          <th>Tillåt</th>
+          <th><?php echo _('USER_PERM_MODULE'); ?></th>
+          <th><?php echo _('USER_PERM_ALLOW'); ?></th>
         </tr>
 <?php foreach ($controllers as $controller):
    if ($controller->configurable): ?>
@@ -36,5 +36,5 @@
 endforeach; ?>
       </table>
 
-      <p><button type="submit" name="save_user_permissions" value="yes">Spara</button></p>
+      <p><button type="submit" name="save_user_permissions" value="yes"><?php echo _('SAVE'); ?></button></p>
     </form>

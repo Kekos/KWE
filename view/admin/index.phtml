@@ -1,25 +1,25 @@
-    <h1>Översikt</h1>
+    <h1><?php echo _('HEADER_DASHBOARD'); ?></h1>
 
     <section class="half-section list">
-      <h1><a href="<?php echo urlModr('page'); ?>">Sidor och undersidor</a></h1>
+      <h1><a href="<?php echo urlModr('page'); ?>"><?php echo _('DASHBOARD_PAGES_HEADER'); ?></a></h1>
 
-      <p>Senast redigerade:</p>
+      <p><?php echo _('DASHBOARD_LAST_EDITS'); ?>:</p>
 
       <ul class="shortcuts">
 <?php foreach ($last_pages as $page): ?>
         <li>
           <a href="<?php echo urlModrSite($page->url); ?>"><?php echo htmlspecialchars($page->title); ?></a> 
-          (<?php echo easyDate('H:i', $page->edited) . ' av ' . htmlspecialchars($page->name); ?>) 
-          <a href="<?php echo urlModr('edit-page', 'show', $page->url); ?>" class="clink edit-link">Redigera</a>
+          (<?php echo easyDate('H:i', $page->edited) . ' ' . _('DASHBOARD_EDIT_BY') . ' ' . htmlspecialchars($page->name); ?>) 
+          <a href="<?php echo urlModr('edit-page', 'show', $page->url); ?>" class="clink edit-link"><?php echo _('ACTION_EDIT'); ?></a>
         </li>
 <?php endforeach; ?>
       </ul>
     </section>
 
     <section class="half-section list">
-      <h1><a href="<?php echo urlModr('controllers'); ?>" class="clink">Moduler</a></h1>
+      <h1><a href="<?php echo urlModr('controllers'); ?>" class="clink"><?php echo _('HEADER_MODULES'); ?></a></h1>
 <?php if (count($controllers)): ?>
-      <p>Dina favoritmoduler:</p>
+      <p><?php echo _('DASHBOARD_FAVORITE_MODULES'); ?>:</p>
 
       <ul class="shortcuts">
 <?php foreach ($controllers as $controller): ?>
