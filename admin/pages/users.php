@@ -1,4 +1,4 @@
 <?php
-$this->page['title'] = 'Användare';
+$this->page['title'] = __('HEADER_USERS');
 $this->addController('AdminUsers', '');
 ?>

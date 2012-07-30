@@ -1,4 +1,4 @@
 <?php
-$this->page['title'] = 'Inställningar';
+$this->page['title'] = __('HEADER_SETTINGS');
 $this->addController('AdminSettings', '');
 ?>

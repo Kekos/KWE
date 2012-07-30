@@ -1,4 +1,4 @@
 <?php
-$this->page['title'] = 'Moduler';
+$this->page['title'] = __('HEADER_MODULES');
 $this->addController('AdminControllers', '');
 ?>

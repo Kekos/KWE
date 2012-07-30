@@ -1,4 +1,4 @@
 <?php
-$this->page['title'] = 'Sidan hittades inte';
-$this->addController('Text', '<p>Sidan du sökte efter hittades inte.</p>');
+$this->page['title'] = __('HEADER_404');
+$this->addController('Text', '<p>' . __('PAGE_404') . '</p>');
 ?>
