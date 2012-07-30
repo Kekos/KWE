@@ -3,7 +3,7 @@ error_reporting(0); // Yes, this is ugly. But it removes notice about BASE is al
 
 define('BASE', '');
 define('SQL_FILE', 'kwe-structure.sql');
-define('CONFIG_FILE', '_config.php');
+define('CONFIG_FILE', 'config.php');
 require('include/functions.php');
 
 function saveSettings($settings)
