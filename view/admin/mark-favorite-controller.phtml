@@ -1,17 +1,17 @@
-    <h1><?php echo _('MODULEFAV_HEADER'); ?></h1>
+    <h1><?php echo __('MODULEFAV_HEADER'); ?></h1>
 
     <form action="<?php echo urlModr($route, $params); ?>" method="post">
       <fieldset>
 <?php if ($controller->has_favorite_config): ?>
-        <p><label for="favorite_config"><?php echo _('MODULEFAV_QUESTION'); ?></label>
+        <p><label for="favorite_config"><?php echo __('MODULEFAV_QUESTION'); ?></label>
           <select name="favorite_config" id="favorite_config">
-            <option value="0"><?php echo _('YES'); ?></option>
-            <option value="1"><?php echo _('NO'); ?></option>
+            <option value="0"><?php echo __('YES'); ?></option>
+            <option value="1"><?php echo __('NO'); ?></option>
           </select></p>
 <?php endif; ?>
-        <p class="clear"><?php echo _('MODULEFAV_INFO', '<strong>' . htmlspecialchars($controller->name) . '</strong>'); ?></p>
+        <p class="clear"><?php echo __('MODULEFAV_INFO', '<strong>' . htmlspecialchars($controller->name) . '</strong>'); ?></p>
       </fieldset>
 
-      <p><button type="submit" name="mark_favorite_yes" value="yes"><?php echo _('SAVE'); ?></button>
-        <button type="submit" name="mark_favorite_no" value="no"><?php echo _('CANCEL'); ?></button></p>
+      <p><button type="submit" name="mark_favorite_yes" value="yes"><?php echo __('SAVE'); ?></button>
+        <button type="submit" name="mark_favorite_no" value="no"><?php echo __('CANCEL'); ?></button></p>
     </form>

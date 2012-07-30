@@ -76,7 +76,7 @@ class AdminSettings extends Controller
 
     file_put_contents($config_filename,  $config_content);
     file_put_contents($admin_config_filename,  $admin_config_content);
-    $this->response->addInfo(_('SETTINGS_INFO_SAVED'));
+    $this->response->addInfo(__('SETTINGS_INFO_SAVED'));
     }
 
   public function run()

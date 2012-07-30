@@ -1,8 +1,8 @@
-    <h1><?php echo _('DELETE_USER_HEADER'); ?></h1>
+    <h1><?php echo __('DELETE_USER_HEADER'); ?></h1>
 
     <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form content-on-close">
-      <p><?php echo _('DELETE_USER_QUESTION', '<strong>' . htmlspecialchars($user->name) . '</strong>'); ?></p>
+      <p><?php echo __('DELETE_USER_QUESTION', '<strong>' . htmlspecialchars($user->name) . '</strong>'); ?></p>
 
-      <p><button type="submit" name="delete_user_yes" value="yes"><?php echo _('YES'); ?></button>
-        <button type="submit" name="delete_user_no" value="no" class="hide-boxing"><?php echo _('NO'); ?></button></p>
+      <p><button type="submit" name="delete_user_yes" value="yes"><?php echo __('YES'); ?></button>
+        <button type="submit" name="delete_user_no" value="no" class="hide-boxing"><?php echo __('NO'); ?></button></p>
     </form>

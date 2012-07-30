@@ -3,7 +3,7 @@
  * KWF Controller: AdminPages
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-27
+ * @date 2012-07-30
  * @version 2.2
  */
 
@@ -31,12 +31,12 @@ class AdminPages extends Controller
     if ($action && $page_url)
       {
       if (!$this->kpage = $this->model_page->fetchPagePermission($page_url, Access::$user->id))
-        return $this->response->addInfo(_('PAGES_INFO_NOT_FOUND', htmlspecialchars($page_url)));
+        return $this->response->addInfo(__('PAGES_INFO_NOT_FOUND', htmlspecialchars($page_url)));
 
       if ($subpage_url)
         {
         if (!$this->subpage = $this->model_page->fetchPagePermission($page_url . '/' . $subpage_url, Access::$user->id))
-          return $this->response->addInfo(_('PAGES_INFO_NOT_FOUND', htmlspecialchars($page_url . '/' . $subpage_url)));
+          return $this->response->addInfo(__('PAGES_INFO_NOT_FOUND', htmlspecialchars($page_url . '/' . $subpage_url)));
         }
       }
 
@@ -87,16 +87,16 @@ class AdminPages extends Controller
       return;
 
     if (!($this->active_page->permission & PERMISSION_EDIT))
-      return $this->response->addError(_('PAGES_ERROR_NO_PERMISSION'));
+      return $this->response->addError(__('PAGES_ERROR_NO_PERMISSION'));
 
     $sorter = new step_sorter($this->model_page);
     if ($sorter->up($this->active_page, array($this->active_page->parent, $this->active_page->id)))
       {
-      $this->response->addInfo(_('PAGES_INFO_UP', htmlspecialchars($this->active_page->title)));
+      $this->response->addInfo(__('PAGES_INFO_UP', htmlspecialchars($this->active_page->title)));
       }
     else
       {
-      $this->response->addError(_('PAGES_ERROR_NO_MOVE'));
+      $this->response->addError(__('PAGES_ERROR_NO_MOVE'));
       }
 
     if (!$this->subpage)
@@ -111,16 +111,16 @@ class AdminPages extends Controller
       return;
 
     if (!($this->active_page->permission & PERMISSION_EDIT))
-      return $this->response->addError(_('PAGES_ERROR_NO_PERMISSION'));
+      return $this->response->addError(__('PAGES_ERROR_NO_PERMISSION'));
 
     $sorter = new step_sorter($this->model_page);
     if ($sorter->down($this->active_page, array($this->active_page->parent, $this->active_page->id)))
       {
-      $this->response->addInfo(_('PAGES_INFO_DOWN', htmlspecialchars($this->active_page->title)));
+      $this->response->addInfo(__('PAGES_INFO_DOWN', htmlspecialchars($this->active_page->title)));
       }
     else
       {
-      $this->response->addError(_('PAGES_ERROR_NO_MOVE'));
+      $this->response->addError(__('PAGES_ERROR_NO_MOVE'));
       }
 
     if (!$this->subpage)
@@ -135,7 +135,7 @@ class AdminPages extends Controller
       return;
 
     if (!($this->active_page->permission & PERMISSION_DELETE))
-      return $this->response->addError(_('PAGES_ERROR_NO_PERMISSION'));
+      return $this->response->addError(__('PAGES_ERROR_NO_PERMISSION'));
 
     if ($this->request->post('delete_page_yes'))
       {
@@ -177,7 +177,7 @@ class AdminPages extends Controller
     $this->active_page = new Kpage($this->model_page);
 
     if (!$this->active_page->setTitle($title))
-      $errors[] = _('PAGES_ERROR_NAME_LENGTH');
+      $errors[] = __('PAGES_ERROR_NAME_LENGTH');
 
     if (!count($errors))
       {
@@ -245,7 +245,7 @@ class AdminPages extends Controller
     /* Delete this page's controllers */
     $this->model_page_controller->deleteByPage($this->kpage->id);
 
-    $this->response->addInfo(_('PAGES_INFO_DELETED', htmlspecialchars($this->kpage->title)));
+    $this->response->addInfo(__('PAGES_INFO_DELETED', htmlspecialchars($this->kpage->title)));
 
     $this->kpage = false;
     $this->active_page = false;
@@ -261,7 +261,7 @@ class AdminPages extends Controller
     $this->active_page->delete();
     $this->model_page_controller->deleteByPage($this->subpage->id);
 
-    $this->response->addInfo(_('PAGES_SUB_INFO_DELETED', htmlspecialchars($this->subpage->title)));
+    $this->response->addInfo(__('PAGES_SUB_INFO_DELETED', htmlspecialchars($this->subpage->title)));
 
     $this->subpage = false;
     $this->active_page = false;

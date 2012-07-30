@@ -1,8 +1,8 @@
-    <h1><?php echo _('DELETE_MODULE_HEADER'); ?></h1>
+    <h1><?php echo __('DELETE_MODULE_HEADER'); ?></h1>
 
     <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form delete-dialog">
-      <p><?php echo _('DELETE_MODULE_QUESTION', '<strong>' . htmlspecialchars($controller->name) . '</strong>'); ?></p>
+      <p><?php echo __('DELETE_MODULE_QUESTION', '<strong>' . htmlspecialchars($controller->name) . '</strong>'); ?></p>
 
-      <p><button type="submit" name="uninstall_controller_yes" value="yes"><?php echo _('YES'); ?></button>
-        <button type="submit" name="uninstall_controller_no" value="no" class="hide-boxing"><?php echo _('NO'); ?></button></p>
+      <p><button type="submit" name="uninstall_controller_yes" value="yes"><?php echo __('YES'); ?></button>
+        <button type="submit" name="uninstall_controller_no" value="no" class="hide-boxing"><?php echo __('NO'); ?></button></p>
     </form>

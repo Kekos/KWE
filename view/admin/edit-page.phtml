@@ -1,42 +1,42 @@
 <?php $self_url = urlModr($route, $params);
 if ($active_page->id): ?>
-    <h1><?php echo _('EDIT_PAGE_HEADER'); ?></h1>
+    <h1><?php echo __('EDIT_PAGE_HEADER'); ?></h1>
 <?php else: ?>
-    <h1><?php echo _('NEW_PAGE_HEADER'); ?></h1>
+    <h1><?php echo __('NEW_PAGE_HEADER'); ?></h1>
 <?php endif; ?>
 
     <section class="half-section box">
-      <h1><?php echo _('EDIT_PAGE_PROP_HEADER'); ?></h1>
+      <h1><?php echo __('EDIT_PAGE_PROP_HEADER'); ?></h1>
 
       <form action="<?php echo $self_url; ?>" method="post" class="ajax-form">
         <fieldset>
           <ol>
-            <li><label for="title"><?php echo _('PAGES_TITLE'); ?></label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text', '', $active_page->title); ?> /></li>
-            <li><label for="public"><?php echo _('EDIT_PAGE_IS_PUBLISHED'); ?></label> <input type="checkbox" name="public" id="public" value="1"<?php Request::formStatePost('public', 'checkbox', 1, $active_page->public); ?> /></li>
-            <li><label for="show_in_menu"><?php echo _('EDIT_PAGE_IS_VISIBLE'); ?></label> <input type="checkbox" name="show_in_menu" id="show_in_menu" value="1"<?php Request::formStatePost('show_in_menu', 'checkbox', 1, $active_page->show_in_menu); ?> /></li>
-            <li><button type="submit" name="edit_page" value="yes"><?php echo _('EDIT_PAGE_SAVE'); ?></button></li>
+            <li><label for="title"><?php echo __('PAGES_TITLE'); ?></label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text', '', $active_page->title); ?> /></li>
+            <li><label for="public"><?php echo __('EDIT_PAGE_IS_PUBLISHED'); ?></label> <input type="checkbox" name="public" id="public" value="1"<?php Request::formStatePost('public', 'checkbox', 1, $active_page->public); ?> /></li>
+            <li><label for="show_in_menu"><?php echo __('EDIT_PAGE_IS_VISIBLE'); ?></label> <input type="checkbox" name="show_in_menu" id="show_in_menu" value="1"<?php Request::formStatePost('show_in_menu', 'checkbox', 1, $active_page->show_in_menu); ?> /></li>
+            <li><button type="submit" name="edit_page" value="yes"><?php echo __('EDIT_PAGE_SAVE'); ?></button></li>
           </ol>
         </fieldset>
       </form>
     </section>
 <?php if ($active_page->id): ?>
     <section class="half-section box">
-      <h1><?php echo _('EDIT_PAGE_ADD_MODULE_HEADER'); ?></h1>
+      <h1><?php echo __('EDIT_PAGE_ADD_MODULE_HEADER'); ?></h1>
 
       <form action="<?php echo $self_url; ?>" method="post" class="ajax-form">
         <p>
-          <label for="controller"><?php echo _('EDIT_PAGE_MODULE'); ?></label>
+          <label for="controller"><?php echo __('EDIT_PAGE_MODULE'); ?></label>
             <select name="controller" id="controller">
 <?php foreach ($installed_controllers as $controller): ?>
               <option value="<?php echo $controller->id; ?>"><?php echo $controller->name; ?></option>
 <?php endforeach; ?>
             </select>
-          <button type="submit" name="add_controller" value="yes"><?php echo _('EDIT_PAGE_ADD_MODULE'); ?></button>
+          <button type="submit" name="add_controller" value="yes"><?php echo __('EDIT_PAGE_ADD_MODULE'); ?></button>
         </p>
       </form>
     </section>
 
-    <p class="clear"><?php echo _('EDIT_PAGE_EDIT_INFO'); ?></p>
+    <p class="clear"><?php echo __('EDIT_PAGE_EDIT_INFO'); ?></p>
 
 <?php
 $max_controllers = count($controllers) - 1;
@@ -45,9 +45,9 @@ foreach ($controllers as $controller): ?>
     <div class="controller-actions">
       <span class="controller-num"><?php echo $i + 1; ?></span>
       <a href="<?php echo urlModr($route, 'edit', $active_page->url, $controller->id); ?>" class="controller-name blink dim90x90"><?php echo $controller->name; ?></a>
-      <a href="<?php echo urlModr($route, 'delete', $active_page->url, $controller->id); ?>" class="controller-delete delete-link" title="<?php echo _('EDIT_PAGE_DELETE_MODULE'); ?>"><?php echo _('EDIT_PAGE_DELETE_MODULE'); ?></a>
-<?php if ($i > 0): ?>      <a href="<?php echo urlModr($route, 'orderup', $active_page->url, $controller->id); ?>" class="controller-up icon-up clink" title="<?php echo _('EDIT_PAGE_UP'); ?>"><?php echo _('EDIT_PAGE_UP'); ?></a>
-<?php endif; if ($i < $max_controllers): ?>      <a href="<?php echo urlModr($route, 'orderdown', $active_page->url, $controller->id); ?>" class="controller-down icon-down clink" title="<?php echo _('EDIT_PAGE_DOWN'); ?>"><?php echo _('EDIT_PAGE_DOWN'); ?></a>
+      <a href="<?php echo urlModr($route, 'delete', $active_page->url, $controller->id); ?>" class="controller-delete delete-link" title="<?php echo __('EDIT_PAGE_DELETE_MODULE'); ?>"><?php echo __('EDIT_PAGE_DELETE_MODULE'); ?></a>
+<?php if ($i > 0): ?>      <a href="<?php echo urlModr($route, 'orderup', $active_page->url, $controller->id); ?>" class="controller-up icon-up clink" title="<?php echo __('EDIT_PAGE_UP'); ?>"><?php echo __('EDIT_PAGE_UP'); ?></a>
+<?php endif; if ($i < $max_controllers): ?>      <a href="<?php echo urlModr($route, 'orderdown', $active_page->url, $controller->id); ?>" class="controller-down icon-down clink" title="<?php echo __('EDIT_PAGE_DOWN'); ?>"><?php echo __('EDIT_PAGE_DOWN'); ?></a>
 <?php endif; ?>    </div>
 
 <?php ++$i; endforeach;

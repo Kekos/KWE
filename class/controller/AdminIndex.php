@@ -3,7 +3,7 @@
  * KWE Controller: AdminIndex
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-27
+ * @date 2012-07-30
  * @version 2.2
  */
 
@@ -21,7 +21,7 @@ class AdminIndex extends Controller
 
     if (!Access::$is_logged_in || !Access::$is_administrator)
       {
-      $this->response->title = _('HEADER_LOGIN');
+      $this->response->title = __('HEADER_LOGIN');
       return;
       }
 
@@ -41,7 +41,7 @@ class AdminIndex extends Controller
 
       if (is_object($update_session) && $update_session->status->code == 1)
         {
-        $this->response->addInfo(_('DASHBOARD_INFO_UPDATE', htmlspecialchars($update_session->package)));
+        $this->response->addInfo(__('DASHBOARD_INFO_UPDATE', htmlspecialchars($update_session->package)));
         }
       }
 

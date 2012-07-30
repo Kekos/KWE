@@ -1,33 +1,33 @@
-    <h1><?php echo _('HEADER_USERS'); ?></h1>
+    <h1><?php echo __('HEADER_USERS'); ?></h1>
 
     <section class="half-section box">
-      <h1><?php echo _('USERS_ADD_HEADER'); ?></h1>
+      <h1><?php echo __('USERS_ADD_HEADER'); ?></h1>
 
       <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
         <fieldset>
           <ol>
-            <li><label for="name"><?php echo _('USERS_NAME'); ?></label> <input type="text" name="name" id="name" maxlength="50"<?php Request::formStatePost('name', 'text'); ?> /></li>
-            <li><label for="username"><?php echo _('USERNAME'); ?></label> <input type="text" name="username" id="username" maxlength="20"<?php Request::formStatePost('username', 'text'); ?> /></li>
-            <li><label for="password"><?php echo _('USERS_PASSWORD'); ?></label> <input type="password" name="password" id="password" />
-              <span class="description"><?php echo _('USERS_PASSWORD_BLANK_INFO'); ?></span></li>
-            <li><label for="rank"><?php echo _('USERS_RANK'); ?></label> <select name="rank" id="rank">
-                <option value="1"<?php Request::formStatePost('rank', 'select', '', 1); ?>><?php echo _('USERRANK_1'); ?></option>
-                <option value="2"<?php Request::formStatePost('rank', 'select', '', 2); ?>><?php echo _('USERRANK_2'); ?></option>
+            <li><label for="name"><?php echo __('USERS_NAME'); ?></label> <input type="text" name="name" id="name" maxlength="50"<?php Request::formStatePost('name', 'text'); ?> /></li>
+            <li><label for="username"><?php echo __('USERNAME'); ?></label> <input type="text" name="username" id="username" maxlength="20"<?php Request::formStatePost('username', 'text'); ?> /></li>
+            <li><label for="password"><?php echo __('USERS_PASSWORD'); ?></label> <input type="password" name="password" id="password" />
+              <span class="description"><?php echo __('USERS_PASSWORD_BLANK_INFO'); ?></span></li>
+            <li><label for="rank"><?php echo __('USERS_RANK'); ?></label> <select name="rank" id="rank">
+                <option value="1"<?php Request::formStatePost('rank', 'select', '', 1); ?>><?php echo __('USERRANK_1'); ?></option>
+                <option value="2"<?php Request::formStatePost('rank', 'select', '', 2); ?>><?php echo __('USERRANK_2'); ?></option>
               </select></li>
-            <li><button type="submit" name="new_user" value="yes"><?php echo _('SAVE'); ?></button></li>
+            <li><button type="submit" name="new_user" value="yes"><?php echo __('SAVE'); ?></button></li>
           </ol>
         </fieldset>
       </form>
     </section>
 
     <section class="half-section box">
-      <h1><?php echo _('USERS_LIST_HEADER'); ?></h1>
+      <h1><?php echo __('USERS_LIST_HEADER'); ?></h1>
 
       <table>
         <tr>
-          <th><?php echo _('USERS_NAME'); ?></th>
-          <th><?php echo _('USERNAME'); ?></th>
-          <th><?php echo _('USERS_LAST_LOGIN'); ?></th>
+          <th><?php echo __('USERS_NAME'); ?></th>
+          <th><?php echo __('USERNAME'); ?></th>
+          <th><?php echo __('USERS_LAST_LOGIN'); ?></th>
           <th class="actions-head">&nbsp;</th>
         </tr>
 <?php foreach ($users as $user): ?>
@@ -35,8 +35,8 @@
           <td><?php echo htmlspecialchars($user->name); ?></td>
           <td><a href="<?php echo urlModr('users', 'edit', $user->id); ?>" class="clink edit-link"><?php echo htmlspecialchars($user->username); ?></a></td>
           <td><?php echo easyDate('H:i', $user->online_time); ?></td>
-          <td class="actions"><?php if ($user->rank > 1): ?><a href="<?php echo urlModr('users', 'permissions', $user->id); ?>" class="clink permission-link"><?php echo _('USERS_PERMISSIONS'); ?></a><?php endif; ?>
-            <a href="<?php echo urlModr('users', 'delete', $user->id); ?>" class="delete-link"><?php echo _('ACTION_DELETE'); ?></a></td>
+          <td class="actions"><?php if ($user->rank > 1): ?><a href="<?php echo urlModr('users', 'permissions', $user->id); ?>" class="clink permission-link"><?php echo __('USERS_PERMISSIONS'); ?></a><?php endif; ?>
+            <a href="<?php echo urlModr('users', 'delete', $user->id); ?>" class="delete-link"><?php echo __('ACTION_DELETE'); ?></a></td>
         </tr>
 <?php endforeach; ?>
       </table>

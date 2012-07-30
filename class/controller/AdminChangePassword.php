@@ -42,17 +42,17 @@ class AdminChangePassword extends Controller
     $password_repeat = $this->request->post('password_repeat');
 
     if (md5($password_old) != Access::$user->password)
-      $errors['password_old'] = _('CHANGE_PW_ERROR_WRONG');
+      $errors['password_old'] = __('CHANGE_PW_ERROR_WRONG');
     if (!Access::$user->setPassword($password))
-      $errors['password'] = _('CHANGE_PW_ERROR_LENGTH');
+      $errors['password'] = __('CHANGE_PW_ERROR_LENGTH');
 
     if (md5($password_repeat) != md5($password))
-      $errors['password_repeat'] = _('CHANGE_PW_ERROR_MISSMATCH');
+      $errors['password_repeat'] = __('CHANGE_PW_ERROR_MISSMATCH');
 
     if (!count($errors))
       {
       Access::$user->save();
-      $this->response->addInfo(_('CHANGE_PW_INFO'));
+      $this->response->addInfo(__('CHANGE_PW_INFO'));
       return true;
       }
     else

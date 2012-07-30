@@ -1,15 +1,15 @@
-    <h1><?php echo _('HEADER_MODULES'); ?></h1>
+    <h1><?php echo __('HEADER_MODULES'); ?></h1>
 
 <?php if (Access::$user->rank == 1): ?>
     <section class="half-section box">
-      <h1><?php echo _('MODULES_INSTALL_HEADER'); ?></h1>
+      <h1><?php echo __('MODULES_INSTALL_HEADER'); ?></h1>
 
       <form action="<?php echo urlModr($route, $params); ?>" method="post" enctype="multipart/form-data">
         <fieldset>
           <ol>
-            <li><label for="file"><?php echo _('MODULES_INSTALLATIONFILE'); ?></label> <input type="file" name="file" id="file" />
-              <span class="description"><?php echo _('MODULES_INSTALL_INFO'); ?></span></li>
-            <li><button type="submit" name="install_controller" value="yes"><?php echo _('MODULES_INSTALL'); ?></button></li>
+            <li><label for="file"><?php echo __('MODULES_INSTALLATIONFILE'); ?></label> <input type="file" name="file" id="file" />
+              <span class="description"><?php echo __('MODULES_INSTALL_INFO'); ?></span></li>
+            <li><button type="submit" name="install_controller" value="yes"><?php echo __('MODULES_INSTALL'); ?></button></li>
           </ol>
         </fieldset>
       </form>
@@ -17,11 +17,11 @@
 <?php endif; ?>
 
     <section class="half-section box">
-      <h1><?php echo _('MODULES_LIST_HEADER'); ?></h1>
+      <h1><?php echo __('MODULES_LIST_HEADER'); ?></h1>
 
       <table>
         <tr>
-          <th><?php echo _('MODULES_NAME'); ?></th>
+          <th><?php echo __('MODULES_NAME'); ?></th>
           <th class="actions-head">&nbsp;</th>
         </tr>
 <?php foreach ($controllers as $controller): ?>
@@ -31,11 +31,11 @@
 <?php else: ?>
           <td><?php echo htmlspecialchars($controller->name); ?></td>
 <?php endif; ?>
-          <td class="actions"><?php if (Access::$user->rank == 1): ?><a href="<?php echo urlModr('controllers', 'uninstall', $controller->class_name); ?>" class="delete-link"><?php echo _('MODULES_UNINSTALL'); ?></a><?php
+          <td class="actions"><?php if (Access::$user->rank == 1): ?><a href="<?php echo urlModr('controllers', 'uninstall', $controller->class_name); ?>" class="delete-link"><?php echo __('MODULES_UNINSTALL'); ?></a><?php
 endif;
 $favorite_descr = ($controller->favorite ? 'MODULES_UNFAVORITE' : 'MODULES_FAVORITE');
 if ($controller->configurable): ?>
-<a href="<?php echo urlModr('controllers', 'favorite', $controller->class_name); ?>" class="<?php if (!$controller->favorite) echo 'not-'; ?>favorite-link clink" title="<?php echo _($favorite_descr); ?>"><?php echo _($favorite_descr); ?></a><?php endif; ?></td>
+<a href="<?php echo urlModr('controllers', 'favorite', $controller->class_name); ?>" class="<?php if (!$controller->favorite) echo 'not-'; ?>favorite-link clink" title="<?php echo __($favorite_descr); ?>"><?php echo __($favorite_descr); ?></a><?php endif; ?></td>
         </tr>
 <?php endforeach; ?>
       </table>

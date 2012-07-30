@@ -38,12 +38,12 @@ class AdminEditPage extends Controller
     if ($page_url)
       {
       if (!$this->kpage = $this->model_page->fetchPagePermission($page_url, Access::$user->id))
-        return $this->response->addInfo(_('PAGES_INFO_NOT_FOUND', htmlspecialchars($page_url)));
+        return $this->response->addInfo(__('PAGES_INFO_NOT_FOUND', htmlspecialchars($page_url)));
 
       if ($subpage_url)
         {
         if (!$this->subpage = $this->model_page->fetchPagePermission($page_url . '/' . $subpage_url, Access::$user->id))
-          return $this->response->addInfo(_('PAGES_INFO_NOT_FOUND', htmlspecialchars($page_url . '/' . $subpage_url)));
+          return $this->response->addInfo(__('PAGES_INFO_NOT_FOUND', htmlspecialchars($page_url . '/' . $subpage_url)));
         }
       }
 
@@ -67,7 +67,7 @@ class AdminEditPage extends Controller
     if (!($this->active_page->permission & PERMISSION_EDIT))
       {
       $this->active_page = false;
-      return $this->response->addError(_('PAGES_ERROR_NO_PERMISSION'));
+      return $this->response->addError(__('PAGES_ERROR_NO_PERMISSION'));
       }
 
     if ($controller_id)
@@ -75,7 +75,7 @@ class AdminEditPage extends Controller
       if (!$this->controller = $this->model_page_controller->fetch($controller_id))
         {
         $this->active_page = false;
-        $this->response->addError(_('EDIT_PAGE_ERROR_MODULE_NOT_FOUND', $controller_id));
+        $this->response->addError(__('EDIT_PAGE_ERROR_MODULE_NOT_FOUND', $controller_id));
         }
       }
     }
@@ -163,11 +163,11 @@ class AdminEditPage extends Controller
     if ($sorter->up($this->controller, array($this->active_page->id, $this->controller->id)))
       {
       $this->updateEdited();
-      $this->response->addInfo(_('EDIT_PAGE_INFO_MODULE_UP'));
+      $this->response->addInfo(__('EDIT_PAGE_INFO_MODULE_UP'));
       }
     else
       {
-      $this->response->addError(_('EDIT_PAGE_ERROR_MOD_NO_MOVE'));
+      $this->response->addError(__('EDIT_PAGE_ERROR_MOD_NO_MOVE'));
       }
 
     $this->show();
@@ -183,11 +183,11 @@ class AdminEditPage extends Controller
     if ($sorter->down($this->controller, array($this->active_page->id, $this->controller->id)))
       {
       $this->updateEdited();
-      $this->response->addInfo(_('EDIT_PAGE_INFO_MODULE_DOWN'));
+      $this->response->addInfo(__('EDIT_PAGE_INFO_MODULE_DOWN'));
       }
     else
       {
-      $this->response->addError(_('EDIT_PAGE_ERROR_MOD_NO_MOVE'));
+      $this->response->addError(__('EDIT_PAGE_ERROR_MOD_NO_MOVE'));
       }
 
     $this->show();
@@ -208,16 +208,16 @@ class AdminEditPage extends Controller
     $show_in_menu = $this->request->post('show_in_menu');
 
     if (!$this->active_page->setTitle($title))
-      $errors[] = _('PAGES_ERROR_NAME_LENGTH');
+      $errors[] = __('PAGES_ERROR_NAME_LENGTH');
     if (!$this->active_page->setPublic($public))
-      $errors[] = _('EDIT_PAGE_ERROR_PUBLISH');
+      $errors[] = __('EDIT_PAGE_ERROR_PUBLISH');
     if (!$this->active_page->setShowInMenu($show_in_menu))
-      $errors[] = _('EDIT_PAGE_ERROR_VISIBLE');
+      $errors[] = __('EDIT_PAGE_ERROR_VISIBLE');
 
     if (!count($errors))
       {
       $this->updateEdited();
-      $this->response->addInfo(_('EDIT_PAGE_INFO_SAVED', htmlspecialchars($title)));
+      $this->response->addInfo(__('EDIT_PAGE_INFO_SAVED', htmlspecialchars($title)));
       }
     else
       {
@@ -241,7 +241,7 @@ class AdminEditPage extends Controller
     $this->controller->setContent('');
     $this->controller->save();
     $this->updateEdited();
-    $this->response->addInfo(_('EDIT_PAGE_INFO_MODULE_ADD', htmlspecialchars($this->active_page->title)));
+    $this->response->addInfo(__('EDIT_PAGE_INFO_MODULE_ADD', htmlspecialchars($this->active_page->title)));
     }
 
   private function saveController()
@@ -259,7 +259,7 @@ class AdminEditPage extends Controller
       $this->controller->setContent($content);
       $this->controller->save();
       $this->updateEdited();
-      $this->response->addInfo(_('EDIT_PAGE_INFO_MODULE_SAVE', htmlspecialchars($this->controller->name)));
+      $this->response->addInfo(__('EDIT_PAGE_INFO_MODULE_SAVE', htmlspecialchars($this->controller->name)));
       }
     else
       {
@@ -271,7 +271,7 @@ class AdminEditPage extends Controller
     {
     $this->controller->delete();
     $this->updateEdited();
-    $this->response->addInfo(_('EDIT_PAGE_INFO_MODULE_DELETE', htmlspecialchars($this->controller->name)));
+    $this->response->addInfo(__('EDIT_PAGE_INFO_MODULE_DELETE', htmlspecialchars($this->controller->name)));
     }
 
   public function run()

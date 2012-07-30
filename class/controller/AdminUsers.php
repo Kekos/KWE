@@ -31,7 +31,7 @@ class AdminUsers extends Controller
     if ($action && $user_id)
       {
       if (!$this->user = $this->model_user->fetch($user_id))
-        return $this->response->addInfo(_('USERS_INFO_NOT_FOUND', htmlspecialchars($user_id)));
+        return $this->response->addInfo(__('USERS_INFO_NOT_FOUND', htmlspecialchars($user_id)));
       }
     }
 
@@ -144,21 +144,21 @@ class AdminUsers extends Controller
       $this->user->setPassword($password);
       }
     else if (!$this->user->setPassword($password))
-      $errors[] = _('USERS_ERROR_SHORT_PASSWORD');
+      $errors[] = __('USERS_ERROR_SHORT_PASSWORD');
 
     if (!$this->user->setUsername($username))
-      $errors[] = _('USERS_ERROR_SHORT_USERNAME');
+      $errors[] = __('USERS_ERROR_SHORT_USERNAME');
     if (!$this->user->setName($name))
-      $errors[] = _('USERS_ERROR_SHORT_NAME');
+      $errors[] = __('USERS_ERROR_SHORT_NAME');
     if (!$this->user->setRank($rank))
-      $errors[] = _('USERS_ERROR_INVALID_RANK');
+      $errors[] = __('USERS_ERROR_INVALID_RANK');
 
     if (!count($errors))
       {
       $this->user->setOnline(0);
       $this->user->setOnlineTime(0);
       $this->user->save();
-      $this->response->addInfo(_('USERS_INFO_NEW_USER', htmlspecialchars($username), htmlspecialchars($password)));
+      $this->response->addInfo(__('USERS_INFO_NEW_USER', htmlspecialchars($username), htmlspecialchars($password)));
       }
     else
       {
@@ -173,14 +173,14 @@ class AdminUsers extends Controller
     $rank = $this->request->post('rank');
 
     if (!$this->user->setName($name))
-      $errors[] = _('USERS_ERROR_SHORT_NAME');
+      $errors[] = __('USERS_ERROR_SHORT_NAME');
     if (!$this->user->setRank($rank))
-      $errors[] = _('USERS_ERROR_INVALID_RANK');
+      $errors[] = __('USERS_ERROR_INVALID_RANK');
 
     if (!count($errors))
       {
       $this->user->save();
-      $this->response->addInfo(_('USERS_INFO_EDIT_USER', htmlspecialchars($this->user->username)));
+      $this->response->addInfo(__('USERS_INFO_EDIT_USER', htmlspecialchars($this->user->username)));
       }
     else
       {
@@ -200,18 +200,18 @@ class AdminUsers extends Controller
       $this->user->setPassword($password);
       }
     else if (!$this->user->setPassword($password))
-      $errors[] = _('USERS_ERROR_SHORT_PASSWORD');
+      $errors[] = __('USERS_ERROR_SHORT_PASSWORD');
 
     $np_password = $password;
     $password = md5($password);
     $password_repeat = md5($password_repeat);
     if ($password != $password_repeat)
-      $errors[] = _('CHANGE_PW_ERROR_MISSMATCH');
+      $errors[] = __('CHANGE_PW_ERROR_MISSMATCH');
 
     if (!count($errors))
       {
       $this->user->save();
-      $this->response->addInfo(_('USERS_INFO_NEW_PW', htmlspecialchars($this->user->username), $np_password));
+      $this->response->addInfo(__('USERS_INFO_NEW_PW', htmlspecialchars($this->user->username), $np_password));
       }
     else
       {
@@ -268,14 +268,14 @@ class AdminUsers extends Controller
         $this->model_controller_permission->delete($this->user->id, $controller);
       }
 
-    $this->response->addInfo(_('USERS_INFO_PERM_SAVED'));
+    $this->response->addInfo(__('USERS_INFO_PERM_SAVED'));
 
     $this->listPermissions();
     }
 
   private function deleteUser()
     {
-    $this->response->addInfo(_('USERS_INFO_DELETED', htmlspecialchars($this->user->username)));
+    $this->response->addInfo(__('USERS_INFO_DELETED', htmlspecialchars($this->user->username)));
 
     $this->model_permission->deleteByUser($this->user->id);
     $this->model_controller_permission->deleteByUser($this->user->id);
