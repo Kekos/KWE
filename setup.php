@@ -115,6 +115,7 @@ else if (isset($_POST['step2']))
   $name = $_POST['name'];
 
   $user = new User(new UserModel($db));
+  $step = 2;
 
   if (!$user->setUsername($username))
     $errors[] = 'Skriv in ett längre användarnamn eller välj ett annat användarnamn.';
