@@ -3,7 +3,7 @@
  * KWF Controller: AdminPages
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-30
+ * @date 2012-07-31
  * @version 2.2
  */
 
@@ -77,7 +77,7 @@ class AdminPages extends Controller
         }
       }
 
-    $data['active_page'] = new kpage($this->model_page);
+    $data['active_page'] = new Kpage($this->model_page);
     $this->view = new View('admin/edit-page', $data);
     }
 
