@@ -3,7 +3,7 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-15
+ * @date 2012-08-01
  * @version 3.0
  */
 
@@ -316,6 +316,25 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
     addClass(link, 'active');
     }
 
+  /**
+   * Changes the page title on ContentRequest load
+   * @method changePageTitle
+   * @private
+   */
+  function changePageTitle()
+    {
+    var title = document.title, 
+      new_page_title = '';
+
+    try
+      {
+      new_page_title = elem('content').getElementsByTagName('h1')[0].innerHTML;
+      }
+    catch (ex) {}
+
+    document.title = title.substring(0, title.indexOf(' :: ') + 4) + new_page_title;
+    }
+
   /* Add listeners to the KWF click event */
   Kwf.onclick = function(e, targ)
     {
@@ -375,6 +394,7 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
 
     addEvent(content_request, 'afterload', noRespContent);
     addEvent(content_request, 'ready', domiwyg.find);
+    addEvent(content_request, 'ready', changePageTitle);
 
     addEvent(boxing_request, 'afterload', noRespContent);
 
