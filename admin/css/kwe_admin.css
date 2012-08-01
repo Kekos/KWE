@@ -85,9 +85,8 @@ body
 
 #goto_firstpage
   {
-  float: left;
   display: block;
-  margin: 15px 0 0 20%;
+  margin: 5px 3px 0 0;
   width: 20px;
   height: 20px;
   /*background: url('../../images/admin/house.png') no-repeat;*/

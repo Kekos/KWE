@@ -46,9 +46,8 @@ function menuLink($current_page, $new_page, $is_clink)
     <h1><a href="<?php echo urlModr(); ?>" id="kwe_logo">KWE</a></h1>
 
     <nav id="navigation">
-      <a href="<?php echo FULLPATH_SITE; ?>/" id="goto_firstpage" title="<?php echo __('HEADER_FIRSTPAGE'); ?>"><?php echo __('HEADER_FIRSTPAGE'); ?></a>
-
       <ul>
+         <li><a href="<?php echo FULLPATH_SITE; ?>/" id="goto_firstpage" title="<?php echo __('HEADER_FIRSTPAGE'); ?>"><?php echo __('HEADER_FIRSTPAGE'); ?></a></li>
 <?php if (Access::$is_logged_in): ?>
         <li><?php echo menuLink($page, 'index', true); ?><?php echo __('HEADER_DASHBOARD'); ?></a></li>
         <li><?php echo menuLink($page, 'page', true); ?><?php echo __('HEADER_PAGES'); ?></a></li>
