@@ -4,7 +4,14 @@ error_reporting(0); // Yes, this is ugly. But it removes notice about BASE is al
 define('BASE', '');
 define('SQL_FILE', 'kwe-structure.sql');
 define('CONFIG_FILE', 'config.php');
+define('KWE_VERSION', '3.0');
 require('include/functions.php');
+
+$request = new Request(new Session());
+Language::configure($request, false, 'en');
+//Language::acceptHeader();
+Language::set('en');
+Language::load('setup');
 
 function saveSettings($settings)
   {
@@ -58,7 +65,7 @@ $step = 1;
 
 if (!file_exists(SQL_FILE))
   {
-  $fatal = 'Korrupt installation! SQL-filen hittades inte.';
+  $fatal = __('ERROR_SQL_NOT_FOUND');
   }
 else if (isset($_POST['step1']))
   {
@@ -66,7 +73,7 @@ else if (isset($_POST['step1']))
 
   if (empty($settings['MySQL_SERVER']) || empty($settings['MySQL_USER']) || empty($settings['MySQL_DB']) || empty($settings['DB_PREFIX']))
     {
-    $errors[] = 'Alla fält måste fyllas i, förutom lösenord.';
+    $errors[] = __('ERROR_MISSING_DB_INFO');
     }
   else
     {
@@ -87,13 +94,13 @@ else if (isset($_POST['step1']))
           $query_result = @$db->query($query);
           if ($db->error)
             {
-            $errors[] = 'Kunde inte köra fråga: ' . $db->error;
+            $errors[] = __('ERROR_QUERY_EXEC') . $db->error;
             break;
             }
           }
         catch (Exception $ex)
           {
-          $errors[] = 'Kunde inte köra fråga: ' . $ex->getMessage();
+          $errors[] = __('ERROR_QUERY_EXEC') . $ex->getMessage();
           break;
           }
         }
@@ -118,13 +125,13 @@ else if (isset($_POST['step2']))
   $step = 2;
 
   if (!$user->setUsername($username))
-    $errors[] = 'Skriv in ett längre användarnamn eller välj ett annat användarnamn.';
+    $errors[] = __('ERROR_USERNAME');
   if (!$user->setPassword($password))
-    $errors[] = 'Ett lösenord måste innehålla minst 6 tecken.';
+    $errors[] = __('ERROR_PASSWORD');
   if (!$user->setName($name))
-    $errors[] = 'Skriv in ett längre namn.';
+    $errors[] = __('ERROR_NAME');
   if (md5($password) !== md5($_POST['repeat_password']))
-    $errors[] = 'De två lösenorden du skrev in stämde inte överens.';
+    $errors[] = __('ERROR_PASSWORD_MISSMATCH');
 
   if (!count($errors))
     {
@@ -145,10 +152,10 @@ else if (isset($_POST['step3']))
 
 ?>
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="sv" dir="<?php echo __('READ_DIRECTION'); ?>">
 
 <head>
-  <title>KWE 3.0 Setup</title>
+  <title>KWE <?php echo KWE_VERSION . ' ' . __('SETUP'); ?></title>
   <meta charset="utf-8" />
   <link href="admin/css/kwe_admin.css" rel="stylesheet" />
   <link href="admin/css/kwe_setup.css" rel="stylesheet" />
@@ -158,7 +165,7 @@ else if (isset($_POST['step3']))
 <body>
 
 <header id="header">
-  <h1>KWE 3.0 Setup</h1>
+  <h1>KWE <?php echo KWE_VERSION . ' ' . __('SETUP'); ?></h1>
 </header>
 
 <div id="content">
@@ -179,77 +186,68 @@ if (count($errors)): ?>
 /* STEP 1: Define database settings */
 if ($step == 1) : ?>
     <fieldset>
-      <h1>1: Databasinställningar</h1>
-      <p>KWE behöver en MySQL-databas att spara sidor, moduler och användare i. 
-        Ange inloggningsuppgifter till databasservern här, vad databasen heter 
-        samt ett unikt prefix för denna installation. Prefixet möjliggör flera 
-        samtidiga installationer av KWE i samma databas.</p>
+      <h1>1: <?php echo __('HEADER_DATABASE'); ?></h1>
+      <p><?php echo __('HELP_DATABASE'); ?></p>
       <ol>
-        <li><label for="mysql_server">MySQL-server</label> <input type="text" name="setting[MySQL_SERVER]" id="mysql_server"<?php Request::formStatePost('setting[MySQL_SERVER]', 'text'); ?> /></li>
-        <li><label for="mysql_user">MySQL-användare</label> <input type="text" name="setting[MySQL_USER]" id="mysql_user"<?php Request::formStatePost('setting[MySQL_USER]', 'text'); ?> /></li>
-        <li><label for="mysql_password">MySQL-lösenord</label> <input type="password" name="setting[MySQL_PASSWORD]" id="mysql_password"<?php Request::formStatePost('setting[MySQL_PASSWORD]', 'text'); ?> /></li>
-        <li><label for="mysql_db">MySQL-databas</label> <input type="text" name="setting[MySQL_DB]" id="mysql_db"<?php Request::formStatePost('setting[MySQL_DB]', 'text'); ?> /></li>
-        <li><label for="db_prefix">Prefix för tabeller i databasen</label> <input type="text" name="setting[DB_PREFIX]" id="db_prefix"<?php Request::formStatePost('setting[DB_PREFIX]', 'text'); ?> /></li>
-        <li><button type="submit" name="step1" value="yes">Nästa steg</button></li>
+        <li><label for="mysql_server"><?php echo __('MYSQL_SERVER'); ?></label> <input type="text" name="setting[MySQL_SERVER]" id="mysql_server"<?php Request::formStatePost('setting[MySQL_SERVER]', 'text'); ?> /></li>
+        <li><label for="mysql_user"><?php echo __('MYSQL_USER'); ?></label> <input type="text" name="setting[MySQL_USER]" id="mysql_user"<?php Request::formStatePost('setting[MySQL_USER]', 'text'); ?> /></li>
+        <li><label for="mysql_password"><?php echo __('MYSQL_PW'); ?></label> <input type="password" name="setting[MySQL_PASSWORD]" id="mysql_password"<?php Request::formStatePost('setting[MySQL_PASSWORD]', 'text'); ?> /></li>
+        <li><label for="mysql_db"><?php echo __('MYSQL_DB'); ?></label> <input type="text" name="setting[MySQL_DB]" id="mysql_db"<?php Request::formStatePost('setting[MySQL_DB]', 'text'); ?> /></li>
+        <li><label for="db_prefix"><?php echo __('PREFIX'); ?></label> <input type="text" name="setting[DB_PREFIX]" id="db_prefix"<?php Request::formStatePost('setting[DB_PREFIX]', 'text'); ?> /></li>
+        <li><button type="submit" name="step1" value="yes"><?php echo __('NEXT_STEP'); ?></button></li>
       </ol>
     </fieldset>
 <?php
 /* STEP 2: Define admin user account */
 elseif ($step == 2): ?>
     <fieldset>
-      <h1>2: Administratörskonto</h1>
-      <p>Du måste skapa ett första administratörskonto, som får fullständiga 
-        rättigheter i denna KWE-installation. Kom därför ihåg lösenordet och 
-        förvara det säkert! Du kan skapa fler konton när du sedan loggat in.</p>
+      <h1>2: <?php echo __('ADMIN_ACCOUNT'); ?></h1>
+      <p><?php echo __('HELP_ACCOUNT'); ?></p>
       <ol>
-        <li><label for="name">Ditt för- och efternamn</label> <input type="text" name="name" id="name"<?php Request::formStatePost('name', 'text'); ?> /></li>
-        <li><label for="username">Ditt användarnamn</label> <input type="text" name="username" id="username"<?php Request::formStatePost('username', 'text'); ?> /></li>
-        <li><label for="password">Ditt lösenord</label> <input type="password" name="password" id="password" /></li>
-        <li><label for="repeat_password">Repetera lösenordet</label> <input type="password" name="repeat_password" id="repeat_password" /></li>
-        <li><button type="submit" name="step2" value="yes">Nästa steg</button></li>
+        <li><label for="name"><?php echo __('FIRST_LASTNAME'); ?></label> <input type="text" name="name" id="name"<?php Request::formStatePost('name', 'text'); ?> /></li>
+        <li><label for="username"><?php echo __('USERNAME'); ?></label> <input type="text" name="username" id="username"<?php Request::formStatePost('username', 'text'); ?> /></li>
+        <li><label for="password"><?php echo __('PASSWORD'); ?></label> <input type="password" name="password" id="password" /></li>
+        <li><label for="repeat_password"><?php echo __('REPEAT_PASSWORD'); ?></label> <input type="password" name="repeat_password" id="repeat_password" /></li>
+        <li><button type="submit" name="step2" value="yes"><?php echo __('NEXT_STEP'); ?></button></li>
       </ol>
     </fieldset>
 <?php
 /* STEP 3: Define all other config settings */
 elseif ($step == 3): ?>
     <fieldset>
-      <h1>3: Sökvägar och e-post</h1>
-      <p>Detta är sista steget i installationen! Nu behövs bara ett par sökvägar.</p>
+      <h1>3: <?php echo __('HEADER_PATHS'); ?></h1>
+      <p><?php echo __('HELP_PATHS'); ?></p>
       <ol>
-        <li><label for="base">Sökväg till KWE-installation</label> <input type="text" name="setting[BASE]" id="base"<?php Request::formStatePost('setting[BASE]', 'text'); ?> />
-            <span class="description">Måste sluta med snedstreck om den INTE är tom. Exempel: "kwe/" om KWE är installerat i mappen "kwe" men index.php ligger i roten.</span></li>
-          <li><label for="fullpath">URL till din index-fil relativt till webbserverns rot</label> <input type="text" name="setting[FULLPATH]" id="fullpath"<?php Request::formStatePost('setting[FULLPATH]', 'text'); ?> />
-            <span class="description">Får inte sluta med snedstreck. Exempel: "/mysite" om man ska surfa till "http://mydomain.tld/mysite/"</span></li>
-          <li><label for="fullurl">Fullständig URL till din index-fil</label> <input type="text" name="setting[FULLURL]" id="fullurl"<?php Request::formStatePost('setting[FULLURL]', 'text'); ?> />
-            <span class="description">Får inte sluta med snedstreck. Exempel: "http://mydomain.tld/mysite"</span></li>
-          <li><label for="mod_rewrite_on">Använd URL-omskrivning</label> <input type="radio" name="setting[MOD_REWRITE]" value="1" id="mod_rewrite_on"<?php Request::formStatePost('setting[MOD_REWRITE]', 'radio'); ?> />
-            <label for="mod_rewrite_off">Använd INTE URL-omskrivning</label> <input type="radio" name="setting[MOD_REWRITE]" value="0" id="mod_rewrite_off"<?php Request::formStatePost('setting[MOD_REWRITE]', 'radio'); ?> />
-            <span class="description">För att URL-omskrivning ska fungera måste det vara aktiverat i webbservern. I Apache heter modulen mod_rewrite.</span></li>
-          <li><label for="error_mail">E-postadress till webbplatsansvarig</label> <input type="text" name="setting[ERROR_MAIL]" id="error_mail"<?php Request::formStatePost('setting[ERROR_MAIL]', 'text'); ?> />
-            <span class="description">Denna e-postadress visas för dina besökare om fel inträffar i mjukvaran. För att förhindra skräppost kan du ersätta @ med [at].</span></li>
-        <li><button type="submit" name="step3" value="yes">Nästa steg</button></li>
+        <li><label for="base"><?php echo __('BASE'); ?></label> <input type="text" name="setting[BASE]" id="base"<?php Request::formStatePost('setting[BASE]', 'text'); ?> />
+            <span class="description"><?php echo __('HELP_BASE'); ?></span></li>
+          <li><label for="fullpath"><?php echo __('FULLPATH'); ?></label> <input type="text" name="setting[FULLPATH]" id="fullpath"<?php Request::formStatePost('setting[FULLPATH]', 'text'); ?> />
+            <span class="description"><?php echo __('HELP_FULLPATH'); ?></span></li>
+          <li><label for="fullurl"><?php echo __('FULLURL'); ?></label> <input type="text" name="setting[FULLURL]" id="fullurl"<?php Request::formStatePost('setting[FULLURL]', 'text'); ?> />
+            <span class="description"><?php echo __('HELP_FULLURL'); ?></span></li>
+          <li><label for="mod_rewrite_on"><?php echo __('USE_REWRITE'); ?></label> <input type="radio" name="setting[MOD_REWRITE]" value="1" id="mod_rewrite_on"<?php Request::formStatePost('setting[MOD_REWRITE]', 'radio'); ?> />
+            <label for="mod_rewrite_off"><?php echo __('NOT_USE_REWRITE'); ?></label> <input type="radio" name="setting[MOD_REWRITE]" value="0" id="mod_rewrite_off"<?php Request::formStatePost('setting[MOD_REWRITE]', 'radio'); ?> />
+            <span class="description"><?php echo __('HELP_REWRITE'); ?></span></li>
+          <li><label for="error_mail"><?php echo __('EMAIL'); ?></label> <input type="text" name="setting[ERROR_MAIL]" id="error_mail"<?php Request::formStatePost('setting[ERROR_MAIL]', 'text'); ?> />
+            <span class="description"><?php echo __('HELP_EMAIL'); ?></span></li>
+        <li><button type="submit" name="step3" value="yes"><?php echo __('NEXT_STEP'); ?></button></li>
       </ol>
     </fieldset>
 <?php
 /* STEP 4: Display greetings for user! */
 elseif ($step == 4): ?>
-    <h1>Grattis! Nu är installationen klar</h1>
-    <p>Alla inställningarna är gjorda och du kan börja använda KWE för att 
-      publicera innehåll på din webbplats.</p>
-    <p>Börja med att <a href="admin/">logga in i administrationen</a>.</p>
+    <h1><?php echo __('HEADER_DONE'); ?></h1>
+    <p><?php echo __('HELP_DONE'); ?></p>
+    <p><?php echo __('LOGIN_ADMIN_LINK', 'admin/'); ?></p>
 
-    <h2>Viktigt!</h2>
-    <p>Det är <strong>mycket viktigt</strong> att du raderar 
-      installationsfilen (setup.php) när du verifierat att installationen är 
-      korrekt. Annars är det möjligt för andra personer att förstöra din 
-      installation helt.</p>
+    <h2><?php echo __('HEADER_IMPORTANT'); ?></h2>
+    <p><?php echo __('HELP_IMPORTANT'); ?></p>
 <?php endif; ?>
   </form>
 <?php endif; ?>
 </div>
 
 <footer id="footer">
-  <p>Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2012</p>
+  <p><?php echo __('COPYRIGHT', '<a href="http://kekos.se/">Christoffer Lindahl</a>', '2009-2012'); ?></p>
 </footer>
 
 </body>
