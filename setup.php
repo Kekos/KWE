@@ -9,8 +9,7 @@ require('include/functions.php');
 
 $request = new Request(new Session());
 Language::configure($request, false, 'en');
-//Language::acceptHeader();
-Language::set('en');
+Language::acceptHeader();
 Language::load('setup');
 
 function saveSettings($settings)
