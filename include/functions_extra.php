@@ -3,7 +3,7 @@
  * KWF Functions: here you can add your own global functions
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-06-30
+ * @date 2012-08-02
  * @version 2.1
  */
 
@@ -48,10 +48,17 @@ function setControllerMenuSession($controllers, $request)
     {
     if ($controller->configurable)
       {
-      $nav[] = array($controller->name, $controller->class_name);
+      $nav[] = array(getControllerName($controller->name, $controller->class_name), $controller->class_name);
       }
     }
 
   $request->session->set('controllers', $nav);
+  }
+
+function getControllerName($controller_name, $class_name)
+  {
+  global $lang;
+  $key = 'MODULE_DEFAULT_' . strtoupper($class_name);
+  return (isset($lang[$key]) ? $lang[$key] : $controller_name);
   }
 ?>

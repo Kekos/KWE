@@ -116,6 +116,12 @@ $lang['MODULES_ERROR_NO_INFO'] = 'Installationsfilen var ingen giltig KWE-fil (h
 $lang['MODULES_INFO_UNINSTALLED'] = 'Modulen har avinstallerats.';
 $lang['MODULES_ERROR_UNINSTALL'] = 'Modulen kunde inte avinstalleras.';
 
+$lang['MODULE_DEFAULT_TEXT'] = 'Artikel';
+$lang['MODULE_DEFAULT_NEWS'] = 'Nyheter';
+$lang['MODULE_DEFAULT_CALENDAR'] = 'Kalender';
+$lang['MODULE_DEFAULT_REDIRECT'] = 'Omdirigering';
+$lang['MODULE_DEFAULT_UPLOAD'] = 'Filuppladdning';
+
 $lang['MODULEFAV_HEADER'] = 'Ange modul som favorit';
 $lang['MODULEFAV_QUESTION'] = 'Vill du att modulen visar ett gränssnitt i miniatyr på Översikten?';
 $lang['MODULEFAV_INFO'] = 'För att ange modulen %s som favorit, tryck på Spara.';

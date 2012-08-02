@@ -23,7 +23,7 @@
 
       <ul class="shortcuts">
 <?php foreach ($controllers as $controller): ?>
-        <li><a href="<?php echo urlModr($controller->class_name); ?>" class="clink"><?php echo htmlspecialchars($controller->name); ?></a></li>
+        <li><a href="<?php echo urlModr($controller->class_name); ?>" class="clink"><?php echo getControllerName(htmlspecialchars($controller->name), $controller->class_name); ?></a></li>
 <?php endforeach; ?>
       </ul>
 <?php endif; ?>

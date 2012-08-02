@@ -27,9 +27,9 @@
 <?php foreach ($controllers as $controller): ?>
         <tr>
 <?php if ($controller->configurable): ?>
-          <td><a href="<?php echo urlModr($controller->class_name); ?>" class="clink"><?php echo htmlspecialchars($controller->name); ?></a></td>
+          <td><a href="<?php echo urlModr($controller->class_name); ?>" class="clink"><?php echo getControllerName(htmlspecialchars($controller->name), $controller->class_name); ?></a></td>
 <?php else: ?>
-          <td><?php echo htmlspecialchars($controller->name); ?></td>
+          <td><?php echo getControllerName(htmlspecialchars($controller->name), $controller->class_name); ?></td>
 <?php endif; ?>
           <td class="actions"><?php if (Access::$user->rank == 1): ?><a href="<?php echo urlModr('controllers', 'uninstall', $controller->class_name); ?>" class="delete-link"><?php echo __('MODULES_UNINSTALL'); ?></a><?php
 endif;

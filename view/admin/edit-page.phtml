@@ -28,7 +28,7 @@ if ($active_page->id): ?>
           <label for="controller"><?php echo __('EDIT_PAGE_MODULE'); ?></label>
             <select name="controller" id="controller">
 <?php foreach ($installed_controllers as $controller): ?>
-              <option value="<?php echo $controller->id; ?>"><?php echo $controller->name; ?></option>
+              <option value="<?php echo $controller->id; ?>"><?php echo getControllerName(htmlspecialchars($controller->name), $controller->class_name); ?></option>
 <?php endforeach; ?>
             </select>
           <button type="submit" name="add_controller" value="yes"><?php echo __('EDIT_PAGE_ADD_MODULE'); ?></button>
