@@ -3,7 +3,7 @@
  * KWF Controller: AdminControllerNews
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-11
+ * @date 2012-08-02
  * @version 2.2
  */
 
@@ -15,20 +15,29 @@ class AdminControllerNews extends Controller
 
   public function before($action = false, $news_id = false)
     {
-    if (!Access::$is_logged_in || !Access::$is_administrator || !Access::hasControllerPermission('news'))
+    if (!Access::$is_logged_in || !Access::$is_administrator || !Access::hasControllerPermission('News'))
       {
       $this->response->redirect(urlModr());
       }
 
+    try
+      {
+      Language::load('News');
+      }
+    catch (Exception $ex)
+      {
+      Language::load('News', 'en');
+      }
+
     $this->db = DbMysqli::getInstance();
     $this->model_news = new NewsModel($this->db);
-    $this->response->title = 'Nyheter';
+    $this->response->title = __('MODULE_DEFAULT_NEWS');
 
     if ($action && $news_id)
       {
       $news_id = intval($news_id);
       if (!$this->news = $this->model_news->fetch($news_id))
-        return $this->response->addInfo('Hittade inte nyheten med ID ' . $news_id);
+        return $this->response->addInfo(__('NEWS_INFO_NOT_FOUND') . $news_id);
       }
     }
 
@@ -91,7 +100,7 @@ class AdminControllerNews extends Controller
     $this->news = new Knews($this->model_news);
 
     if (!$this->news->setTitle($title))
-      $errors[] = 'Du måste ange en nyhetstitel på minst 2 tecken.';
+      $errors[] = __('NEWS_ERROR_TITLE_LENGTH');
 
     if (!count($errors))
       {
@@ -114,13 +123,13 @@ class AdminControllerNews extends Controller
     $content = $this->request->post('content');
 
     if (!$this->news->setTitle($title))
-      $errors[] = 'Du måste ange en nyhetstitel på minst 2 tecken.';
+      $errors[] = __('NEWS_ERROR_TITLE_LENGTH');
 
     if (!count($errors))
       {
       $this->news->setContent($content);
       $this->news->save();
-      $this->response->addInfo('Nyheten sparades.');
+      $this->response->addInfo(__('NEWS_INFO_SAVED'));
       }
     else
       {
@@ -130,7 +139,7 @@ class AdminControllerNews extends Controller
 
   private function deleteNews()
     {
-    $this->response->addInfo('Nyheten togs bort.');
+    $this->response->addInfo(__('NEWS_INFO_DELETED'));
 
     $this->news->delete();
     $this->news = false;

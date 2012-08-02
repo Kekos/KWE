@@ -1,12 +1,12 @@
-    <h1>Redigera nyhet</h1>
+    <h1><?php echo __('NEWS_EDIT_HEADER'); ?></h1>
 
-    <p><a href="<?php echo urlModr($route); ?>" class="clink">Gå till nyhetslistan</a></p>
+    <p><a href="<?php echo urlModr($route); ?>" class="clink"><?php echo __('NEWS_GO_BACK'); ?></a></p>
 
     <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
       <fieldset>
         <ol>
-          <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text', '', $news->title); ?> /></li>
-          <li><button type="submit" name="edit_news" class="save-domiwyg" value="yes">Spara ändringar</button></li>
+          <li><label for="title"><?php echo __('NEWS_TITLE'); ?></label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text', '', $news->title); ?> /></li>
+          <li><button type="submit" name="edit_news" class="save-domiwyg" value="yes"><?php echo __('NEWS_SAVE_CHANGES'); ?></button></li>
         </ol>
       </fieldset>
 
