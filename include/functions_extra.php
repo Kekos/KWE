@@ -61,4 +61,16 @@ function getControllerName($controller_name, $class_name)
   $key = 'MODULE_DEFAULT_' . strtoupper($class_name);
   return (isset($lang[$key]) ? $lang[$key] : $controller_name);
   }
+
+function loadFallbackLangugage($domain, $fallback_code = 'en')
+  {
+  try
+    {
+    Language::load($domain);
+    }
+  catch (Exception $ex)
+    {
+    Language::load($domain, $fallback_code);
+    }
+  }
 ?>

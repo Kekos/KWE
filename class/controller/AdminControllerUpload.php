@@ -20,14 +20,7 @@ class AdminControllerUpload extends Controller
       $this->response->redirect(urlModr());
       }
 
-    try
-      {
-      Language::load('Upload');
-      }
-    catch (Exception $ex)
-      {
-      Language::load('Upload', 'en');
-      }
+    loadFallbackLangugage('Upload');
 
     $this->response->title = __('MODULE_DEFAULT_UPLOAD');
     $this->upload_dir = BASE . 'upload/';

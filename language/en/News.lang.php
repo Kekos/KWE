@@ -1,4 +1,14 @@
 <?php
+$lang['NEWS_FAV_NEW_HEADER'] = 'Add news';
+$lang['NEWS_PAGE_HEADER'] = 'Newsmodule';
+$lang['NEWS_PAGE_WRITTEN_BY'] = 'Written by ';
+$lang['NEWS_PAGE_COUNT'] = 'Number of news to show';
+$lang['NEWS_PAGE_SORT_ASC'] = 'Sort in ascending order';
+$lang['NEWS_PAGE_SORT_DESC'] = 'Sort in descending order';
+$lang['NEWS_PAGE_HTML_BEFORE'] = 'HTML before';
+$lang['NEWS_PAGE_HTML_AFTER'] = 'HTML after';
+$lang['NEWS_PAGE_HTML_NEWS'] = 'HTML for news';
+
 $lang['NEWS_NEW_HEADER'] = 'Add news';
 $lang['NEWS_TITLE'] = 'Title';
 $lang['NEWS_LIST_HEADER'] = 'News list';

@@ -1,10 +1,11 @@
-      <h2>Lägg till nyhet</h2>
+<?php loadFallbackLangugage('News'); ?>
+      <h2><?php echo __('NEWS_FAV_NEW_HEADER'); ?></h2>
 
       <form action="<?php echo urlModr('news'); ?>" method="post">
         <fieldset>
           <ol>
-            <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text'); ?> /></li>
-            <li><button type="submit" name="new_news" value="yes">Spara</button></li>
+            <li><label for="title"><?php echo __('NEWS_TITLE'); ?></label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text'); ?> /></li>
+            <li><button type="submit" name="new_news" value="yes"><?php echo __('SAVE'); ?></button></li>
           </ol>
         </fieldset>
       </form>
