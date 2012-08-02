@@ -1,23 +1,23 @@
 <?php if (!empty($path))
   $path .= '/'; ?>
-    <h1>Filuppladdning</h1>
+    <h1><?php echo __('MODULE_DEFAULT_UPLOAD'); ?></h1>
 
     <p class="toolbar">
 <?php if (!empty($path)): ?>
-      <a href="<?php echo urlModr($route, 'browse', $up_path); ?>" class="toolbar-button clink">Upp en nivå</a>
+      <a href="<?php echo urlModr($route, 'browse', $up_path); ?>" class="toolbar-button clink"><?php echo __('UPLOAD_LEVEL_UP'); ?></a>
 <?php endif; ?>
-      <a href="<?php echo urlModr($route, 'addfolder', $path); ?>" class="toolbar-button blink dim400x200">Ny mapp</a>
-      <a href="<?php echo urlModr($route, 'upload', $path); ?>" class="toolbar-button blink dim300x200">Ladda upp fil</a>
+      <a href="<?php echo urlModr($route, 'addfolder', $path); ?>" class="toolbar-button blink dim400x200"><?php echo __('UPLOAD_NEW_FOLDER'); ?></a>
+      <a href="<?php echo urlModr($route, 'upload', $path); ?>" class="toolbar-button blink dim300x200"><?php echo __('UPLOAD_UPLOAD_FILE'); ?></a>
     </p>
 
-    <p>Visar innehållet i mappen: <strong><?php echo htmlspecialchars($path); ?></strong></p>
+    <p><?php echo __('UPLOAD_CURRENT_FOLDER'); ?> <strong><?php echo htmlspecialchars($path); ?></strong></p>
 
 <?php foreach ($files as $file):
 $is_dir = is_dir($real_path . '/' . $file);
 if ($file != '.' && $file != '..'): ?>
       <div class="file-thumb">
         <a href="<?php echo urlModr($route, 'browse', $path . $file); ?>" class="<?php echo ($is_dir ? 'folder clink' : 'file blink'); ?>"><?php echo htmlspecialchars($file); ?></a>
-        <a href="<?php echo urlModr($route, 'delete', $path . $file); ?>" class="delete-link" title="Ta bort">Ta bort</a>
+        <a href="<?php echo urlModr($route, 'delete', $path . $file); ?>" class="delete-link" title="<?php echo __('ACTION_DELETE'); ?>"><?php echo __('ACTION_DELETE'); ?></a>
       </div>
 <?php endif; endforeach; ?>
     </table>

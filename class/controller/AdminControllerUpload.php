@@ -3,7 +3,7 @@
  * KWF Controller: AdminControllerUpload
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-11
+ * @date 2012-08-02
  * @version 1.0
  */
 
@@ -15,12 +15,21 @@ class AdminControllerUpload extends Controller
 
   public function before($action = false)
     {
-    if ((!Access::$is_logged_in || !Access::$is_administrator) || ($action != 'js_browse' && !Access::hasControllerPermission('upload')))
+    if ((!Access::$is_logged_in || !Access::$is_administrator) || ($action != 'js_browse' && !Access::hasControllerPermission('Upload')))
       {
       $this->response->redirect(urlModr());
       }
 
-    $this->response->title = 'Filuppladdning';
+    try
+      {
+      Language::load('Upload');
+      }
+    catch (Exception $ex)
+      {
+      Language::load('Upload', 'en');
+      }
+
+    $this->response->title = __('MODULE_DEFAULT_UPLOAD');
     $this->upload_dir = BASE . 'upload/';
 
     if (count($this->request->params) > 2)
@@ -34,7 +43,7 @@ class AdminControllerUpload extends Controller
     if ($action && !file_exists($this->real_path))
       {
       $this->path = false;
-      $this->response->addInfo('Hittade inte filen eller mappen med sökvägen ' . htmlspecialchars($this->path));
+      $this->response->addInfo(__('UPLOAD_INFO_PATH_NOT_FOUND') . htmlspecialchars($this->path));
       }
     }
 
@@ -79,7 +88,7 @@ class AdminControllerUpload extends Controller
         }
       else
         {
-        $html = '<p><a href="' . FULLPATH_SITE . '/upload/' . $this->path . '">Ladda ner filen ' . $this->path . ' här</a></p>';
+        $html = '<p><a href="' . FULLPATH_SITE . '/upload/' . $this->path . '">' . __('UPLOAD_DOWNLOAD_FILE', $this->path) . '</a></p>';
         }
 
       $this->response->addContent($html);
@@ -158,7 +167,7 @@ class AdminControllerUpload extends Controller
     $filename = $file['name'];
 
     if (empty($filename))
-      $errors[] = 'Bläddra efter en fil och tryck på "Ladda upp" för att ladda upp!';
+      $errors[] = __('UPLOAD_ERROR_NO_SELECTED');
 
     if (!count($errors))
       {
@@ -171,7 +180,7 @@ class AdminControllerUpload extends Controller
         move_uploaded_file($file['tmp_name'], $this->real_path . '/' . $filename);
         }
 
-      $this->response->addInfo('Filen laddades upp.');
+      $this->response->addInfo(__('UPLOAD_INFO_UPLOADED'));
       return true;
       }
     else
@@ -188,20 +197,20 @@ class AdminControllerUpload extends Controller
     $folder_path = $this->real_path . '/' . $folder_name;
 
     if (empty($folder_name))
-      $errors[] = 'Du angav inte ett namn för den nya mappen.';
+      $errors[] = __('UPLOAD_ERROR_FOLDER_NAME');
     if (file_exists($folder_path))
-      $errors[] = 'Det fanns redan en mapp med namnet ' . htmlspecialchars($folder_name);
+      $errors[] = __('UPLOAD_ERROR_FOLDER_EXISTS', htmlspecialchars($folder_name));
 
     if (!count($errors))
       {
       if (mkdir($folder_path))
         {
-        $this->response->addInfo('Mappen skapades.');
+        $this->response->addInfo(__('UPLOAD_INFO_FOLDER_CREATED'));
         return true;
         }
       else
         {
-        $this->response->addError('Det gick inte att skapa mappen.');
+        $this->response->addError(__('UPLOAD_ERROR_FOLDER_CREATE'));
         }
       }
     else
@@ -214,7 +223,7 @@ class AdminControllerUpload extends Controller
 
   private function deleteFile()
     {
-    $this->response->addInfo('Filen ' . htmlspecialchars($this->path) . ' togs bort.');
+    $this->response->addInfo(__('UPLOAD_INFO_FILE_REMOVED', htmlspecialchars($this->path)));
 
     unlink($this->real_path);
 
@@ -226,11 +235,11 @@ class AdminControllerUpload extends Controller
     {
     if (@rmdir($this->real_path))
       {
-      $this->response->addInfo('Mappen ' . htmlspecialchars($this->path) . ' togs bort.');
+      $this->response->addInfo(__('UPLOAD_INFO_FOLDER_REMOVED', htmlspecialchars($this->path)));
       }
     else
       {
-      $this->response->addError('Det gick inte att ta bort mappen. Kontrollera att den är tom först!');
+      $this->response->addError(__('UPLOAD_ERROR_FOLDER_REMOVE'));
       }
 
     $this->path = $this->lvlUpFolder($this->path);

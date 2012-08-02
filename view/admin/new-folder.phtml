@@ -1,11 +1,11 @@
-    <h1>Ny mapp</h1>
+    <h1><?php echo __('UPLOAD_NEW_FOLDER'); ?></h1>
 
     <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form content-on-close">
       <p>
-        <label for="folder_name">Skapa ny mapp med namnet</label>
+        <label for="folder_name"><?php echo __('UPLOAD_NEW_FOLDER_NAME'); ?></label>
         <input type="text" name="folder_name" id="folder_name" />
       </p>
       <p class="clear">
-        <button type="submit" name="new_folder" value="yes">Spara</button>
+        <button type="submit" name="new_folder" value="yes"><?php echo __('SAVE'); ?></button>
       </p>
     </form>
