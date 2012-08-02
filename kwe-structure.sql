@@ -21,11 +21,11 @@ CREATE TABLE `PREFIX_controllers` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `PREFIX_controllers` (`id`, `name`, `class_name`, `configurable`, `has_favorite_config`) VALUES 
-(1, 'Artikel', 'Text', 0, 0),
-(2, 'Nyheter', 'News', 1, 1),
-(3, 'Kalender', 'Calendar', 1, 1),
-(4, 'Omdirigering', 'Redirect', 0, 0),
-(5, 'Filuppladdning', 'Upload', 1, 0);
+(1, 'Text', 'Text', 0, 0),
+(2, 'News', 'News', 1, 1),
+(3, 'Calendar', 'Calendar', 1, 1),
+(4, 'Redirect', 'Redirect', 0, 0),
+(5, 'File upload', 'Upload', 1, 0);
 
 CREATE TABLE `PREFIX_controller_permissions` (
   `user` smallint(5) unsigned NOT NULL,
