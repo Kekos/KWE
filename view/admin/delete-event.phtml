@@ -1,9 +1,8 @@
-    <h1>Ta bort händelse</h1>
+    <h1><?php echo __('CALENDAR_DELETE_HEADER'); ?></h1>
 
     <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form content-on-close">
-      <p>Är du säker på att du vill ta bort händelsen <strong><?php echo htmlspecialchars($event->title); ?></strong> 
-      permanent?</p>
+      <p><?php echo __('CALENDAR_DELETE_QUESTION', '<strong>' . htmlspecialchars($event->title) . '</strong>'); ?></p>
 
-      <p><button type="submit" name="delete_event_yes" value="yes">Ja</button>
-        <button type="submit" name="delete_event_no" value="no" class="hide-boxing">Nej</button></p>
+      <p><button type="submit" name="delete_event_yes" value="yes"><?php echo __('YES'); ?></button>
+        <button type="submit" name="delete_event_no" value="no" class="hide-boxing"><?php echo __('NO'); ?></button></p>
     </form>

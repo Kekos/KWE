@@ -3,7 +3,7 @@
  * KWF Controller: AdminControllerCalendar
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-11
+ * @date 2012-08-03
  * @version 2.2
  */
 
@@ -15,20 +15,22 @@ class AdminControllerCalendar extends Controller
 
   public function before($action = false, $event_id = false)
     {
-    if (!Access::$is_logged_in || !Access::$is_administrator || !Access::hasControllerPermission('calendar'))
+    if (!Access::$is_logged_in || !Access::$is_administrator || !Access::hasControllerPermission('Calendar'))
       {
       $this->response->redirect(urlModr());
       }
 
+    loadFallbackLangugage('Calendar');
+
     $this->db = DbMysqli::getInstance();
     $this->model_calendar = new CalendarModel($this->db);
-    $this->response->title = 'Kalender';
+    $this->response->title = __('MODULE_DEFAULT_CALENDAR');
 
     if ($action && $event_id)
       {
       $event_id = intval($event_id);
       if (!$this->event = $this->model_calendar->fetch($event_id))
-        return $this->response->addInfo('Hittade inte händelsen med ID ' . $event_id);
+        return $this->response->addInfo(__('CALENDAR_INFO_NOT_FOUND') . $event_id);
       }
     }
 
@@ -94,11 +96,11 @@ class AdminControllerCalendar extends Controller
     $this->event = new Kevent($this->model_calendar);
 
     if (!$this->event->setTitle($title))
-      $errors[] = 'Du måste ange en titel på minst 2 tecken.';
+      $errors[] = __('CALENDAR_ERROR_TITLE_LENGTH');
     if (!$this->event->setStarttime($starttime))
-      $errors[] = 'Du angav inte ett korrekt startdatum.';
+      $errors[] = __('CALENDAR_ERROR_STARTDATE');
     if (!$this->event->setEndtime($endtime))
-      $errors[] = 'Du angav inte ett korrekt slutdatum.';
+      $errors[] = __('CALENDAR_ERROR_ENDDATE');
 
     if (!count($errors))
       {
@@ -106,7 +108,7 @@ class AdminControllerCalendar extends Controller
       $this->event->setCreator(Access::$user->id);
       $this->event->setCreated(time());
       $this->event->save();
-      $this->response->addInfo('Händelsen ' . htmlspecialchars($title) . ' sparades.');
+      $this->response->addInfo(__('CALENDAR_INFO_SAVED', htmlspecialchars($title)));
       }
     else
       {
@@ -123,17 +125,17 @@ class AdminControllerCalendar extends Controller
     $endtime = $this->request->post('endtime');
 
     if (!$this->event->setTitle($title))
-      $errors[] = 'Du måste ange en titel på minst 2 tecken.';
+      $errors[] = __('CALENDAR_ERROR_TITLE_LENGTH');
     if (!$this->event->setStarttime($starttime))
-      $errors[] = 'Du angav inte ett korrekt startdatum.';
+      $errors[] = __('CALENDAR_ERROR_STARTDATE');
     if (!$this->event->setEndtime($endtime))
-      $errors[] = 'Du angav inte ett korrekt slutdatum.';
+      $errors[] = __('CALENDAR_ERROR_ENDDATE');
 
     if (!count($errors))
       {
       $this->event->setContent($content);
       $this->event->save();
-      $this->response->addInfo('Händelsen ' . htmlspecialchars($title) . ' sparades.');
+      $this->response->addInfo(__('CALENDAR_INFO_SAVED', htmlspecialchars($title)));
       }
     else
       {
@@ -143,7 +145,7 @@ class AdminControllerCalendar extends Controller
 
   private function deleteEvent()
     {
-    $this->response->addInfo('Händelsen ' . htmlspecialchars($this->event->title) . ' togs bort.');
+    $this->response->addInfo(__('CALENDAR_INFO_DELETED', htmlspecialchars($this->event->title)));
 
     $this->event->delete();
     $this->event = false;
@@ -175,7 +177,9 @@ class AdminControllerCalendar extends Controller
         '../view/admin/delete-event.phtml', 
         '../view/admin/edit-event.phtml', 
         '../view/admin/list-events.phtml', 
-        '../view/admin/controller.page.calendar.phtml');
+        '../view/admin/controller.page.calendar.phtml', 
+        '../language/sv/Calendar.lang.php', 
+        '../language/en/Calendar.lang.php');
     foreach ($files as $file)
       {
       if (file_exists($file))

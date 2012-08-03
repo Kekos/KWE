@@ -1,17 +1,17 @@
-    <h1>Redigera händelse</h1>
+    <h1><?php echo __('CALENDAR_EDIT_HEADER'); ?></h1>
 
-    <p><a href="<?php echo urlModr($route); ?>" class="clink">Gå till händelselistan</a></p>
+    <p><a href="<?php echo urlModr($route); ?>" class="clink"><?php echo __('CALENDAR_GO_BACK'); ?></a></p>
 
     <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
       <fieldset>
         <ol>
-          <li><label for="title">Titel</label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text', '', $event->title); ?> /></li>
-          <li><label for="event_content">Innehåll</label> <textarea name="content" id="event_content" cols="80" rows="10"><?php Request::formStatePost('content', 'textarea', '', $event->content); ?></textarea></li>
-          <li><label for="starttime">Startdatum &amp; -tid</label> <input type="text" name="starttime" id="starttime" maxlength="16"<?php Request::formStatePost('starttime', 'text', '', date('Y-m-d H:i', $event->starttime)); ?> />
-            <span class="description">Anges i formatet ÅÅÅÅ-MM-DD TT:MM</span></li>
-          <li><label for="endtime">Slutdatum &amp; -tid</label> <input type="text" name="endtime" id="endtime" maxlength="16"<?php Request::formStatePost('endtime', 'text', '', date('Y-m-d H:i', $event->endtime)); ?> />
-            <span class="description">Anges i formatet ÅÅÅÅ-MM-DD TT:MM</span></li>
-          <li><button type="submit" name="edit_event" value="yes">Spara ändringar</button></li>
+          <li><label for="title"><?php echo __('CALENDAR_TITLE'); ?></label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text', '', $event->title); ?> /></li>
+          <li><label for="event_content"><?php echo __('CALENDAR_CONTENT'); ?></label> <textarea name="content" id="event_content" cols="80" rows="10"><?php Request::formStatePost('content', 'textarea', '', $event->content); ?></textarea></li>
+          <li><label for="starttime"><?php echo __('CALENDAR_STARTDATE_TIME'); ?></label> <input type="text" name="starttime" id="starttime" maxlength="16"<?php Request::formStatePost('starttime', 'text', '', date('Y-m-d H:i', $event->starttime)); ?> />
+            <span class="description"><?php echo __('CALENDAR_TIME_FORMAT'); ?></span></li>
+          <li><label for="endtime"><?php echo __('CALENDAR_ENDDATE_TIME'); ?></label> <input type="text" name="endtime" id="endtime" maxlength="16"<?php Request::formStatePost('endtime', 'text', '', date('Y-m-d H:i', $event->endtime)); ?> />
+            <span class="description"><?php echo __('CALENDAR_TIME_FORMAT'); ?></span></li>
+          <li><button type="submit" name="edit_event" value="yes"><?php echo __('CALENDAR_SAVE_CHANGES'); ?></button></li>
         </ol>
       </fieldset>
     </form>
