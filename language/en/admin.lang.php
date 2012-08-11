@@ -116,6 +116,13 @@ $lang['MODULES_ERROR_NO_INFO'] = 'The installation file wasn\'t a valid KWE file
 $lang['MODULES_INFO_UNINSTALLED'] = 'The module was uninstalled.';
 $lang['MODULES_ERROR_UNINSTALL'] = 'The module could not be uninstalled.';
 
+$lang['MODULE_DEFAULT_TEXT'] = 'Text';
+$lang['MODULE_DEFAULT_NEWS'] = 'News';
+$lang['MODULE_DEFAULT_CALENDAR'] = 'Calendar';
+$lang['MODULE_DEFAULT_REDIRECT'] = 'Redirect';
+$lang['MODULE_DEFAULT_UPLOAD'] = 'File upload';
+$lang['MODULE_DEFAULT_LANGUAGES'] = 'Languages';
+
 $lang['MODULEFAV_HEADER'] = 'Mark module as favorite';
 $lang['MODULEFAV_QUESTION'] = 'Do you want the module to show an miniature interface on your Dashboard?';
 $lang['MODULEFAV_INFO'] = 'To mark the module %s as favorite, click Save.';
