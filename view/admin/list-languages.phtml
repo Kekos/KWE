@@ -1,0 +1,34 @@
+    <h1><?php echo __('MODULE_DEFAULT_LANGUAGES'); ?></h1>
+
+    <section class="half-section box">
+      <h1><?php echo __('LANGUAGES_INSTALL_HEADER'); ?></h1>
+
+      <form action="<?php echo urlModr($route); ?>" method="post" enctype="multipart/form-data">
+        <fieldset>
+          <ol>
+            <li><label for="file"><?php echo __('LANGUAGES_FILE'); ?></label> <input type="file" name="file" id="file" />
+              <span class="description"><?php echo __('LANGUAGES_INSTALL_INFO'); ?></span></li>
+            <li><button type="submit" name="install_language" value="yes"><?php echo __('LANGUAGES_INSTALL'); ?></button></li>
+          </ol>
+        </fieldset>
+      </form>
+    </section>
+
+    <section class="half-section box">
+      <h1><?php echo __('LANGUAGES_LIST_HEADER'); ?></h1>
+
+      <table>
+        <tr>
+          <th><?php echo __('LANGUAGES_NAME'); ?></th>
+          <th><?php echo __('LANGUAGES_CODE'); ?></th>
+          <th class="actions-head">&nbsp;</th>
+        </tr>
+<?php foreach ($languages as $language): ?>
+        <tr>
+          <td><?php echo htmlspecialchars($language->name); ?></td>
+          <td><?php echo htmlspecialchars($language->code); ?></td>
+          <td class="actions"><a href="<?php echo urlModr($route, 'delete', $language->id); ?>" class="delete-link"><?php echo __('ACTION_DELETE'); ?></a></td>
+        </tr>
+<?php endforeach; ?>
+      </table>
+    </section>

@@ -3,7 +3,7 @@
  * KWF Model: UserModel
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-11
+ * @date 2012-08-10
  * @version 2.1
  */
 
@@ -18,8 +18,9 @@ class UserModel
 
   public function login($username, $password)
     {
-    $q_select_user = "SELECT `id`, `rank`, `online_time` FROM `PREFIX_users` WHERE "
-      . "`username` = ? AND `password` = ?";
+    $q_select_user = "SELECT u.`id`, `rank`, `online_time`, `code` FROM "
+      . "`PREFIX_users` u INNER JOIN  `PREFIX_languages` l ON l.id = language "
+      . "WHERE `username` = ? AND `password` = ?";
 
     $this->db->exec($q_select_user, 'ss', array($username, $password));
     return $this->db->fetch('User', array($this));
@@ -27,8 +28,7 @@ class UserModel
 
   public function fetch($id)
     {
-    $q_select_user = "SELECT `id`, `name`, `username`, `password`, `rank` FROM "
-      . "`PREFIX_users` WHERE `id` = ?";
+    $q_select_user = "SELECT * FROM `PREFIX_users` WHERE `id` = ?";
 
     $this->db->exec($q_select_user, 'i', array($id));
     return $this->db->fetch('User', array($this));

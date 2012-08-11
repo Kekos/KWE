@@ -83,6 +83,17 @@ CREATE TABLE `PREFIX_permissions` (
   PRIMARY KEY (`user`,`page`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE `PREFIX_languages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `code` varchar(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+INSERT INTO `PREFIX_languages` (`id`, `name`, `code`) VALUES
+(1, 'English', 'en'),
+(2, 'Svenska', 'sv');
+
 CREATE TABLE `PREFIX_users` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
@@ -91,5 +102,6 @@ CREATE TABLE `PREFIX_users` (
   `rank` tinyint(1) unsigned NOT NULL,
   `online` tinyint(1) unsigned NOT NULL,
   `online_time` int(10) unsigned NOT NULL,
+  `language` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

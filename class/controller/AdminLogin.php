@@ -3,7 +3,7 @@
  * KWE Controller: AdminLogin
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-30
+ * @date 2012-08-10
  * @version 2.2
  */
 
@@ -52,6 +52,9 @@ class AdminLogin extends Controller
       $model_controller = new ControllerModel($this->db);
       $controllers = $model_controller->fetchAllWithPermissions($user->id, ($user->rank == 1));
       setControllerMenuSession($controllers, $this->request);
+
+      // Store user's language preference in session
+      Language::set($user->code);
 
       $this->response->redirect(urlModr());
       }

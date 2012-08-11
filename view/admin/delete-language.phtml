@@ -1,0 +1,8 @@
+    <h1><?php echo __('LANGUAGES_DELETE_HEADER'); ?></h1>
+
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form content-on-close">
+      <p><?php echo __('LANGUAGES_DELETE_QUESTION', '<strong>' . htmlspecialchars($language->name) . '</strong>'); ?></p>
+
+      <p><button type="submit" name="delete_language_yes" value="yes"><?php echo __('YES'); ?></button>
+        <button type="submit" name="delete_language_no" value="no" class="hide-boxing"><?php echo __('NO'); ?></button></p>
+    </form>

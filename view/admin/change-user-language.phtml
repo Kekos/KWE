@@ -1,0 +1,13 @@
+    <h1><?php echo __('FOOTER_CHANGE_LANG'); ?></h1>
+
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
+      <p>
+        <label for="language"><?php echo __('CHANGE_LANG_NAME'); ?></label>
+        <select name="language" id="language">
+<?php foreach ($languages as $language): ?>
+          <option value="<?php echo $language->id; ?>"<?php Request::formStatePost('language', 'select', $language->id, Access::$user->language); ?>><?php echo htmlspecialchars($language->name); ?></option>
+<?php endforeach; ?>
+        </select>
+      </p>
+      <p><button type="submit" name="save_language" value="yes"><?php echo __('CHANGE_LANG_SAVE'); ?></button></p>
+    </form>

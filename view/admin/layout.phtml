@@ -99,7 +99,11 @@ if (count($this->info_messages)): ?>
   <footer id="footer">
     <p id="version"><?php echo KWE_VERSION; ?></p>
     <p id="copyright"><?php echo __('FOOTER_COPYRIGHT', '<a href="http://kekos.se/">Christoffer Lindahl</a>', '2009-2012'); ?></p>
-    <p id="user-info"><?php if (Access::$is_logged_in): ?><?php echo __('FOOTER_LOGGED_IN_AS'); ?> <?php echo Access::$user->name; ?> <a href="<?php echo urlModr('change-password'); ?>" class="blink dim500x300">(<?php echo __('FOOTER_CHANGE_PW'); ?>)</a><?php endif; ?></p>
+    <p id="user-info">
+      <?php if (Access::$is_logged_in): ?><?php echo __('FOOTER_LOGGED_IN_AS'); ?> <?php echo Access::$user->name; ?>
+      <a href="<?php echo urlModr('change-password'); ?>" class="blink dim500x300">(<?php echo __('FOOTER_CHANGE_PW'); ?>)</a>
+      <a href="<?php echo urlModr('change-user-lang'); ?>" class="blink dim400x150">(<?php echo __('FOOTER_CHANGE_LANG'); ?>)</a><?php endif; ?>
+    </p>
   </footer>
 </div>
 

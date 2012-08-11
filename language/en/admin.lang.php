@@ -16,6 +16,7 @@ $lang['CANCEL'] = 'Cancel';
 $lang['FOOTER_COPYRIGHT'] = 'Copyright &copy; %s, %s';
 $lang['FOOTER_LOGGED_IN_AS'] = 'Logged in as';
 $lang['FOOTER_CHANGE_PW'] = 'Change password';
+$lang['FOOTER_CHANGE_LANG'] = 'Change language';
 
 $lang['ACTION_EDIT'] = 'Edit';
 $lang['ACTION_DELETE'] = 'Delete';
@@ -42,6 +43,11 @@ $lang['CHANGE_PW_ERROR_WRONG'] = 'You entered wrong password.';
 $lang['CHANGE_PW_ERROR_LENGTH'] = 'Please enter a longer password.';
 $lang['CHANGE_PW_ERROR_MISSMATCH'] = 'The two passwords you entered didn\'t match.';
 $lang['CHANGE_PW_INFO'] = 'Your new password was saved.';
+
+$lang['CHANGE_LANG_NAME'] = 'Select your language';
+$lang['CHANGE_LANG_SAVE'] = 'Save selection';
+$lang['CHANGE_LANG_ERROR'] = 'Please select a language.';
+$lang['CHANGE_LANG_INFO'] = 'Your new language preference was saved.';
 
 $lang['PAGES_HELP'] = 'Click a page\'s URL to visit it on your site. Use the arrow to view subpages.';
 $lang['PAGES_NEW_PAGE'] = 'Create new page';

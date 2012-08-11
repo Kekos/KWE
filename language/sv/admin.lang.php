@@ -16,6 +16,7 @@ $lang['CANCEL'] = 'Avbryt';
 $lang['FOOTER_COPYRIGHT'] = 'Copyright &copy; %s, %s';
 $lang['FOOTER_LOGGED_IN_AS'] = 'Inloggad som';
 $lang['FOOTER_CHANGE_PW'] = 'Byt lösenord';
+$lang['FOOTER_CHANGE_LANG'] = 'Byt språk';
 
 $lang['ACTION_EDIT'] = 'Redigera';
 $lang['ACTION_DELETE'] = 'Ta bort';
@@ -42,6 +43,11 @@ $lang['CHANGE_PW_ERROR_WRONG'] = 'Du angav fel lösenord.';
 $lang['CHANGE_PW_ERROR_LENGTH'] = 'Skriv in ett längre lösenord.';
 $lang['CHANGE_PW_ERROR_MISSMATCH'] = 'De två lösenorden du skrev in stämde inte överens.';
 $lang['CHANGE_PW_INFO'] = 'Du fick ett nytt lösenord.';
+
+$lang['CHANGE_LANG_NAME'] = 'Välj ditt språk';
+$lang['CHANGE_LANG_SAVE'] = 'Spara val';
+$lang['CHANGE_LANG_ERROR'] = 'Var vänlig och välj språk.';
+$lang['CHANGE_LANG_INFO'] = 'Ditt språkval sparades.';
 
 $lang['PAGES_HELP'] = 'Klicka på en sidas URL för att besöka den på din webbsida. Använd pilen för att se undersidor.';
 $lang['PAGES_NEW_PAGE'] = 'Skapa ny sida';
@@ -121,6 +127,7 @@ $lang['MODULE_DEFAULT_NEWS'] = 'Nyheter';
 $lang['MODULE_DEFAULT_CALENDAR'] = 'Kalender';
 $lang['MODULE_DEFAULT_REDIRECT'] = 'Omdirigering';
 $lang['MODULE_DEFAULT_UPLOAD'] = 'Filuppladdning';
+$lang['MODULE_DEFAULT_LANGUAGES'] = 'Språk';
 
 $lang['MODULEFAV_HEADER'] = 'Ange modul som favorit';
 $lang['MODULEFAV_QUESTION'] = 'Vill du att modulen visar ett gränssnitt i miniatyr på Översikten?';

@@ -3,7 +3,7 @@
  * KWF Model: User
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-11
+ * @date 2012-08-10
  * @version 1.3
  */
 
@@ -16,6 +16,7 @@ class User extends DbObject
   protected $rank = 0;
   protected $online = -1;
   protected $online_time = -1;
+  protected $language = -1;
 
   public function __construct($model)
     {
@@ -103,6 +104,17 @@ class User extends DbObject
     {
     $this->_set('online_time', time());
     return true;
+    }
+
+  public function setLanguage($language)
+    {
+    if ($language > 0)
+      {
+      $this->_set('language', $language);
+      return true;
+      }
+
+    return false;
     }
   }
 ?>
