@@ -2,7 +2,7 @@
  * KWF Style: kwe_admin.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-08-01
+ * @date 2012-08-11
  * @version 2.0
  */
 
@@ -141,6 +141,7 @@ body
   {
   display: none;
   position: absolute;
+  z-index: 10;
   top: 20px;
   background: #fff;
   border: 1px solid #d8d8d8;
