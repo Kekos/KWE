@@ -25,7 +25,7 @@ function menuLink($current_page, $new_page, $is_clink)
   <!--[if lte IE 7]><link href="<?php echo FULLPATH; ?>/css/kwe_admin_ie<?php if (MINIFIED) echo '.min'; ?>.css" rel="stylesheet" /><![endif]-->
   <!--[if lte IE 8]><script src="<?php echo FULLPATH_SITE; ?>/js/html5.min.js" type="text/javascript"></script><![endif]-->
   <script src="<?php echo FULLPATH_SITE; ?>/js/domiwyg.min.js"></script>
-  <script src="<?php echo FULLPATH_SITE; ?>/js/domiwyg.swedish.min.js"></script>
+  <script src="<?php echo FULLPATH_SITE; ?>/js/domiwyg.<?php echo Language::$language; ?>.min.js"></script>
 <?php if (MINIFIED): ?>
   <script src="<?php echo FULLPATH_SITE; ?>/js/kwe.min.js"></script>
 <?php else: ?>
