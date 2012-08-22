@@ -3,7 +3,7 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-08-01
+ * @date 2012-08-21
  * @version 3.0
  */
 
@@ -230,7 +230,7 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
         {
         var html = '', json, i;
 
-        Ajax.get(Kwf.MODR + 'upload/js_browse/' + path, function(resp)
+        Ajax.get(Kwf.MODR + 'Upload/js_browse/' + path, function(resp)
           {
           json = resp.page.files;
           json.splice(0, 0, {folder: 1, url: resp.page.up_path || '', name: 'Gå uppåt'});
