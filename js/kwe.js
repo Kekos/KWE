@@ -3,7 +3,7 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-08-21
+ * @date 2012-08-22
  * @version 3.0
  */
 
@@ -278,7 +278,15 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
           }
         }
       };
-    }(domiwyg));
+    }(domiwyg)), 
+
+  /**
+   * Lists all loaded assets
+   * @property assets
+   * @private
+   * @type Object
+   */
+   assets = {};
 
   /**
    * Used by File uploader control. Uploads the selected file with AJAX
@@ -333,6 +341,60 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
     catch (ex) {}
 
     document.title = title.substring(0, title.indexOf(' :: ') + 4) + new_page_title;
+    }
+
+  /**
+   * Loads script and stylesheet assets from Content and BoxingRequest
+   * @method loadAssets
+   * @private
+   * @param {KWFEventTarget} e The request event
+   */
+  function loadAssets(e)
+    {
+    var context, 
+      scripts, 
+      new_elem, 
+      links, 
+      i, 
+      head = document.getElementsByTagName('head')[0];
+
+    if (this instanceof ContentRequest)
+      {
+      context = elem('content');
+      }
+    else if (this instanceof BoxingRequest)
+      {
+      context = Boxing.getWindow();
+      }
+
+    scripts = context.getElementsByTagName('script');
+
+    for (i = 0; i < scripts.length; i++)
+      {
+      if (typeof assets[scripts[i].src] === 'undefined')
+        {
+        assets[scripts[i].src] = 1;
+
+        new_elem = document.createElement('script');
+        new_elem.src = scripts[i].src;
+        head.appendChild(new_elem);
+        }
+      }
+
+    links = context.getElementsByTagName('link');
+
+    for (i = 0; i < links.length; i++)
+      {
+      if (typeof assets[links[i].href] === 'undefined')
+        {
+        assets[links[i].href] = 1;
+
+        new_elem = document.createElement('link');
+        new_elem.href = links[i].href;
+        new_elem.rel = links[i].rel;
+        head.appendChild(new_elem);
+        }
+      }
     }
 
   /* Add listeners to the KWF click event */
@@ -395,8 +457,10 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
     addEvent(content_request, 'afterload', noRespContent);
     addEvent(content_request, 'ready', domiwyg.find);
     addEvent(content_request, 'ready', changePageTitle);
+    addEvent(content_request, 'ready', loadAssets);
 
     addEvent(boxing_request, 'afterload', noRespContent);
+    addEvent(boxing_request, 'ready', loadAssets);
 
     addEvent(boxing_request, 'ready', function()
       {
