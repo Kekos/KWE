@@ -2,7 +2,7 @@
  * KWF Style: kwe_admin.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-08-11
+ * @date 2012-08-23
  * @version 2.0
  */
 
@@ -320,6 +320,23 @@ form label
   display: block;
   width: 30%;
   padding-top: 2px;
+  }
+
+.radiogroup label
+  {
+  clear: none;
+  margin: 0 40px 0 5px;
+  padding: 0;
+  width: auto;
+  font-weight: normal;
+  }
+
+.radiogroup span
+  {
+  float: left;
+  width: 30%;
+  font-weight: bold;
+  line-height: 2;
   }
 
 input[type='text'], input[type='password'], select, textarea
