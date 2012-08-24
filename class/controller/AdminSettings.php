@@ -3,15 +3,13 @@
  * KWF Controller: AdminSettings
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-27
+ * @date 2012-08-23
  * @version 1.0
  */
 
 class AdminSettings extends Controller
   {
-  private $db = null;
-
-  public function before($action = false, $controller_id = false)
+  public function before()
     {
     if (!Access::$is_logged_in || Access::$user->rank != 1)
       {
@@ -19,7 +17,7 @@ class AdminSettings extends Controller
       }
     }
 
-  public function _default($action = false)
+  public function _default()
     {
     if ($this->request->post('save_settings'))
       {
