@@ -3,7 +3,7 @@
  * KWF Controller: AdminPages
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-31
+ * @date 2012-08-31
  * @version 2.2
  */
 
@@ -89,7 +89,7 @@ class AdminPages extends Controller
     if (!($this->active_page->permission & PERMISSION_EDIT))
       return $this->response->addError(__('PAGES_ERROR_NO_PERMISSION'));
 
-    $sorter = new step_sorter($this->model_page);
+    $sorter = new StepSorter($this->model_page);
     if ($sorter->up($this->active_page, array($this->active_page->parent, $this->active_page->id)))
       {
       $this->response->addInfo(__('PAGES_INFO_UP', htmlspecialchars($this->active_page->title)));
@@ -113,7 +113,7 @@ class AdminPages extends Controller
     if (!($this->active_page->permission & PERMISSION_EDIT))
       return $this->response->addError(__('PAGES_ERROR_NO_PERMISSION'));
 
-    $sorter = new step_sorter($this->model_page);
+    $sorter = new StepSorter($this->model_page);
     if ($sorter->down($this->active_page, array($this->active_page->parent, $this->active_page->id)))
       {
       $this->response->addInfo(__('PAGES_INFO_DOWN', htmlspecialchars($this->active_page->title)));
