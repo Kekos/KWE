@@ -4,9 +4,13 @@
 <?php
 $id = $controller->id;
 
-if ($controller->content == '')
-  $controller->content = '{"num_news":10,"order":"DESC","html_before":"","html_after":"","html_format":" <h3>%title%</h3><p class=\\"datetime\\">' . __('NEWS_PAGE_WRITTEN_BY') . ' %creator%, %datetime%</p>%content%"}';
-$settings = json_decode($controller->content);
+$content = $controller->content;
+if ($content == '')
+  {
+  $content = '{"num_news":10,"order":"DESC","html_before":"","html_after":"","html_format":" <h3>%title%</h3><p class=\\"datetime\\">' . __('NEWS_PAGE_WRITTEN_BY') . ' %creator%, %datetime%</p>%content%"}';
+  }
+
+$settings = json_decode($content);
 ?>
       <fieldset>
         <ol>
