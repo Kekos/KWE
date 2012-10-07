@@ -687,9 +687,8 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
    * Loads script and stylesheet assets from Content and BoxingRequest
    * @method loadAssets
    * @private
-   * @param {KWFEventTarget} e The request event
    */
-  function loadAssets(e)
+  function loadAssets()
     {
     var context, 
       scripts, 
