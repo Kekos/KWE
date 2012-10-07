@@ -1,7 +1,7 @@
 <?php
 $page = (isset($this->request) ? $this->request->params[0] : '');
-$data['stylesheets'] = array_unique($data['stylesheets']);
-$data['scripts'] = array_unique($data['scripts']);
+$data['stylesheets'] = (isset($data['stylesheets']) ? array_unique($data['stylesheets']) : array());
+$data['scripts'] = (isset($data['scripts']) ? array_unique($data['scripts']) : array());
 
 function menuLink($current_page, $new_page, $is_clink)
   {
