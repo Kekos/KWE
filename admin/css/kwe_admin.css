@@ -331,6 +331,11 @@ form label
   font-weight: normal;
   }
 
+.radiogroup input
+  {
+  float: left;
+  }
+
 .radiogroup span
   {
   float: left;
