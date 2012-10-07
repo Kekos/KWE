@@ -3,7 +3,7 @@
  * KWF Controller: AdminUsers
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-27
+ * @date 2012-10-06
  * @version 2.2
  */
 
@@ -157,6 +157,7 @@ class AdminUsers extends Controller
       {
       $this->user->setOnline(0);
       $this->user->setOnlineTime(0);
+      $this->user->setLanguage(1);
       $this->user->save();
       $this->response->addInfo(__('USERS_INFO_NEW_USER', htmlspecialchars($username), htmlspecialchars($password)));
       }
