@@ -2,7 +2,7 @@
  * KWF Style: kwe_admin.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-08-23
+ * @date 2012-09-29
  * @version 2.0
  */
 
@@ -14,7 +14,7 @@ body
   background: #d8d8d8;
   }
 
-#header, #kwe_logo, #login_logo, #goto_firstpage, .edit-link:before, .less-link:before, .dwcmd-KWElink, .dwcmd-KWEimage, .file:after, .folder:after, .browse-to-img
+#header, #kwe_logo, #login_logo, #goto_firstpage, .edit-link:before, .less-link:before, .dwcmd-KWElink, .dwcmd-KWEimage, .file:after, .folder:after, .kwe-change-folder:after
   {
   background-image: url('../../images/admin/sprite.png') !important;
   background-repeat: no-repeat;
@@ -384,19 +384,77 @@ button:focus, .toolbar-button:focus
   margin-left: 2px;
   }
 
-.browse-to-img
-  {
-  padding: 0 18px 2px;
-  background-position: -96px -116px;
-  }
-
 .dwcmd-KWElink, .dwcmd-KWEimage { background: no-repeat 2px 2px; }
 /*.dwcmd-KWElink { background-image: url('../../images/admin/dw_kwe_link.png') !important; }
 .dwcmd-KWEimage { background-image: url('../../images/admin/dw_kwe_image.png') !important; }*/
 .dwcmd-KWElink { background-position: -160px -100px; }
 .dwcmd-KWEimage { background-position: -176px -100px; }
 
-/* Sections */
+.kwe-browser
+  {
+  float: left;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #d8d8d8;
+  }
+
+.kwe-browser button, .kwe-browse-page-btn
+  {
+  float: left;
+  padding: 5px;
+  height: 32px;
+  }
+
+input.kwe-link-input
+  {
+  width: 50%;
+  }
+
+.kwe-select-page
+  {
+  display: block;
+  margin-top: 20px;
+  }
+
+.kwe-browser img
+  {
+  max-height: 156px;
+  max-width: 199px;
+  }
+
+.kwe-browse-item
+  {
+  float: left;
+  margin: 4px;
+  padding: 3px;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #d8d8d8;
+  border: 1px solid #353535;
+  font-size: 0.8em;
+  text-align: center;
+  }
+
+.kwe-browse-item:hover
+  {
+  border-color: #d8d8d8;
+  }
+
+.kwe-browse-item img
+  {
+  max-width: 100%;
+  max-height: 100%;
+  }
+
+.kwe-change-folder
+  {
+  position: relative;
+  display: block;
+  }
+
+/* Sections */  
 
 .left-section, .half-section, .third-section, .two-thirds-section
   {
@@ -527,7 +585,7 @@ button:focus, .toolbar-button:focus
   word-wrap: break-word;
   }
 
-.file:after, .folder:after
+.file:after, .folder:after, .kwe-change-folder:after
   {
   content: '';
   position: absolute;
@@ -647,6 +705,65 @@ button:focus, .toolbar-button:focus
   }
 
 #kwe_login h1 { text-align: center; }
+
+/* KDialog */
+
+.kdialog
+  {
+  position: fixed;
+  margin: auto;
+  left: 50%;
+  top: 50%;
+  z-index: 9999;
+  background: #fff;
+  border: 1px solid #d8d8d8;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  }
+
+.kdialog-bar
+  {
+  position: relative;
+  margin: 2px;
+  height: 30px;
+  overflow: hidden;
+  background: #eaa852;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  }
+
+.kdialog-title
+  {
+  display: block;
+  margin: 8px;
+  font-size: 0.9em;
+  font-weight: bold;
+  }
+
+.kdialog-close
+  {
+  display: block;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  background: url('../../images/close-boxing.png') no-repeat;
+  text-indent: -9999px;
+  }
+
+.kdialog-content
+  {
+  position: absolute;
+  top: 32px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  overflow: auto;
+  }
 
 /* Media queries */
 

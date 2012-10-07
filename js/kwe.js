@@ -3,7 +3,7 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-08-22
+ * @date 2012-09-30
  * @version 3.0
  */
 
@@ -12,6 +12,106 @@
    previousNode, nextNode, firstChildElement, lastChildElement, hasClass, 
    addClass, removeClass, giveOpacity, parseJSON, var_dump, toDOMnode, Ajax, 
    Boxing, Kwf, KWFEventTarget, content_request, boxing_request */
+
+/**
+ * Contains functions for opening dialogs
+ * @class KDialog
+ * @constructor
+ * @param {String} title KDialog title
+ * @param {HTMLElement/String} content Containing HTML of this dialog as string or element
+ * @param {Number} width Dialog width
+ * @param {Number} height Dialog height
+ * @param {Function} click_listener A listener for the click event
+ */
+var KDialog = function(title, content, width, height, click_listener)
+  {
+  /**
+   * Reference to this object
+   * @property self
+   * @type Object
+   * @private
+   */
+  var self = this, 
+
+  /**
+   * Reference to the dialog element
+   * @property dialog
+   * @type HTMLDivElement
+   * @private
+   */
+  dialog = document.createElement('div'), 
+
+  /**
+   * Reference to the dialog content element
+   * @property content_div
+   * @type HTMLDivElement
+   * @private
+   */
+  content_div = null;
+
+  /**
+   * Handles click events on dialog
+   * @method click
+   * @private
+   * @param {Event} e The event object
+   */
+  function click(e)
+    {
+    var targ = getTarget(e);
+
+    if (hasClass(targ, 'kdialog-close'))
+      {
+      self.close();
+      }
+
+    if (typeof click_listener === 'function')
+      {
+      click_listener(e, targ);
+      }
+    }
+
+  /**
+   * Sets the dialog content
+   * @method setContent
+   * @public
+   * @param {HTMLElement/String} content Containing HTML of this dialog as string or element
+   */
+  self.setContent = function(content)
+    {
+    if (typeof content === 'string')
+      {
+      content_div.innerHTML += content;
+      }
+    else
+      {
+      content_div.innerHTML = '';
+      content_div.appendChild(content);
+      }
+    };
+
+  /**
+   * Closes this dialog
+   * @method close
+   * @public
+   */
+  self.close = function()
+    {
+    dialog.parentNode.removeChild(dialog);
+    };
+
+  /* Initiation */
+
+  dialog.className = 'kdialog';
+  dialog.style.width = width + 'px';
+  dialog.style.height = height + 'px';
+  dialog.style.margin = '-' + (height / 2) + 'px 0 0 -' + (width / 2) + 'px';
+  dialog.innerHTML = '<div class="kdialog-bar"><span class="kdialog-title">' + title + '</span><span class="kdialog-close">Stäng</span></div>';
+  content_div = dialog.appendChild(toDOMnode('<div class="kdialog-content"></div>'));
+  self.setContent(content);
+  document.body.appendChild(dialog);
+
+  addEvent(dialog, 'click', click);
+  };
 
 var Kwe = (function(window, document, elem, content_request, boxing_request, Boxing)
   {
@@ -124,9 +224,8 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
        * page to link to
        * @method KWElink
        * @public
-       * @param {HTMLButtonElement} btn The button who fired the event
        */
-      KWElink: function(btn)
+      KWElink: function()
         {
         var self = this, lang = domiwyg.lang, 
           element = self.getSelectedAreaElement(), 
@@ -137,14 +236,6 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
           node_name = element.nodeName.toLowerCase();
           self.storeCursor();
 
-          domiwyg.showDialog('<h1>' + lang.create_link + '</h1>'
-            + '<p>Bläddra dig fram till den interna sida du vill länka till.</p><p id="dw_KWE_cd">/</p><ul id="dw_KWE_page_browser"></ul>'
-            + '<p><input type="hidden" id="dw_link_protocol" value="" /><input type="text" id="dw_link_url" value="" /></p>'
-            + '<p>' + lang.info_link_delete + '</p>'
-            + '<p><button id="btn_create_link" class="hide-dialog">' + lang.ok + '</button> <button class="hide-dialog">' + lang.cancel + '</button></p>', btn);
-
-          Wysiwyg.KWElinkBrowse('');
-
           if (node_name)
             {
             if (node_name !== 'a')
@@ -152,42 +243,16 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
               element = null;
               }
 
-            addEvent(elem('btn_create_link'), 'click', function()
+            Browser.openPageBrowser(function(page)
               {
-              elem('dw_link_url').value = Kwf.MODR_SITE + elem('dw_link_url').value + '/';
+              input.id = 'dw_link_url';
+              input.value = Kwf.MODR_SITE + page;
+              body.appendChild(input);
               self.createLink(element);
+              body.removeChild(input);
               });
             }
-          else
-            {
-            domiwyg.hideDialog();
-            }
           }
-        },
-
-      /**
-       * Loads new pages into the "Select link" dialog
-       * @method KWElinkBrowse
-       * @public
-       * @param {String} path The path to browse to
-       */
-      KWElinkBrowse: function(path)
-        {
-        var html = '', json, i;
-
-        Ajax.get(Kwf.MODR + 'page/js_browse/' + path, function(resp)
-          {
-          json = resp.page.pages;
-          json.splice(0, 0, {url: '', title: 'Gå uppåt'});
-
-          for (i = 0; i < json.length; i++)
-            {
-            html += '<li data-url="' + json[i].url + '">' + (i ? '<input type="radio" name="select-page" /> ' : '') + '<a href="javascript: void(0);" class="browse-to-link">' + json[i].title + '</a></li>';
-            }
-
-          elem('dw_KWE_page_browser').innerHTML = html;
-          elem('dw_KWE_cd').innerHTML = resp.page.cd;
-          }, function() {});
         },
 
       /**
@@ -195,67 +260,26 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
        * image to embed
        * @method KWEimage
        * @public
-       * @param {HTMLButtonElement} btn The button who fired the event
        */
-      KWEimage: function(btn)
+      KWEimage: function()
         {
-        var self = this, lang = domiwyg.lang;
+        var self = this, 
+          input = document.createElement('input'), 
+          body = document.body;
 
         if (self.getSelectedAreaElement())
           {
           self.storeCursor();
 
-          domiwyg.showDialog('<h1>' + lang.insert_image + '</h1>'
-            + '<p>Bläddra dig fram till den bildfil du vill infoga.</p><p id="dw_KWE_cd">/</p><ul id="dw_KWE_image_browser"></ul>'
-            + '<p>' + lang.image_url + ': <input type="text" id="dw_img_url" value="" /></p>'
-            + '<p><button id="btn_insert_image" class="hide-dialog">' + lang.ok + '</button> <button class="hide-dialog">' + lang.cancel + '</button></p>', btn);
-
-          Wysiwyg.KWEimageBrowse('');
-
-          addEvent(elem('btn_insert_image'), 'click', function()
+          Browser.openImageBrowser(function(image)
             {
-            elem('dw_img_url').value = Kwf.FULLPATH_SITE + '/upload/' + elem('dw_img_url').value;
+            input.id = 'dw_img_url';
+            input.value = Kwf.FULLPATH_SITE + image;
+            body.appendChild(input);
             self.insertImage();
-            }, self);
+            body.removeChild(input);
+            });
           }
-        },
-
-      /**
-       * Loads new images and folders into the "Select image" dialog
-       * @method KWEimageBrowse
-       * @public
-       * @param {String} path The path to browse to
-       */
-      KWEimageBrowse: function(path)
-        {
-        var html = '', json, i;
-
-        Ajax.get(Kwf.MODR + 'Upload/js_browse/' + path, function(resp)
-          {
-          json = resp.page.files;
-          json.splice(0, 0, {folder: 1, url: resp.page.up_path || '', name: 'Gå uppåt'});
-
-          if (resp.page.cd !== '')
-            {
-            resp.page.cd += '/';
-            }
-
-          for (i = 0; i < json.length; i++)
-            {
-            html += '<li data-url="' + (i ? resp.page.cd : '') + json[i].url + '">';
-            if (json[i].folder)
-              {
-              html += ' <a href="javascript: void(0);" class="browse-to-img">' + json[i].name + '</a></li>';
-              }
-            else
-              {
-              html += (i ? '<input type="radio" name="select-image" /> ' : '') + json[i].name + '</li>';
-              }
-            }
-
-          elem('dw_KWE_image_browser').innerHTML = html;
-          elem('dw_KWE_cd').innerHTML = '/' + resp.page.cd;
-          }, function() {});
         },
 
       /**
@@ -286,7 +310,323 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
    * @private
    * @type Object
    */
-   assets = {};
+   assets = {},
+
+   /**
+   * Contains functions for creating image and page link browsers
+   * @class Browser
+   * @private
+   */
+  Browser = (function()
+    {
+    /**
+     * Contains reference to current browser button
+     * @property current_btn
+     * @type HTMLButtonElement
+     * @private
+     * @default null
+     */
+    var current_btn = null, 
+
+    /**
+     * Contains reference to current browser callback function
+     * @property current_callback
+     * @type Function
+     * @private
+     * @default null
+     */
+    current_callback = null, 
+
+    /**
+     * Reference to current dialog
+     * @property dialog
+     * @type Dialog
+     * @private
+     * @default null
+     */
+    dialog = null;
+
+    /**
+     * Returns the <input> belonging to the browser
+     * @method getInput
+     * @public
+     * @param {HTMLButtonElement} btn The button clicked
+     */
+    function getInput(btn)
+      {
+      return (btn.input ? btn.input : btn.parentNode.input);
+      }
+
+    /**
+     * Returns the <img> belonging to the browser
+     * @method getImage
+     * @private
+     * @param {HTMLButtonElement} btn The button clicked
+     */
+    function getImage(btn)
+      {
+      return btn.parentNode.getElementsByTagName('img')[0];
+      }
+
+    /**
+     * Loads new images and folders into the image browser
+     * @method loadImageList
+     * @private
+     * @param {String} path The path to browse to
+     */
+    function loadImageList(path)
+      {
+      var html = '', json, i;
+
+      if (path === '/')
+        {
+        path = '';
+        }
+
+      Ajax.get(Kwf.MODR + 'Upload/js_browse/' + path, function(resp)
+        {
+        json = resp.page.files;
+        json.splice(0, 0, {folder: 1, url: resp.page.up_path || '', name: 'Gå tillbaka'});
+
+        if (resp.page.cd !== '')
+          {
+          resp.page.cd += '/';
+          }
+
+        for (i = 0; i < json.length; i++)
+          {
+          if (i !== 0 || path !== '')
+            {
+            html += '<div data-url="' + (i ? resp.page.cd : '') + json[i].url + '" class="kwe-browse-item ';
+            if (json[i].folder)
+              {
+              html += 'kwe-change-folder">' + json[i].name + '</div>';
+              }
+            else if (/\.(jpg|jpeg|gif|png|bmp|ico)$/i.test(json[i].name))
+              {
+              html += 'kwe-select-image">' + json[i].name + ' <img src="' + Kwf.FULLPATH_SITE + '/upload/' + json[i].name + '" alt="" /></div>';
+              }
+            }
+          }
+
+        elem('browser_image_browser').innerHTML = html;
+        elem('browser_cd').innerHTML = '/' + resp.page.cd;
+        }, function() {});
+      }
+
+    /**
+     * Loads new pages and folders into the page browser
+     * @method loadPageList
+     * @private
+     * @param {String} path The path to browse to
+     */
+    function loadPageList(path)
+      {
+      var html = '', json, i;
+
+      if (path === '/')
+        {
+        path = '';
+        }
+
+      Ajax.get(Kwf.MODR + 'page/js_browse/' + path, function(resp)
+        {
+        json = resp.page.pages;
+        json.splice(0, 0, {url: '', title: 'Gå uppåt'});
+
+        for (i = 0; i < json.length; i++)
+          {
+          if (i !== 0 || path !== '')
+            {
+            html += '<div data-url="' + json[i].url + '" class="kwe-browse-item kwe-change-page">' + json[i].title + '<a href="javascript:void(0);" class="kwe-select-page">Välj</a></div>';
+            }
+          }
+
+        elem('browser_page_browser').innerHTML = html;
+        elem('browser_cd').innerHTML = resp.page.cd;
+        }, function() {});
+      }
+
+    /**
+     * Sets selected image and closes the dialog
+     * @method setImage
+     * @private
+     * @param {String} image The image URL
+     */
+    function setImage(image)
+      {
+      var src = '/upload/' + image;
+
+      if (current_btn)
+        {
+        getInput(current_btn).value = src;
+        getImage(current_btn).src = Kwf.FULLPATH_SITE + src;
+        current_btn = null;
+        }
+      else
+        {
+        current_callback(src);
+        current_callback = null;
+        }
+
+      dialog.close();
+      }
+
+    /**
+     * Sets selected page and closes the dialog
+     * @method setPage
+     * @private
+     * @param {String} page The page URL
+     */
+    function setPage(page)
+      {
+      if (current_btn)
+        {
+        getInput(current_btn).value = page;
+        current_btn = null;
+        }
+      else
+        {
+        current_callback(page);
+        current_callback = null;
+        }
+
+      dialog.close();
+      }
+
+    /**
+     * Listener for click event on dialogs
+     * @method dialogClickListener
+     * @private
+     * @param {Event} e The event object
+     * @param {HTMLElement} targ The element clicked
+     */
+    function dialogClickListener(e, targ)
+      {
+      if (hasClass(targ.parentNode, 'kwe-select-image'))
+        {
+        targ = targ.parentNode;
+        }
+
+      if (hasClass(targ, 'kwe-change-folder'))
+        {
+        loadImageList(targ.getAttribute('data-url') + '/');
+        }
+      else if (hasClass(targ, 'kwe-select-image'))
+        {
+        setImage(targ.getAttribute('data-url'));
+        }
+      else if (hasClass(targ, 'kwe-change-page'))
+        {
+        loadPageList(targ.getAttribute('data-url') + '/');
+        }
+      else if (hasClass(targ, 'kwe-select-page'))
+        {
+        setPage(targ.parentNode.getAttribute('data-url'));
+        }
+      }
+
+    return {
+      /**
+       * Finds all <input> that should be browsers
+       * @method findBrowsers
+       * @public
+       */
+      find: function()
+        {
+        var browser_inputs, 
+          input, 
+          i, 
+          browser;
+
+        if (document.querySelectorAll)
+          {
+          browser_inputs = document.querySelectorAll('.kwe-image-browse, .kwe-link-browse');
+
+          for (i = 0; i < browser_inputs.length; i++)
+            {
+            input = browser_inputs[i];
+
+            if (hasClass(input, 'kwe-image-browse'))
+              {
+              removeClass(input, 'kwe-image-browse');
+              input.type = 'hidden';
+
+              browser = input.parentNode.insertBefore(toDOMnode('<div class="kwe-browser">'
+                  + '<img src="' + Kwf.FULLPATH_SITE + input.value + '" alt="" />'
+                  + '<button type="button" class="kwe-browse-image-btn">Bläddra...</button>'
+                  + '<button type="button" class="kwe-delete-image-btn">Ta bort</button></div>'), input);
+              browser.input = input;
+              }
+            else
+              {
+              replaceClass(input, 'kwe-link-browse', 'kwe-link-input');
+              browser = input.parentNode.insertBefore(toDOMnode('<button type="button" class="kwe-browse-page-btn">Bläddra...</button>'), input);
+              browser.input = input;
+              }
+            }
+          }
+        },
+
+      /**
+       * Finds all <input> that should be browsers
+       * @method removeImage
+       * @public
+       * @param {HTMLButtonElement} btn The button clicked
+       */
+      removeImage: function(btn)
+        {
+        getInput(btn).value = '';
+        getImage(btn).src = '';
+        },
+
+      /**
+       * Opens an image browser
+       * @method openImageBrowser
+       * @public
+       * @param {Function/HTMLButtonElement} callback The button clicked OR the function to call when image is selected
+       */
+      openImageBrowser: function(callback)
+        {
+        if (typeof callback === 'function')
+          {
+          current_callback = callback;
+          }
+        else
+          {
+          current_btn = callback;
+          }
+
+        dialog = new KDialog(domiwyg.lang.insert_image, '<p id="browser_cd">/</p>'
+          + '<div id="browser_image_browser"></div>', 600, 450, dialogClickListener);
+
+        loadImageList('');
+        },
+
+      /**
+       * Opens an page browser
+       * @method openPageBrowser
+       * @public
+       * @param {Function/HTMLButtonElement} callback The button clicked OR the function to call when page is selected
+       */
+      openPageBrowser: function(callback)
+        {
+        if (typeof callback === 'function')
+          {
+          current_callback = callback;
+          }
+        else
+          {
+          current_btn = callback;
+          }
+
+        dialog = new KDialog(domiwyg.lang.create_kwe_link, '<p id="browser_cd">/</p>'
+          + '<div id="browser_page_browser"></div>', 500, 450, dialogClickListener);
+
+        loadPageList('');
+        }
+      };
+    }());
 
   /**
    * Used by File uploader control. Uploads the selected file with AJAX
@@ -421,21 +761,17 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
       {
       boxing_request.load(e, targ.getAttribute('href'), 300, 200);
       }
-    else if (targ.name === 'select-page')
+    else if (hasClass(targ, 'kwe-browse-image-btn'))
       {
-      elem('dw_link_url').value = targ.parentNode.getAttribute('data-url');
+      Browser.openImageBrowser(targ);
       }
-    else if (hasClass(targ, 'browse-to-link'))
+    else if (hasClass(targ, 'kwe-delete-image-btn'))
       {
-      Wysiwyg.KWElinkBrowse(targ.parentNode.getAttribute('data-url'));
+      Browser.removeImage(targ);
       }
-    else if (targ.name === 'select-image')
+    else if (hasClass(targ, 'kwe-browse-page-btn'))
       {
-      elem('dw_img_url').value = targ.parentNode.getAttribute('data-url');
-      }
-    else if (hasClass(targ, 'browse-to-img'))
-      {
-      Wysiwyg.KWEimageBrowse(targ.parentNode.getAttribute('data-url'));
+      Browser.openPageBrowser(targ);
       }
     };
 
@@ -458,9 +794,11 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
     addEvent(content_request, 'ready', domiwyg.find);
     addEvent(content_request, 'ready', changePageTitle);
     addEvent(content_request, 'ready', loadAssets);
+    addEvent(content_request, 'ready', Browser.find);
 
     addEvent(boxing_request, 'afterload', noRespContent);
     addEvent(boxing_request, 'ready', loadAssets);
+    addEvent(boxing_request, 'ready', Browser.find);
 
     addEvent(boxing_request, 'ready', function()
       {
@@ -483,5 +821,10 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
           }
         }
       });
+    };
+
+  /* Expose some objects to public */
+  return {
+    Browser: Browser
     };
   }(window, document, elem, content_request, boxing_request, Boxing));
