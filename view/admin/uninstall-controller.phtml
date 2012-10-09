@@ -1,6 +1,6 @@
     <h1><?php echo __('DELETE_MODULE_HEADER'); ?></h1>
 
-    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form delete-dialog">
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form content-on-close">
       <p><?php echo __('DELETE_MODULE_QUESTION', '<strong>' . htmlspecialchars($controller->name) . '</strong>'); ?></p>
 
       <p><button type="submit" name="uninstall_controller_yes" value="yes"><?php echo __('YES'); ?></button>
