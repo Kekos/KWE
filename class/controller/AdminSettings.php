@@ -3,7 +3,7 @@
  * KWF Controller: AdminSettings
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-08-23
+ * @date 2012-10-07
  * @version 1.0
  */
 
@@ -39,41 +39,30 @@ class AdminSettings extends Controller
 
     foreach ($settings as $setting => &$sett_value)
       {
-      if (is_numeric($sett_value))
+      // Some settings are different for admin config and site config
+      switch ($setting)
         {
-        $config_content = preg_replace("/define\('" . $setting . "', (.*?)\);/s", "define('" . $setting . "', " . $sett_value . ");", $config_content);
-        $admin_config_content = preg_replace("/define\('" . $setting . "', (.*?)\);/s", "define('" . $setting . "', " . $sett_value . ");", $admin_config_content);
+        /*case 'MINIFIED':
+          $admin_value = MINIFIED;
+          break;*/
+        default:
+          $admin_value = $sett_value;
         }
-      else
-        {
-        switch ($setting)
-          {
-          case 'BASE':
-            $settings['BASE_SITE'] = $sett_value;
-            if ($sett_value == '')
-              $admin_value = '../';
-            else
-              $admin_value = substr($sett_value, 0, strrpos($sett_value, '/'));
-            break;
-          case 'FULLPATH':
-            $settings['FULLPATH_SITE'] = $sett_value;
-            $admin_value = $sett_value . '/admin';
-            break;
-          case 'FULLURL':
-            $settings['FULLURL_SITE'] = $sett_value;
-            $admin_value = $sett_value . '/admin';
-            break;
-          default:
-            $admin_value = $sett_value;
-          }
 
-        $config_content = preg_replace("/define\('" . $setting . "', '(.*?)'\);/s", "define('" . $setting . "', '" . str_replace("'", "\\'", $sett_value) . "');", $config_content);
-        $admin_config_content = preg_replace("/define\('" . $setting . "', '(.*?)'\);/s", "define('" . $setting . "', '" . str_replace("'", "\\'", $admin_value) . "');", $admin_config_content);
+      // Add apostrophes around string values and escape apostrophes inside values
+      if (!is_numeric($sett_value))
+        {
+        $sett_value = "'" . str_replace("'", "\\'", $sett_value) . "'";
+        $admin_value = "'" . str_replace("'", "\\'", $admin_value) . "'";
         }
+
+      $config_content = preg_replace("/define\('" . $setting . "', (.*?)\);/s", "define('" . $setting . "', " . $sett_value . ");", $config_content);
+      $admin_config_content = preg_replace("/define\('" . $setting . "', (.*?)\);/s", "define('" . $setting . "', " . $admin_value . ");", $admin_config_content);
       }
 
     file_put_contents($config_filename,  $config_content);
     file_put_contents($admin_config_filename,  $admin_config_content);
+
     $this->response->addInfo(__('SETTINGS_INFO_SAVED'));
     }
 

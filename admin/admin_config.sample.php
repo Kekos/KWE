@@ -22,6 +22,9 @@ define('FULLURL_SITE', 'http://domain');  // Full URL to site root, should not e
 define('ERROR_LOG_PATH', '');  // If empty KWF logs errors to your root (BASE). Don't add the value of BASE to this!
 
 define('MOD_REWRITE', 1);
+define('SITE_UP', 0);
+define('META_KEYWORDS', '');
+define('META_DESCRIPTION', '');
 define('SESSION_PREFIX', 'kwe');
 define('ERROR_MAIL', 'your[at]mail[dot]net');
 ?>

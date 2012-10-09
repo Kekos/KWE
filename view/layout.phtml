@@ -3,7 +3,9 @@
 <html lang="sv" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <title>KWF &gt; <?php echo $this->title; ?></title>
+  <title>KWE &gt; <?php echo $this->title; ?></title>
+  <meta name="keywords" content="<?php echo htmlspecialchars(META_KEYWORDS); ?>" />
+  <meta name="description" content="<?php echo htmlspecialchars(META_DESCRIPTION); ?>" />
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <link type="text/css" title="KWE" href="<?php echo FULLPATH; ?>/css/kwe.css" rel="stylesheet" media="screen" />
   <link type="text/css" href="<?php echo FULLPATH; ?>/css/kwe_print.css" rel="stylesheet" media="print" />
@@ -57,7 +59,7 @@ foreach ($data['subnavigation'] as $nav): ?>
   </ul>
 
   <div id="footer">
-    <p>Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2010</p>
+    <p>Copyright &copy; <a href="http://kekos.se/">Christoffer Lindahl</a>, 2009-2012</p>
   </div>
 
 </div>

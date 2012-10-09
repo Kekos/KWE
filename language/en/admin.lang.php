@@ -136,20 +136,12 @@ $lang['MODULEFAV_INFO'] = 'To mark the module %s as favorite, click Save.';
 $lang['DELETE_MODULE_HEADER'] = 'Uninstall module';
 $lang['DELETE_MODULE_QUESTION'] = 'You are about to uninstall the module %s. Are you sure?';
 
-$lang['SETTINGS_MYSQL_SERVER'] = 'MySQL server';
-$lang['SETTINGS_MYSQL_USER'] = 'MySQL user';
-$lang['SETTINGS_MYSQL_PW'] = 'MySQL password';
-$lang['SETTINGS_MYSQL_DB'] = 'MySQL database';
-$lang['SETTINGS_DB_PREFIX'] = 'Prefix for tables in database';
-$lang['SETTINGS_BASE_PATH'] = 'Path to KWE installation';
-$lang['SETTINGS_PASE_PATH_INFO'] = 'Must end with slash if it is NOT empty.';
-$lang['SETTINGS_FULLPATH'] = 'URL to your index file relative to the root of the webserver';
-$lang['SETTINGS_FULLPATH_INFO'] = 'Must not end with slash.';
-$lang['SETTINGS_FULLURL'] = 'Complete URL to your index file';
-$lang['SETTINGS_FULLURL_INFO'] = 'Must not end with slash.';
-$lang['SETTINGS_USE_REWRITE'] = 'Use URL rewrite';
-$lang['SETTINGS_NOT_USE_REWRITE'] = 'Do NOT use URL rewrite';
+$lang['SETTINGS_USE_REWRITE'] = 'Use URL rewrite?';
+$lang['SETTINGS_SITE_UP'] = 'Is the website active (no for maintenance mode)?';
+$lang['SETTINGS_MINIFIED'] = 'Are CSS and JavaScript minified?';
 $lang['SETTINGS_WEBMASTER_MAIL'] = 'E-mail address to webmaster';
+$lang['SETTINGS_KEYWORDS'] = 'Keywords for search engines';
+$lang['SETTINGS_DESCRIPTION'] = 'Description of your site for search engines';
 $lang['SETTINGS_SAVE'] = 'Save settings';
 $lang['SETTINGS_INFO_SAVED'] = 'The settings were saved.';
 

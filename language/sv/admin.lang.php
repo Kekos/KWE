@@ -136,20 +136,12 @@ $lang['MODULEFAV_INFO'] = 'För att ange modulen %s som favorit, tryck på Spara
 $lang['DELETE_MODULE_HEADER'] = 'Avinstallera modul';
 $lang['DELETE_MODULE_QUESTION'] = 'Är du säker på att du vill avinstallera modulen %s permanent?';
 
-$lang['SETTINGS_MYSQL_SERVER'] = 'MySQL-server';
-$lang['SETTINGS_MYSQL_USER'] = 'MySQL-användare';
-$lang['SETTINGS_MYSQL_PW'] = 'MySQL-lösenord';
-$lang['SETTINGS_MYSQL_DB'] = 'MySQL-databas';
-$lang['SETTINGS_DB_PREFIX'] = 'Prefix för tabeller i databasen';
-$lang['SETTINGS_BASE_PATH'] = 'Sökväg till KWE-installation';
-$lang['SETTINGS_PASE_PATH_INFO'] = 'Måste sluta med snedstreck om den INTE är tom.';
-$lang['SETTINGS_FULLPATH'] = 'URL till din index-fil relativt till webbserverns rot';
-$lang['SETTINGS_FULLPATH_INFO'] = 'Får inte sluta med snedstreck.';
-$lang['SETTINGS_FULLURL'] = 'Fullständig URL till din index-fil';
-$lang['SETTINGS_FULLURL_INFO'] = 'Får inte sluta med snedstreck.';
-$lang['SETTINGS_USE_REWRITE'] = 'Använd URL-omskrivning';
-$lang['SETTINGS_NOT_USE_REWRITE'] = 'Använd INTE URL-omskrivning';
+$lang['SETTINGS_USE_REWRITE'] = 'Aktivera URL-omskrivning?';
+$lang['SETTINGS_SITE_UP'] = 'Är webbplatsen aktiv (nej för underhållsläge)?';
+$lang['SETTINGS_MINIFIED'] = 'Är CSS och JavaScript komprimerat?';
 $lang['SETTINGS_WEBMASTER_MAIL'] = 'E-postadress till webbplatsansvarig';
+$lang['SETTINGS_KEYWORDS'] = 'Nyckelord för sökmotorer';
+$lang['SETTINGS_DESCRIPTION'] = 'Beskrivning av din sida för sökmotorer';
 $lang['SETTINGS_SAVE'] = 'Spara inställningar';
 $lang['SETTINGS_INFO_SAVED'] = 'Inställningarna har sparats.';
 
