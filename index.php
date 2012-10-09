@@ -11,15 +11,22 @@ if (SITE_UP)
   $request = new Request(new Session(), new Cookie());
   $page_model = new PageModel($db);
 
+  $index_events = new EventListener('BootStrap');
+  $index_events->dispatchEvent('beforerouter', array('request' => $request));
+
   $router = new Router($route, $request, $page_model);
   $page = $router->getPage();
   $page->runControllers();
+
+  $index_events->dispatchEvent('beforenavigationload', array('response' => $page->response));
 
   $page->response->data['navigation'] = $page_model->fetchPageList();
   if ($page->page->parent == 0)
     $page->response->data['subnavigation'] = $page_model->fetchSubPageList($page->page->id);
   else
     $page->response->data['subnavigation'] = $page_model->fetchSubPageList($page->page->parent);
+
+  $index_events->dispatchEvent('beforecontent', array('response' => $page->response));
 
   echo $page->getResponseContent();
   }
