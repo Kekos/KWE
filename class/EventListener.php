@@ -3,7 +3,7 @@
  * KWF Class: EventListener, implements events or "hooks" in classes
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-10-09
+ * @date 2012-10-12
  * @version 1.0
  */
 
@@ -22,7 +22,7 @@ class EventListener
     {
     if (!$classname)
       {
-      $classname = get_class();
+      $classname = get_class($this);
       }
 
     $this->classname = $classname;
