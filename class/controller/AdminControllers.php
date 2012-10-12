@@ -3,7 +3,7 @@
  * KWF Controller: AdminControllers
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-27
+ * @date 2012-10-12
  * @version 2.2
  */
 
@@ -172,9 +172,12 @@ class AdminControllers extends Controller
               /* Then extract the rest of controller files */
               $zip->extractTo('../');
 
-              /* Let the controller make custom installation stuff */
+              /* Let the controller make custom installation stuff, if it has an AdminController */
               $controller = 'AdminController' . $this->controller->class_name;
-              $controller::install();
+              if (is_file(BASE . 'class/controller/' . $controller . '.php'))
+                {
+                $controller::install();
+                }
 
               $this->fetchPermittedControllers(true);
               $this->response->addInfo(__('MODULES_INFO_INSTALLED'));
@@ -212,8 +215,14 @@ class AdminControllers extends Controller
 
   private function uninstallController()
     {
+    $uninstalled = true;
     $controller = 'AdminController' . $this->controller->class_name;
-    if ($controller::uninstall())
+    if (is_file(BASE . 'class/controller/' . $controller . '.php'))
+      {
+      $uninstalled = $controller::uninstall();
+      }
+
+    if ($uninstalled)
       {
       $this->model_controller_permission->deleteByController($this->controller->id);
       $this->fetchPermittedControllers(true);
