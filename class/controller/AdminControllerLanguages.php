@@ -46,7 +46,7 @@ class AdminControllerLanguages extends Controller
       $this->response->redirect(urlModr());
       }
 
-    loadFallbackLangugage('Languages');
+    loadFallbackLanguage('Languages');
 
     $this->db = DbMysqli::getInstance();
     $this->model_language = new LanguageModel($this->db);

@@ -20,7 +20,7 @@ class AdminControllerCalendar extends Controller
       $this->response->redirect(urlModr());
       }
 
-    loadFallbackLangugage('Calendar');
+    loadFallbackLanguage('Calendar');
 
     $this->db = DbMysqli::getInstance();
     $this->model_calendar = new CalendarModel($this->db);

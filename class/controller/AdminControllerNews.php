@@ -20,7 +20,7 @@ class AdminControllerNews extends Controller
       $this->response->redirect(urlModr());
       }
 
-    loadFallbackLangugage('News');
+    loadFallbackLanguage('News');
 
     $this->db = DbMysqli::getInstance();
     $this->model_news = new NewsModel($this->db);

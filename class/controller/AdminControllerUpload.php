@@ -20,7 +20,7 @@ class AdminControllerUpload extends Controller
       $this->response->redirect(urlModr());
       }
 
-    loadFallbackLangugage('Upload');
+    loadFallbackLanguage('Upload');
 
     $this->response->title = __('MODULE_DEFAULT_UPLOAD');
     $this->upload_dir = BASE . 'upload/';

@@ -3,7 +3,7 @@
  * KWF Functions: here you can add your own global functions
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-08-02
+ * @date 2012-10-13
  * @version 2.1
  */
 
@@ -62,7 +62,7 @@ function getControllerName($controller_name, $class_name)
   return (isset($lang[$key]) ? $lang[$key] : $controller_name);
   }
 
-function loadFallbackLangugage($domain, $fallback_code = 'en')
+function loadFallbackLanguage($domain, $fallback_code = 'en')
   {
   try
     {
@@ -72,5 +72,42 @@ function loadFallbackLangugage($domain, $fallback_code = 'en')
     {
     Language::load($domain, $fallback_code);
     }
+  }
+
+function int2decimal($int)
+  {
+  $parts = explode('.', $int);
+  if (count($parts) === 1)
+    {
+    $int = $int . '.00';
+    }
+  else if (strlen($parts[1]) === 1)
+    {
+    $int .= '0';
+    }
+  else if (strlen($parts[1]) !== 1)
+    {
+    $int = $parts[0] . '.' . substr($parts[1], 0, 2);
+    }
+
+  return $int;
+  }
+
+function padZero($int)
+  {
+  if ($int < 10)
+    $int = '0' . $int;
+
+  return $int;
+  }
+
+function tabpad($str, $column_len)
+  {
+  $str = trim($str);
+  $strlen = strlen($str);
+  if ($strlen > $column_len)
+    return substr($str, 0, $column_len);
+  else
+    return $str . str_pad(' ', $column_len - $strlen);
   }
 ?>
