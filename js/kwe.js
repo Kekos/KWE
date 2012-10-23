@@ -3,15 +3,15 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-09-30
+ * @date 2012-10-22
  * @version 3.0
  */
 
 /* JSLint: First asume we have the KWF Framework */
 /*global elem, getTarget, returnFalse, addEvent, removeEvent, addSubmitEvent, 
    previousNode, nextNode, firstChildElement, lastChildElement, hasClass, 
-   addClass, removeClass, giveOpacity, parseJSON, var_dump, toDOMnode, Ajax, 
-   Boxing, Kwf, KWFEventTarget, content_request, boxing_request */
+   addClass, removeClass, replaceClass, giveOpacity, parseJSON, var_dump, 
+   toDOMnode, Ajax, Boxing, Kwf, KWFEventTarget, content_request, boxing_request */
 
 /**
  * Contains functions for opening dialogs
@@ -229,7 +229,9 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
         {
         var self = this, lang = domiwyg.lang, 
           element = self.getSelectedAreaElement(), 
-          node_name = null;
+          node_name = null, 
+          input = document.createElement('input'), 
+          body = document.body;
 
         if (element)
           {
@@ -354,7 +356,7 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
      */
     function getInput(btn)
       {
-      return (btn.input ? btn.input : btn.parentNode.input);
+      return btn.input || btn.parentNode.input;
       }
 
     /**
