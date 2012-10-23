@@ -213,9 +213,17 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
           {
           domiwyg.lang.create_kwe_link = 'Infoga länk till en annan sida på denna webbplats';
           domiwyg.lang.insert_kwe_image = 'Infoga bild som finns uppladdat till KWE';
-          domiwyg.tool_btns.splice(6, 0, ['KWElink', 'create_kwe_link'], ['KWEimage', 'insert_kwe_image']);
+          domiwyg.lang.insert_kwe_flash = 'Infoga Flashobjekt';
+          domiwyg.lang.insert_kwe_youtube= 'Infoga film från YouTube';
+          domiwyg.tool_btns.splice(6, 0, ['KWElink', 'create_kwe_link'], 
+            ['KWEimage', 'insert_kwe_image'], 
+            ['KWEflash', 'insert_kwe_flash'], 
+            ['KWEyoutube', 'insert_kwe_youtube']);
+
           domiwyg.area.prototype.cmdKWElink = Wysiwyg.KWElink;
           domiwyg.area.prototype.cmdKWEimage = Wysiwyg.KWEimage;
+          domiwyg.area.prototype.cmdKWEflash = Wysiwyg.KWEflash;
+          domiwyg.area.prototype.cmdKWEyoutube = Wysiwyg.KWEyoutube;
           }
         },
 
@@ -285,6 +293,109 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
         },
 
       /**
+       * Shows the "Select Flash object" dialog
+       * @method KWEflash
+       * @public
+       */
+      KWEflash: function()
+        {
+        var self = this, 
+          dialog, 
+          element = self.getSelectedAreaElement();
+
+        if (element)
+          {
+          self.storeCursor();
+
+          dialog = new KDialog(domiwyg.lang.insert_kwe_flash, 
+            '<form><p><label for="kwe_flash_url">URL</label><input type="text" '
+            + 'id="kwe_flash_url"  /></p><p><label for="kwe_flash_width">Bredd</label>'
+            + '<input type="text" id="kwe_flash_width" /></p><p>'
+            + '<label for="kwe_flash_height">Höjd</label><input type="text" '
+            + 'id="kwe_flash_height" /></p><p><button type="button" id="kwe_insert_flash">'
+            + 'OK</button></p></form>', 300, 200, function(e, targ)
+            {
+            if (targ.id === 'kwe_insert_flash')
+              {
+              self.restoreCursor();
+              element = self.getFirstContainer(element);
+              element.container.insertBefore(toDOMnode('<img src="' + Kwf.FULLPATH_SITE
+                + '/images/admin/flashlayer.png" width="' + elem('kwe_flash_width').value
+                + '" height="' + elem('kwe_flash_height').value
+                + '" data-url="' + elem('kwe_flash_url').value
+                + '" class="kwe-flash-layer" />'), element.reference);
+              dialog.close();
+              }
+            });
+
+          elem('kwe_flash_url').focus();
+          }
+        },
+
+      /**
+       * Shows the "Select YouTube move" dialog
+       * @method KWEyoutube
+       * @public
+       */
+      KWEyoutube: function()
+        {
+        var self = this, 
+          dialog, 
+          element = self.getSelectedAreaElement();
+
+        if (element)
+          {
+          self.storeCursor();
+
+          dialog = new KDialog(domiwyg.lang.insert_kwe_youtube, 
+            '<form><p><label for="kwe_flash_url">URL</label><input type="text" '
+            + 'id="kwe_youtube_url" /></p><p><button type="button" id="kwe_insert_youtube">'
+            + 'OK</button></p></form>', 300, 150, function(e, targ)
+            {
+            if (targ.id === 'kwe_insert_youtube')
+              {
+              self.restoreCursor();
+              element = self.getFirstContainer(element);
+              element.container.insertBefore(toDOMnode('<img src="' + Kwf.FULLPATH_SITE
+                + '/images/admin/flashlayer.png" width="420" height="315" data-url="'
+                + elem('kwe_youtube_url').value + '" class="kwe-youtube-layer" />'), element.reference);
+              dialog.close();
+              }
+            });
+
+          elem('kwe_flash_url').focus();
+          }
+        },
+
+      /**
+       * Finds all textareas wanting to use Domiwyg for replacing Flash objects
+       * @method find
+       * @public
+       */
+      find: function()
+        {
+        var textareas = document.getElementsByTagName('textarea'), 
+          t, textarea;
+
+        function replaceObjects(match, tag_name, attributes)
+          {
+          return '<img src="' + Kwf.FULLPATH_SITE + '/images/admin/flashlayer.png" class="kwe-'
+            + (tag_name === 'iframe' ? 'youtube' : 'flash') + '-layer"'
+            + attributes.replace(/(data|src)/, 'data-url') + ' />';
+          }
+
+        for (t = 0; t < textareas.length; t++)
+          {
+          textarea = textareas[t];
+          if (hasClass(textarea, 'use-domiwyg'))
+            {
+            textarea.value = textarea.value.replace(/<(iframe|object)([^>]+)>(.*?)<\/(iframe|object)>/ig, replaceObjects);
+            domiwyg.create(textarea);
+            }
+          }
+        },
+
+      /**
        * Saves the current content of all Domiwygs on the form in it's corresponding textareas
        * @method saveDomiwyg
        * @public
@@ -293,13 +404,39 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
       saveDomiwyg: function(targ)
         {
         var textareas = targ.form.getElementsByTagName('textarea'), 
-          t;
+          t, i, 
+          dummy = document.createElement('div'), 
+          flashes, flash;
 
         for (t = 0; t < textareas.length; t++)
           {
           if (hasClass(textareas[t], 'has-domiwyg'))
             {
-            textareas[t].value = textareas[t].domiwyg.save();
+            dummy.innerHTML = textareas[t].domiwyg.save();
+            flashes = dummy.querySelectorAll('.kwe-flash-layer, .kwe-youtube-layer');
+
+            for (i = 0; i < flashes.length; i++)
+              {
+              flash = flashes[i];
+              if (flash.className === 'kwe-flash-layer')
+                {
+                flash.parentNode.insertBefore(toDOMnode('<object type="application/x-shockwave-flash" data="'
+                  + flash.getAttribute('data-url') + '" width="' + flash.getAttribute('width')
+                  + '" height="' + flash.getAttribute('height') + '">'
+                  + '<param name="movie" value="' + flash.getAttribute('data-url') + '" /></object>'), flashes[i]);
+                }
+              else if (flash.className === 'kwe-youtube-layer')
+                {
+                flash.parentNode.insertBefore(toDOMnode('<iframe src="' + flash.getAttribute('data-url')
+                  + '" width="' + flash.getAttribute('width') + '" height="'
+                  + flash.getAttribute('height') + '" frameborder="0" allowfullscreen="true">'
+                  + '</iframe>'), flashes[i]);
+                }
+
+              flash.parentNode.removeChild(flash);
+              }
+
+            textareas[t].value = dummy.innerHTML;
             }
           }
         }
@@ -792,7 +929,7 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
     Wysiwyg.init();
 
     addEvent(content_request, 'afterload', noRespContent);
-    addEvent(content_request, 'ready', domiwyg.find);
+    addEvent(content_request, 'ready', Wysiwyg.find);
     addEvent(content_request, 'ready', changePageTitle);
     addEvent(content_request, 'ready', loadAssets);
     addEvent(content_request, 'ready', Browser.find);
@@ -803,7 +940,7 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
 
     addEvent(boxing_request, 'ready', function()
       {
-      domiwyg.find();
+      Wysiwyg.find();
       if (elem('upload_form'))
         {
         addSubmitEvent(elem('upload_form'), uploadFile);
