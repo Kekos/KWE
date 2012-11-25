@@ -3,7 +3,7 @@
  * KWE Model: PageModel
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-11
+ * @date 2012-11-25
  * @version 2.1
  */
 
@@ -45,15 +45,15 @@ class PageModel
     return $this->db->fetchAll();
     }
 
-  public function fetchPageList($show_in_menu = 1, $extended = 0)
+  public function fetchPageList($show_in_menu = 1, $extended = 0, $language)
     {
     $cols = ($extended ? ', `public`, `show_in_menu`, `order`, `edited`' : '');
     $q_select_pages = "SELECT `title`, `url`" . $cols . " FROM `PREFIX_pages` WHERE `parent` = 0";
     if ($show_in_menu)
       $q_select_pages .= " AND `show_in_menu` = 1 AND `public` = 1";
-    $q_select_pages .= " ORDER BY `order`";
+    $q_select_pages .= " AND `language` = ? ORDER BY `order`";
 
-    $this->db->exec($q_select_pages);
+    $this->db->exec($q_select_pages, 'i', array($language));
     return $this->db->fetchAll();
     }
 

@@ -3,7 +3,7 @@
  * KWF Model: Kpage
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-11
+ * @date 2012-11-25
  * @version 1.1
  */
 
@@ -12,6 +12,7 @@ class Kpage extends DbObject
   protected $id = null;
   protected $title = '';
   protected $url = '';
+  protected $language = -1;
   protected $parent = -1;
   protected $public = -1;
   protected $show_in_menu = -1;
@@ -64,6 +65,18 @@ class Kpage extends DbObject
     if (strlen($url) > 1)
       {
       $this->_set('url', $url);
+      return true;
+      }
+
+    return false;
+    }
+
+  public function setLanguage($language)
+    {
+    $language = intval($language);
+    if ($language > 0)
+      {
+      $this->_set('language', $language);
       return true;
       }
 

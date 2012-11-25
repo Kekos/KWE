@@ -3,7 +3,7 @@
  * KWF Controller: AdminPages
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-08-31
+ * @date 2012-11-25
  * @version 2.2
  */
 
@@ -12,12 +12,13 @@ class AdminPages extends Controller
   private $db = null;
   private $model_page = null;
   private $model_page_controller = null;
+  private $model_language = null;
   private $kpage = false;
   private $subpage = false;
   private $active_page = false;
   private $ignore_view = false;
 
-  public function before($action = false, $page_url = false, $subpage_url = false)
+  public function before($action = false, $language = false, $page_url = false, $subpage_url = false)
     {
     if (!Access::$is_logged_in || !Access::$is_administrator)
       {
@@ -27,6 +28,7 @@ class AdminPages extends Controller
     $this->db = DbMysqli::getInstance();
     $this->model_page = new PageModel($this->db);
     $this->model_page_controller = new PageControllerModel($this->db);
+    $this->model_language = new LanguageModel($this->db);
 
     if ($action && $page_url)
       {
@@ -53,31 +55,51 @@ class AdminPages extends Controller
       $this->active_page->permission = PERMISSION_ADD | PERMISSION_EDIT | PERMISSION_DELETE;
     }
 
-  public function _default()
+  public function _default($language = '')
     {
+    if (!$this->kpage)
+      {
+      if ($this->request->post('language'))
+        {
+        $language = $this->request->post('language');
+        }
+      else if (!is_numeric($language))
+        {
+        $language = Access::$user->language;
+        }
+
+      $data['languages'] = $this->model_language->fetchAll();
+      }
+    else
+      {
+      $language = $this->kpage->language;
+      }
+
+    $data['active_language'] = $language;
     $data['active_page'] = $this->active_page;
-    $data['pages'] = (!$this->kpage ? $this->model_page->fetchPageList(0, 1) : $this->model_page->fetchSubPageList($this->kpage->id, 0, 1));
+    $data['pages'] = (!$this->kpage ? $this->model_page->fetchPageList(0, 1, $language) : $this->model_page->fetchSubPageList($this->kpage->id, 0, 1));
     $this->view = new View('admin/list-pages', $data);
     }
 
-  public function addnew()
+  public function addnew($language = false)
     {
     if (!$this->subpage)
       {
       if ($this->request->post('edit_page') && (Access::$user->rank == 1 || $this->kpage->permission & PERMISSION_ADD))
         {
-        $this->newPage();
+        $this->newPage($language);
         }
       }
     else
       {
       if ($this->request->post('edit_page') && Access::$user->rank == 1)
         {
-        $this->newPage();
+        $this->newPage($language);
         }
       }
 
     $data['active_page'] = new Kpage($this->model_page);
+    $data['language'] = $this->model_language->fetch($language);
     $this->view = new View('admin/edit-page', $data);
     }
 
@@ -167,7 +189,7 @@ class AdminPages extends Controller
     $this->response->addContent(json_encode($json));
     }
 
-  private function newPage()
+  private function newPage($language)
     {
     $errors = array();
     $title = $this->request->post('title');
@@ -178,6 +200,8 @@ class AdminPages extends Controller
 
     if (!$this->active_page->setTitle($title))
       $errors[] = __('PAGES_ERROR_NAME_LENGTH');
+    if (!$this->active_page->setLanguage($language))
+      $errors[] = __('PAGES_ERROR_LANGUAGE');
 
     if (!count($errors))
       {

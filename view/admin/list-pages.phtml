@@ -2,9 +2,21 @@
 
     <p class="help-text"><?php echo __('PAGES_HELP'); ?></p>
 
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
+      <p class="toolbar">
 <?php if (Access::$user->rank == 1 || ($active_page && ($active_page->permission & PERMISSION_ADD))): ?>
-    <p><a href="<?php echo urlModr($route, 'addnew', ($active_page ? $active_page->url : '')); ?>" class="clink"><?php echo __('PAGES_NEW_' . ($active_page ? 'SUB' : '') . 'PAGE'); ?></a></p>
+        <a href="<?php echo urlModr($route, 'addnew', $active_language, ($active_page ? $active_page->url : '')); ?>" class="toolbar-button clink"><?php echo __('PAGES_NEW_' . ($active_page ? 'SUB' : '') . 'PAGE'); ?></a>
+<?php endif;
+if (!$active_page): ?>
+        <select name="language" id="language">
+<?php foreach ($languages as $language): ?>
+          <option value="<?php echo $language->id; ?>"<?php Request::formStatePost('language', 'select', $language->id, $active_language); ?>><?php echo htmlspecialchars($language->name); ?></option>
+<?php endforeach; ?>
+        </select>
+        <button type="submit" class="toolbar-button"><?php echo __('PAGES_VIEW_LANGUAGE'); ?></button>
 <?php endif; ?>
+      </p>
+    </form>
 
     <table>
       <tr>
@@ -17,23 +29,23 @@
       </tr>
 <?php if ($active_page): ?>
       <tr>
-        <td colspan="6"><a href="<?php echo urlModr('page'); ?>" class="less-link clink"><?php echo __('PAGES_SHOW_ALL_PAGES'); ?></a></td>
+        <td colspan="6"><a href="<?php echo urlModr($route, $active_language); ?>" class="less-link clink"><?php echo __('PAGES_SHOW_ALL_PAGES'); ?></a></td>
       </tr>
 <?php endif;
 $max_pages = count($pages) - 1;
 $i = 0;
 foreach ($pages as $page): ?>
       <tr>
-        <td<?php if ($active_page && $i > 0) echo ' class="subpage-row"'; ?>><?php if (!$active_page): ?><a href="<?php echo urlModr('page', 'list', $page->url); ?>" class="more-link clink"><?php echo __('PAGES_SHOW_ALL_SUBPAGES'); ?></a>
+        <td<?php if ($active_page && $i > 0) echo ' class="subpage-row"'; ?>><?php if (!$active_page): ?><a href="<?php echo urlModr($route, 'list', $active_language, $page->url); ?>" class="more-link clink"><?php echo __('PAGES_SHOW_ALL_SUBPAGES'); ?></a>
           <?php endif; ?><a href="<?php echo urlModr('edit-page', 'show', $page->url); ?>" class="clink edit-link"><?php echo htmlspecialchars($page->title); ?></a></td>
         <td><a href="<?php echo urlModrSite($page->url); ?>"><?php echo htmlspecialchars($page->url); ?></a></td>
         <td><?php echo ($page->public ? __('YES') : __('NO')); ?></td>
         <td><?php echo ($page->show_in_menu ? __('YES') : __('NO')); ?></td>
         <td><?php echo easyDate('', $page->edited); ?></td>
-        <td class="actions"><a href="<?php echo urlModr('page', 'delete', $page->url); ?>" class="delete-link"><?php echo __('ACTION_DELETE'); ?></a>
+        <td class="actions"><a href="<?php echo urlModr($route, 'delete', $active_language, $page->url); ?>" class="delete-link"><?php echo __('ACTION_DELETE'); ?></a>
 <?php if (($active_page && $i > 0) || !$active_page): ?>
-          <?php if (($active_page && $i > 1) || (!$active_page && $i > 0)): ?><a href="<?php echo urlModr('page', 'up', $page->url); ?>" class="icon-up clink"><?php echo __('ACTION_UP'); ?></a>
-          <?php endif; if ($i < $max_pages): ?><a href="<?php echo urlModr('page', 'down', $page->url); ?>" class="icon-down clink"><?php echo __('ACTION_DOWN'); ?></a><?php endif; ?></td>
+          <?php if (($active_page && $i > 1) || (!$active_page && $i > 0)): ?><a href="<?php echo urlModr($route, 'up', $active_language, $page->url); ?>" class="icon-up clink"><?php echo __('ACTION_UP'); ?></a>
+          <?php endif; if ($i < $max_pages): ?><a href="<?php echo urlModr($route, 'down', $active_language, $page->url); ?>" class="icon-down clink"><?php echo __('ACTION_DOWN'); ?></a><?php endif; ?></td>
 <?php endif; ?>
       </tr>
 <?php ++$i; endforeach; ?>

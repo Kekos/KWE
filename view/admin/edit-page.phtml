@@ -12,6 +12,14 @@ if ($active_page->id): ?>
         <fieldset>
           <ol>
             <li><label for="title"><?php echo __('PAGES_TITLE'); ?></label> <input type="text" name="title" id="title" maxlength="30"<?php Request::formStatePost('title', 'text', '', $active_page->title); ?> /></li>
+            <li><label for="language"><?php echo __('PAGES_LANGUAGE'); ?></label> <?php if ($active_page->id): ?><select name="language" id="language">
+<?php foreach ($languages as $language): ?>
+          <option value="<?php echo $language->id; ?>"<?php Request::formStatePost('language', 'select', $language->id, $active_page->language); ?>><?php echo htmlspecialchars($language->name); ?></option>
+<?php endforeach; ?>
+        </select>
+<?php else: ?>
+<span><?php echo htmlspecialchars($language->name); ?></span>
+<?php endif; ?></li>
             <li><label for="public"><?php echo __('EDIT_PAGE_IS_PUBLISHED'); ?></label> <input type="checkbox" name="public" id="public" value="1"<?php Request::formStatePost('public', 'checkbox', 1, $active_page->public); ?> /></li>
             <li><label for="show_in_menu"><?php echo __('EDIT_PAGE_IS_VISIBLE'); ?></label> <input type="checkbox" name="show_in_menu" id="show_in_menu" value="1"<?php Request::formStatePost('show_in_menu', 'checkbox', 1, $active_page->show_in_menu); ?> /></li>
             <li><button type="submit" name="edit_page" value="yes"><?php echo __('EDIT_PAGE_SAVE'); ?></button></li>

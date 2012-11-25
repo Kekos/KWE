@@ -52,7 +52,9 @@ $lang['CHANGE_LANG_INFO'] = 'Your new language preference was saved.';
 $lang['PAGES_HELP'] = 'Click a page\'s URL to visit it on your site. Use the arrow to view subpages.';
 $lang['PAGES_NEW_PAGE'] = 'Create new page';
 $lang['PAGES_NEW_SUBPAGE'] = 'Create new subpage';
+$lang['PAGES_VIEW_LANGUAGE'] = 'View language';
 $lang['PAGES_TITLE'] = 'Title';
+$lang['PAGES_LANGUAGE'] = 'Language';
 $lang['PAGES_URL'] = 'URL';
 $lang['PAGES_PUBLISHED'] = 'Published';
 $lang['PAGES_VISIBLE'] = 'Visible in menu';
@@ -65,6 +67,7 @@ $lang['PAGES_INFO_UP'] = 'The page %s was moved upwards in the menu.';
 $lang['PAGES_ERROR_NO_MOVE'] = 'The page could not be moved.';
 $lang['PAGES_INFO_DOWN'] = 'The page %s was moved downwards in the menu.';
 $lang['PAGES_ERROR_NAME_LENGTH'] = 'Please enter a longer title.';
+$lang['PAGES_ERROR_LANGUAGE'] = 'Select a language.';
 $lang['PAGES_INFO_DELETED'] = 'The page %s and it\'s subpages was removed.';
 $lang['PAGES_SUB_INFO_DELETED'] = 'The subpage %s was removed.';
 

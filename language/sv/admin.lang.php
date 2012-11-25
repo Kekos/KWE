@@ -52,7 +52,9 @@ $lang['CHANGE_LANG_INFO'] = 'Ditt språkval sparades.';
 $lang['PAGES_HELP'] = 'Klicka på en sidas URL för att besöka den på din webbsida. Använd pilen för att se undersidor.';
 $lang['PAGES_NEW_PAGE'] = 'Skapa ny sida';
 $lang['PAGES_NEW_SUBPAGE'] = 'Skapa ny undersida';
+$lang['PAGES_VIEW_LANGUAGE'] = 'Visa språk';
 $lang['PAGES_TITLE'] = 'Titel';
+$lang['PAGES_LANGUAGE'] = 'Språk';
 $lang['PAGES_URL'] = 'URL';
 $lang['PAGES_PUBLISHED'] = 'Publicerad';
 $lang['PAGES_VISIBLE'] = 'Synlig i menyn';
@@ -65,6 +67,7 @@ $lang['PAGES_INFO_UP'] = 'Sidan %s flyttades uppåt i menyn.';
 $lang['PAGES_ERROR_NO_MOVE'] = 'Det gick inte att flytta sidan.';
 $lang['PAGES_INFO_DOWN'] = 'Sidan %s flyttades nedåt i menyn.';
 $lang['PAGES_ERROR_NAME_LENGTH'] = 'Skriv in en längre sidtitel.';
+$lang['PAGES_ERROR_LANGUAGE'] = 'Ange ett språk.';
 $lang['PAGES_INFO_DELETED'] = 'Sidan %s och dess undersidor togs bort.';
 $lang['PAGES_SUB_INFO_DELETED'] = 'Undersidan %s togs bort.';
 

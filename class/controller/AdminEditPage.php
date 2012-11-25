@@ -3,7 +3,7 @@
  * KWF Controller: AdminEditPage
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-07-27
+ * @date 2012-11-25
  * @version 1.0
  */
 
@@ -12,6 +12,7 @@ class AdminEditPage extends Controller
   private $db = null;
   private $model_page = null;
   private $model_page_controller = null;
+  private $model_language = null;
   private $kpage = false;
   private $subpage = false;
   private $active_page = false;
@@ -27,6 +28,7 @@ class AdminEditPage extends Controller
     $this->db = DbMysqli::getInstance();
     $this->model_page = new PageModel($this->db);
     $this->model_page_controller = new PageControllerModel($this->db);
+    $this->model_language = new LanguageModel($this->db);
 
     // If an other action than "show" is selected, the controller ID might be in parameter 3 instead (subpage_url)
     if ($action != 'show' && $controller_id === false)
@@ -109,6 +111,7 @@ class AdminEditPage extends Controller
     $model_controller = new ControllerModel($this->db);
 
     $data['active_page'] = $this->active_page;
+    $data['languages'] = $this->model_language->fetchAll();
     $data['installed_controllers'] = $model_controller->fetchAll();
     $data['controllers'] = $this->model_page_controller->fetchAll($this->active_page->id);
     $this->view = new View('admin/edit-page', $data);
@@ -204,6 +207,7 @@ class AdminEditPage extends Controller
     {
     $errors = array();
     $title = $this->request->post('title');
+    $language = $this->request->post('language');
     $public = $this->request->post('public');
     $show_in_menu = $this->request->post('show_in_menu');
 
@@ -213,6 +217,8 @@ class AdminEditPage extends Controller
       $errors[] = __('EDIT_PAGE_ERROR_PUBLISH');
     if (!$this->active_page->setShowInMenu($show_in_menu))
       $errors[] = __('EDIT_PAGE_ERROR_VISIBLE');
+    if (!$this->active_page->setLanguage($language))
+      $errors[] = __('PAGES_ERROR_LANGUAGE');
 
     if (!count($errors))
       {
