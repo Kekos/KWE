@@ -584,6 +584,7 @@ input.kwe-link-input
   content: '';
   position: absolute;
   right: -14px;
+  top: 10px;
   height: 20px;
   border-left: 1px solid #306791;
   }
