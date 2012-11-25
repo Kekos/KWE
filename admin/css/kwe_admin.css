@@ -2,7 +2,7 @@
  * KWF Style: kwe_admin.css
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-09-29
+ * @date 2012-11-25
  * @version 2.0
  */
 
@@ -370,6 +370,12 @@ button, .toolbar-button
   font-size: 10pt;
   color: #000;
   text-decoration: none;
+  }
+
+.toolbar-button
+  {
+  height: auto;
+  font-weight: normal;
   }
 
 button:focus, .toolbar-button:focus
