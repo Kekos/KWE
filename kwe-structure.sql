@@ -47,6 +47,7 @@ CREATE TABLE `PREFIX_pages` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `url` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `language` int(11) unsigned NOT NULL,
   `parent` int(10) unsigned NOT NULL,
   `public` tinyint(1) unsigned NOT NULL,
   `show_in_menu` tinyint(1) unsigned NOT NULL,
@@ -59,9 +60,11 @@ CREATE TABLE `PREFIX_pages` (
   KEY `url` (`url`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-INSERT INTO `PREFIX_pages` ( `title` , `url`, `parent`, `public`, `show_in_menu`, `order`, `creator`, `created`, `editor`, `edited` ) VALUES 
-('Start', 'index', 0, 1, 1, 1, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP()),
-('Sidan kunde inte hittas', '404', 0, 1, 0, 2, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP());
+INSERT INTO `PREFIX_pages` ( `title` , `url`, `language`, `parent`, `public`, `show_in_menu`, `order`, `creator`, `created`, `editor`, `edited` ) VALUES 
+('Start', 'index', 1, 0, 1, 1, 1, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP()),
+('The page could not be found', '404', 1, 0, 1, 0, 2, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP()),
+('Start', 'index', 2, 0, 1, 1, 1, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP()),
+('Sidan kunde inte hittas', '404', 2, 0, 1, 0, 2, 1, UNIX_TIMESTAMP(), 1, UNIX_TIMESTAMP());
 
 CREATE TABLE `PREFIX_page_controllers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -73,8 +76,10 @@ CREATE TABLE `PREFIX_page_controllers` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 INSERT INTO `PREFIX_page_controllers` ( `page` , `controller`, `content`, `order` ) VALUES 
-(1, 1, '<p>Detta är ett exempel på artikelmodulen. Här skriver du rena sidor med text, bilder och annan media.</p>', 1),
-(2, 1, '<p>Sidan kunde inte hittas.</p>', 1);
+(1, 1, '<p>This is an exampel of the text module. You can write text, add images and other media.</p>', 1),
+(2, 1, '<p>The page could not be found.</p>', 1),
+(3, 1, '<p>Detta är ett exempel på artikelmodulen. Här skriver du rena sidor med text, bilder och annan media.</p>', 1),
+(4, 1, '<p>Sidan kunde inte hittas.</p>', 1);
 
 CREATE TABLE `PREFIX_permissions` (
   `user` smallint(5) unsigned NOT NULL,
