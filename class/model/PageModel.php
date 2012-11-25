@@ -25,6 +25,16 @@ class PageModel
     return $this->active_page;
     }
 
+  public function fetchPagePermissionId($id, $user)
+    {
+    $q_select_page = "SELECT p.*, pe.`permission` FROM `PREFIX_pages` AS p LEFT "
+      . "JOIN `PREFIX_permissions` AS pe ON p.`id` = pe.`page` "
+      . "AND pe.`user` = ? WHERE p.id = ?";
+
+    $this->db->exec($q_select_page, 'ii', array($user, $id));
+    return $this->db->fetch('Kpage', array($this));
+    }
+
   public function fetchPagePermission($page_name, $user)
     {
     $q_select_page = "SELECT p.*, pe.`permission` FROM `PREFIX_pages` AS p LEFT "
@@ -48,7 +58,7 @@ class PageModel
   public function fetchPageList($show_in_menu = 1, $extended = 0, $language)
     {
     $cols = ($extended ? ', `public`, `show_in_menu`, `order`, `edited`' : '');
-    $q_select_pages = "SELECT `title`, `url`" . $cols . " FROM `PREFIX_pages` WHERE `parent` = 0";
+    $q_select_pages = "SELECT id, `title`, `url`" . $cols . " FROM `PREFIX_pages` WHERE `parent` = 0";
     if ($show_in_menu)
       $q_select_pages .= " AND `show_in_menu` = 1 AND `public` = 1";
     $q_select_pages .= " AND `language` = ? ORDER BY `order`";
