@@ -372,12 +372,6 @@ button, .toolbar-button
   text-decoration: none;
   }
 
-.toolbar-button
-  {
-  height: auto;
-  font-weight: normal;
-  }
-
 button:focus, .toolbar-button:focus
   {
   box-shadow: 0 3px 5px #306791, 0px 10px 30px -5px #306791 inset;
@@ -565,12 +559,42 @@ input.kwe-link-input
 .controller-up { top: 20px; }
 .controller-down { top: 38px; }
 
-/* File uploading */
+/* Toolbars */
 
 .toolbar
   {
   margin: 2% 1%;
   }
+
+.toolbar-button
+  {
+  position: relative;
+  margin-top: -9px;
+  height: auto;
+  font-weight: normal;
+  }
+
+.toolbar-divide-right
+  {
+  margin-right: 20px;
+  }
+
+.toolbar-divide-right:after
+  {
+  content: '';
+  position: absolute;
+  right: -14px;
+  height: 20px;
+  border-left: 1px solid #306791;
+  }
+
+.toolbar select
+  {
+  width: auto;
+  line-height: normal;
+  }
+
+/* File uploading */
 
 .file-thumb
   {

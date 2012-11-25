@@ -5,7 +5,7 @@
     <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
       <p class="toolbar">
 <?php if (Access::$user->rank == 1 || ($active_page && ($active_page->permission & PERMISSION_ADD))): ?>
-        <a href="<?php echo urlModr($route, 'addnew', $active_language, ($active_page ? $active_page->url : '')); ?>" class="toolbar-button clink"><?php echo __('PAGES_NEW_' . ($active_page ? 'SUB' : '') . 'PAGE'); ?></a>
+        <a href="<?php echo urlModr($route, 'addnew', $active_language, ($active_page ? $active_page->url : '')); ?>" class="toolbar-button toolbar-divide-right clink"><?php echo __('PAGES_NEW_' . ($active_page ? 'SUB' : '') . 'PAGE'); ?></a>
 <?php endif;
 if (!$active_page): ?>
         <select name="language" id="language">
