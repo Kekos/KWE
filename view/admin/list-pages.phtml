@@ -43,8 +43,8 @@ foreach ($pages as $page): ?>
           <td><?php echo easyDate('', $page->edited); ?></td>
           <td class="actions"><a href="<?php echo urlModr($route, 'delete', $active_language, $page->url); ?>" class="delete-link"><?php echo __('ACTION_DELETE'); ?></a>
 <?php if (($active_page && $i > 0) || !$active_page): ?>
-            <?php if (($active_page && $i > 1) || (!$active_page && $i > 0)): ?><button type="submit" name="order[up][<?php echo $page->id; ?>]" class="icon-up"><?php echo __('ACTION_UP'); ?></button>
-            <?php endif; if ($i < $max_pages): ?><button type="submit" name="order[down][<?php echo $page->id; ?>]" class="icon-down"><?php echo __('ACTION_DOWN'); ?></button><?php endif; ?></td>
+            <?php if (($active_page && $i > 1) || (!$active_page && $i > 0)): ?><button type="submit" name="order[up][<?php echo $page->id; ?>]" class="icon-up link-button"><?php echo __('ACTION_UP'); ?></button>
+            <?php endif; if ($i < $max_pages): ?><button type="submit" name="order[down][<?php echo $page->id; ?>]" class="icon-down link-button"><?php echo __('ACTION_DOWN'); ?></button><?php endif; ?></td>
 <?php endif; ?>
         </tr>
 <?php ++$i; endforeach; ?>

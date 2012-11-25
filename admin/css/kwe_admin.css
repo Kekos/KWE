@@ -377,6 +377,15 @@ button:focus, .toolbar-button:focus
   box-shadow: 0 3px 5px #306791, 0px 10px 30px -5px #306791 inset;
   }
 
+.link-button
+  {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  box-shadow: none;
+  }
+
 #dw_KWE_cd
   {
   padding: 2px;
