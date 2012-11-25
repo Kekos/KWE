@@ -75,6 +75,22 @@ class AdminPages extends Controller
       $language = $this->kpage->language;
       }
 
+    if ($this->request->post('order'))
+      {
+      $arr = $this->request->post('order');
+      $order = array_keys($arr)[0];
+      $id = array_keys($arr[$order])[0];
+      $page = $this->model_page->fetchPagePermissionId($id, Access::$user->id);
+
+      if ($page)
+        {
+        if (Access::$user->rank == 1)
+          $page->permission = PERMISSION_ADD | PERMISSION_EDIT | PERMISSION_DELETE;
+
+        $this->changeOrder($page, $order);
+        }
+      }
+
     $data['active_language'] = $language;
     $data['active_page'] = $this->active_page;
     $data['pages'] = (!$this->kpage ? $this->model_page->fetchPageList(0, 1, $language) : $this->model_page->fetchSubPageList($this->kpage->id, 0, 1));
@@ -101,54 +117,6 @@ class AdminPages extends Controller
     $data['active_page'] = new Kpage($this->model_page);
     $data['language'] = $this->model_language->fetch($language);
     $this->view = new View('admin/edit-page', $data);
-    }
-
-  public function up()
-    {
-    if (!$this->active_page)
-      return;
-
-    if (!($this->active_page->permission & PERMISSION_EDIT))
-      return $this->response->addError(__('PAGES_ERROR_NO_PERMISSION'));
-
-    $sorter = new StepSorter($this->model_page);
-    if ($sorter->up($this->active_page, array($this->active_page->parent, $this->active_page->id)))
-      {
-      $this->response->addInfo(__('PAGES_INFO_UP', htmlspecialchars($this->active_page->title)));
-      }
-    else
-      {
-      $this->response->addError(__('PAGES_ERROR_NO_MOVE'));
-      }
-
-    if (!$this->subpage)
-      $this->kpage = $this->active_page = false;
-
-    $this->_default();
-    }
-
-  public function down()
-    {
-    if (!$this->active_page)
-      return;
-
-    if (!($this->active_page->permission & PERMISSION_EDIT))
-      return $this->response->addError(__('PAGES_ERROR_NO_PERMISSION'));
-
-    $sorter = new StepSorter($this->model_page);
-    if ($sorter->down($this->active_page, array($this->active_page->parent, $this->active_page->id)))
-      {
-      $this->response->addInfo(__('PAGES_INFO_DOWN', htmlspecialchars($this->active_page->title)));
-      }
-    else
-      {
-      $this->response->addError(__('PAGES_ERROR_NO_MOVE'));
-      }
-
-    if (!$this->subpage)
-      $this->kpage = $this->active_page = false;
-
-    $this->_default();
     }
 
   public function delete()
@@ -252,6 +220,22 @@ class AdminPages extends Controller
     $this->active_page->setEditor(Access::$user->id);
     $this->active_page->setEdited(time());
     $this->active_page->save();
+    }
+
+  private function changeOrder($page, $order)
+    {
+    if (!($page->permission & PERMISSION_EDIT))
+      return $this->response->addError(__('PAGES_ERROR_NO_PERMISSION'));
+
+    $sorter = new StepSorter($this->model_page);
+    if ($sorter->$order($page, array($page->parent, $page->id)))
+      {
+      $this->response->addInfo(__(($order == 'down' ? 'PAGES_INFO_DOWN' : 'PAGES_INFO_UP'), htmlspecialchars($page->title)));
+      }
+    else
+      {
+      $this->response->addError(__('PAGES_ERROR_NO_MOVE'));
+      }
     }
 
   private function deletePage()

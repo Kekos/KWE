@@ -16,37 +16,37 @@ if (!$active_page): ?>
         <button type="submit" class="toolbar-button"><?php echo __('PAGES_VIEW_LANGUAGE'); ?></button>
 <?php endif; ?>
       </p>
-    </form>
 
-    <table>
-      <tr>
-        <th><?php echo __('PAGES_TITLE'); ?></th>
-        <th><?php echo __('PAGES_URL'); ?></th>
-        <th><?php echo __('PAGES_PUBLISHED'); ?></th>
-        <th><?php echo __('PAGES_VISIBLE'); ?></th>
-        <th><?php echo __('PAGES_LAST_EDIT'); ?></th>
-        <th class="actions-head">&nbsp;</th>
-      </tr>
+      <table>
+        <tr>
+          <th><?php echo __('PAGES_TITLE'); ?></th>
+          <th><?php echo __('PAGES_URL'); ?></th>
+          <th><?php echo __('PAGES_PUBLISHED'); ?></th>
+          <th><?php echo __('PAGES_VISIBLE'); ?></th>
+          <th><?php echo __('PAGES_LAST_EDIT'); ?></th>
+          <th class="actions-head">&nbsp;</th>
+        </tr>
 <?php if ($active_page): ?>
-      <tr>
-        <td colspan="6"><a href="<?php echo urlModr($route, $active_language); ?>" class="less-link clink"><?php echo __('PAGES_SHOW_ALL_PAGES'); ?></a></td>
-      </tr>
+        <tr>
+          <td colspan="6"><a href="<?php echo urlModr($route, $active_language); ?>" class="less-link clink"><?php echo __('PAGES_SHOW_ALL_PAGES'); ?></a></td>
+        </tr>
 <?php endif;
 $max_pages = count($pages) - 1;
 $i = 0;
 foreach ($pages as $page): ?>
-      <tr>
-        <td<?php if ($active_page && $i > 0) echo ' class="subpage-row"'; ?>><?php if (!$active_page): ?><a href="<?php echo urlModr($route, 'list', $active_language, $page->url); ?>" class="more-link clink"><?php echo __('PAGES_SHOW_ALL_SUBPAGES'); ?></a>
-          <?php endif; ?><a href="<?php echo urlModr('edit-page', 'show', $page->url); ?>" class="clink edit-link"><?php echo htmlspecialchars($page->title); ?></a></td>
-        <td><a href="<?php echo urlModrSite($page->url); ?>"><?php echo htmlspecialchars($page->url); ?></a></td>
-        <td><?php echo ($page->public ? __('YES') : __('NO')); ?></td>
-        <td><?php echo ($page->show_in_menu ? __('YES') : __('NO')); ?></td>
-        <td><?php echo easyDate('', $page->edited); ?></td>
-        <td class="actions"><a href="<?php echo urlModr($route, 'delete', $active_language, $page->url); ?>" class="delete-link"><?php echo __('ACTION_DELETE'); ?></a>
+        <tr>
+          <td<?php if ($active_page && $i > 0) echo ' class="subpage-row"'; ?>><?php if (!$active_page): ?><a href="<?php echo urlModr($route, 'list', $active_language, $page->url); ?>" class="more-link clink"><?php echo __('PAGES_SHOW_ALL_SUBPAGES'); ?></a>
+            <?php endif; ?><a href="<?php echo urlModr('edit-page', 'show', $page->url); ?>" class="clink edit-link"><?php echo htmlspecialchars($page->title); ?></a></td>
+          <td><a href="<?php echo urlModrSite($page->url); ?>"><?php echo htmlspecialchars($page->url); ?></a></td>
+          <td><?php echo ($page->public ? __('YES') : __('NO')); ?></td>
+          <td><?php echo ($page->show_in_menu ? __('YES') : __('NO')); ?></td>
+          <td><?php echo easyDate('', $page->edited); ?></td>
+          <td class="actions"><a href="<?php echo urlModr($route, 'delete', $active_language, $page->url); ?>" class="delete-link"><?php echo __('ACTION_DELETE'); ?></a>
 <?php if (($active_page && $i > 0) || !$active_page): ?>
-          <?php if (($active_page && $i > 1) || (!$active_page && $i > 0)): ?><a href="<?php echo urlModr($route, 'up', $active_language, $page->url); ?>" class="icon-up clink"><?php echo __('ACTION_UP'); ?></a>
-          <?php endif; if ($i < $max_pages): ?><a href="<?php echo urlModr($route, 'down', $active_language, $page->url); ?>" class="icon-down clink"><?php echo __('ACTION_DOWN'); ?></a><?php endif; ?></td>
+            <?php if (($active_page && $i > 1) || (!$active_page && $i > 0)): ?><button type="submit" name="order[up][<?php echo $page->id; ?>]" class="icon-up"><?php echo __('ACTION_UP'); ?></button>
+            <?php endif; if ($i < $max_pages): ?><button type="submit" name="order[down][<?php echo $page->id; ?>]" class="icon-down"><?php echo __('ACTION_DOWN'); ?></button><?php endif; ?></td>
 <?php endif; ?>
-      </tr>
+        </tr>
 <?php ++$i; endforeach; ?>
-    </table>
+      </table>
+    </form>
