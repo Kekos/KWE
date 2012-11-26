@@ -3,26 +3,47 @@
  * KWE Model: PageModel
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-11-25
+ * @date 2012-11-26
  * @version 2.1
  */
 
-class PageModel
+class PageModel extends EventListener
   {
   private $db = null;
   private $active_page = false;
 
   public function __construct($db)
     {
+    parent::__construct();
     $this->db = $db;
     }
 
   public function getPage($page_name)
     {
-    $q_select_page = "SELECT * FROM `PREFIX_pages` WHERE `url` = ? AND `public` = 1";
-    $this->db->exec($q_select_page, 's', array($page_name));
-    $this->active_page = $this->db->fetch('Kpage', array($this));
-    return $this->active_page;
+    $sql_where = '';
+    $sql_types = 's';
+    $sql_args = array($page_name);
+    $this->dispatchEvent('beforepagefetch', array(
+        'page_name' => $page_name, 
+        'sql_where' => &$sql_where, 
+        'sql_types' => &$sql_types, 
+        'sql_args' => &$sql_args));
+
+    if (strpos($page_name, '-/') === 0)
+      {
+      $this->active_page = new stdclass();
+      $this->active_page->id = 'internalcontrol';
+      $this->active_page->title = substr($page_name, 2);
+      $this->active_page->parent = 0;
+      return $this->active_page;
+      }
+    else
+      {
+      $q_select_page = "SELECT * FROM `PREFIX_pages` WHERE `public` = 1 AND (`url` = ?" . $sql_where . ")";
+      $this->db->exec($q_select_page, $sql_types, $sql_args);
+      $this->active_page = $this->db->fetch('Kpage', array($this));
+      return $this->active_page;
+      }
     }
 
   public function fetchPagePermissionId($id, $user)
@@ -45,25 +66,36 @@ class PageModel
     return $this->db->fetch('Kpage', array($this));
     }
 
-  public function getControllers($page_name)
+  public function getControllers()
     {
-    $q_select_controllers = "SELECT c.`class_name` AS name, pc.`content` FROM "
-      . "`PREFIX_page_controllers` AS pc INNER JOIN `PREFIX_controllers` AS c "
-      . "ON c.`id` = `controller` WHERE pc.`page` = ? ORDER BY pc.`order` ASC";
+    if ($this->active_page->id == 'internalcontrol')
+      {
+      $controller = new stdclass();
+      $controller->name = $this->active_page->title;
+      return array($controller);
+      }
+    else
+      {
+      $q_select_controllers = "SELECT c.`class_name` AS name, pc.`content` FROM "
+        . "`PREFIX_page_controllers` AS pc INNER JOIN `PREFIX_controllers` AS c "
+        . "ON c.`id` = `controller` WHERE pc.`page` = ? ORDER BY pc.`order` ASC";
 
-    $this->db->exec($q_select_controllers, 'i', array($this->active_page->id));
-    return $this->db->fetchAll();
+      $this->db->exec($q_select_controllers, 'i', array($this->active_page->id));
+      return $this->db->fetchAll();
+      }
     }
 
-  public function fetchPageList($show_in_menu = 1, $extended = 0, $language)
+  public function fetchPageList($show_in_menu = 1, $extended = 0, $language = 0)
     {
     $cols = ($extended ? ', `public`, `show_in_menu`, `order`, `edited`' : '');
     $q_select_pages = "SELECT id, `title`, `url`" . $cols . " FROM `PREFIX_pages` WHERE `parent` = 0";
     if ($show_in_menu)
       $q_select_pages .= " AND `show_in_menu` = 1 AND `public` = 1";
-    $q_select_pages .= " AND `language` = ? ORDER BY `order`";
+    if ($language)
+      $q_select_pages .= "  AND `language` = " . intval($language);
+    $q_select_pages .= " ORDER BY `order`";
 
-    $this->db->exec($q_select_pages, 'i', array($language));
+    $this->db->exec($q_select_pages);
     return $this->db->fetchAll();
     }
 
