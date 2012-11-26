@@ -18,13 +18,28 @@ if (SITE_UP)
   $page = $router->getPage();
   $page->runControllers();
 
-  $index_events->dispatchEvent('beforenavigationload', array('response' => $page->response));
+  $navigation = null;
+  $subnavigation = null;
+  $index_events->dispatchEvent('beforenavigationload', array(
+      'response' => $page->response, 
+      'page' => $page, 
+      'page_model' => $page_model, 
+      'navigation' => &$navigation, 
+      'subnavigation' => &$subnavigation));
 
-  $page->response->data['navigation'] = $page_model->fetchPageList();
-  if ($page->page->parent == 0)
-    $page->response->data['subnavigation'] = $page_model->fetchSubPageList($page->page->id);
-  else
-    $page->response->data['subnavigation'] = $page_model->fetchSubPageList($page->page->parent);
+  if ($navigation == null)
+    {
+    $navigation = $page_model->fetchPageList();
+    if ($page->page->parent == 0)
+      $subid = $page->page->id;
+    else
+      $subid = $page->page->parent;
+
+    $subnavigation = $page_model->fetchSubPageList($subid);
+    }
+
+  $page->response->data['navigation'] = $navigation;
+  $page->response->data['subnavigation'] = $subnavigation;
 
   $index_events->dispatchEvent('beforecontent', array('response' => $page->response));
 
