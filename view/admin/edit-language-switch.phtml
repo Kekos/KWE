@@ -1,0 +1,19 @@
+    <h1><?php echo __('LANGSWITCH_HEADER'); ?></h1>
+
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
+      <p>
+        <label for="language"><?php echo __('LANGSWITCH_SELECT_DEFAULT'); ?></label>
+        <select name="language" id="language">
+<?php foreach ($languages as $language):
+
+if ($language->code == $selected)
+  {
+  $selected = $language->id;
+  }
+?>
+          <option value="<?php echo $language->id; ?>"<?php Request::formStatePost('language', 'select', $language->id, $selected); ?>><?php echo htmlspecialchars($language->name); ?></option>
+<?php endforeach; ?>
+        </select>
+      </p>
+      <p><button type="submit" name="save_language" value="yes"><?php echo __('SAVE'); ?></button></p>
+    </form>

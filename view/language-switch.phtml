@@ -1,0 +1,13 @@
+    <form action="<?php echo urlModr('-', 'LanguageSwitch'); ?>" method="post" id="language">
+      <h2><?php echo __('LANGSWITCH_LANGUAGE'); ?></h2>
+      <p>
+<?php
+$languages = VisitorLanguage::getAllLanguages();
+foreach ($languages as $language): if ($language->id != VisitorLanguage::getLanguage()->id): ?>
+        <input type="radio" name="language_code" value="<?php echo $language->id; ?>" id="langr<?php echo $language->code; ?>" />
+        <label for="langr<?php echo $language->code; ?>"><img src="<?php echo FULLPATH; ?>/images/flags/<?php echo $language->code; ?>.png" class="language-flag" alt="<?php echo $language->name; ?>" title="<?php echo $language->name; ?>" /></label>
+<?php endif; endforeach; ?>
+        <input type="hidden" name="redirect" value="<?php echo urlModr($this->request->params); ?>" />
+        <input type="submit" value="OK" id="language_button" />
+      </p>
+    </form>

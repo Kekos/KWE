@@ -14,13 +14,15 @@
 
 <body>
 
-<div id="header"></div>
+<div id="header">
+<?php require('language-switch.phtml'); ?>
+</div>
 
 <div id="navigation">
   <ul>
 <?php
 foreach ($data['navigation'] as $nav): ?>
-  <li><a href="<?php echo urlModr($nav->url); ?>"<?php if ($nav->url == $this->request->params[0]) echo ' class="active"'; ?>><?php echo htmlspecialchars($nav->title); ?></a></li>
+    <li><a href="<?php echo urlModr($nav->url); ?>"<?php if ($nav->url == $this->request->params[0]) echo ' class="active"'; ?>><?php echo htmlspecialchars($nav->title); ?></a></li>
 <?php endforeach; ?>
   </ul>
   <div class="clear"></div>
