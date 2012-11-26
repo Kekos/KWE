@@ -46,17 +46,19 @@ if ($active_page->id): ?>
 
     <p class="clear"><?php echo __('EDIT_PAGE_EDIT_INFO'); ?></p>
 
+    <form action="<?php echo urlModr($route, $params); ?>" method="post" class="ajax-form">
 <?php
 $max_controllers = count($controllers) - 1;
 $i = 0;
 foreach ($controllers as $controller): ?>
-    <div class="controller-actions">
-      <span class="controller-num"><?php echo $i + 1; ?></span>
-      <a href="<?php echo urlModr($route, 'edit', $active_page->url, $controller->id); ?>" class="controller-name blink dim90x90"><?php echo $controller->name; ?></a>
-      <a href="<?php echo urlModr($route, 'delete', $active_page->url, $controller->id); ?>" class="controller-delete delete-link" title="<?php echo __('EDIT_PAGE_DELETE_MODULE'); ?>"><?php echo __('EDIT_PAGE_DELETE_MODULE'); ?></a>
-<?php if ($i > 0): ?>      <a href="<?php echo urlModr($route, 'orderup', $active_page->url, $controller->id); ?>" class="controller-up icon-up clink" title="<?php echo __('EDIT_PAGE_UP'); ?>"><?php echo __('EDIT_PAGE_UP'); ?></a>
-<?php endif; if ($i < $max_controllers): ?>      <a href="<?php echo urlModr($route, 'orderdown', $active_page->url, $controller->id); ?>" class="controller-down icon-down clink" title="<?php echo __('EDIT_PAGE_DOWN'); ?>"><?php echo __('EDIT_PAGE_DOWN'); ?></a>
-<?php endif; ?>    </div>
+      <div class="controller-actions">
+        <span class="controller-num"><?php echo $i + 1; ?></span>
+        <a href="<?php echo urlModr($route, 'edit', $active_page->url, $controller->id); ?>" class="controller-name blink dim90x90"><?php echo $controller->name; ?></a>
+        <a href="<?php echo urlModr($route, 'delete', $active_page->url, $controller->id); ?>" class="controller-delete delete-link" title="<?php echo __('EDIT_PAGE_DELETE_MODULE'); ?>"><?php echo __('EDIT_PAGE_DELETE_MODULE'); ?></a>
+<?php if ($i > 0): ?>       <button type="submit" name="order[up][<?php echo $controller->id; ?>]" class="controller-up icon-up link-button" title="<?php echo __('EDIT_PAGE_UP'); ?>"><?php echo __('EDIT_PAGE_UP'); ?></button>
+<?php endif; if ($i < $max_controllers): ?>       <button type="submit" name="order[down][<?php echo $controller->id; ?>]" class="controller-down icon-down link-button" title="<?php echo __('EDIT_PAGE_DOWN'); ?>"><?php echo __('EDIT_PAGE_DOWN'); ?></button>
+<?php endif; ?>     </div>
 
-<?php ++$i; endforeach;
-endif; ?>
+<?php ++$i; endforeach; ?>
+    </form>
+<?php endif; ?>

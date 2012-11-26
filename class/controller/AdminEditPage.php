@@ -74,12 +74,20 @@ class AdminEditPage extends Controller
 
     if ($controller_id)
       {
-      if (!$this->controller = $this->model_page_controller->fetch($controller_id))
-        {
-        $this->active_page = false;
-        $this->response->addError(__('EDIT_PAGE_ERROR_MODULE_NOT_FOUND', $controller_id));
-        }
+      $this->controller = $this->getController($controller_id);
       }
+    }
+
+  private function getController($controller_id)
+    {
+    $controller = $this->model_page_controller->fetch($controller_id);
+    if (!$controller)
+      {
+      $this->active_page = false;
+      $this->response->addError(__('EDIT_PAGE_ERROR_MODULE_NOT_FOUND', $controller_id));
+      }
+
+    return $controller;
     }
 
   public function _default()
@@ -106,6 +114,19 @@ class AdminEditPage extends Controller
     else if ($this->request->post('add_controller'))
       {
       $this->addController();
+      }
+    // Did the user sort a controller up/down
+    else if ($this->request->post('order'))
+      {
+      $arr = $this->request->post('order');
+      $order = array_keys($arr)[0];
+      $id = array_keys($arr[$order])[0];
+      $this->controller = $this->getController($id);
+
+      if ($this->controller)
+        {
+        $this->changeOrder($order);
+        }
       }
 
     $model_controller = new ControllerModel($this->db);
@@ -154,46 +175,6 @@ class AdminEditPage extends Controller
       $data['controller'] = $this->controller;
       $this->view = new View('admin/delete-page-controller', $data);
       }
-    }
-
-  public function orderup()
-    {
-    // First, check if an page could be found in before() (might be removed if user has no permission)
-    if (!$this->active_page || !$this->controller)
-      return;
-
-    $sorter = new StepSorter($this->model_page_controller);
-    if ($sorter->up($this->controller, array($this->active_page->id, $this->controller->id)))
-      {
-      $this->updateEdited();
-      $this->response->addInfo(__('EDIT_PAGE_INFO_MODULE_UP'));
-      }
-    else
-      {
-      $this->response->addError(__('EDIT_PAGE_ERROR_MOD_NO_MOVE'));
-      }
-
-    $this->show();
-    }
-
-  public function orderdown()
-    {
-    // First, check if an page could be found in before() (might be removed if user has no permission)
-    if (!$this->active_page || !$this->controller)
-      return;
-
-    $sorter = new StepSorter($this->model_page_controller);
-    if ($sorter->down($this->controller, array($this->active_page->id, $this->controller->id)))
-      {
-      $this->updateEdited();
-      $this->response->addInfo(__('EDIT_PAGE_INFO_MODULE_DOWN'));
-      }
-    else
-      {
-      $this->response->addError(__('EDIT_PAGE_ERROR_MOD_NO_MOVE'));
-      }
-
-    $this->show();
     }
 
   private function updateEdited()
@@ -248,6 +229,20 @@ class AdminEditPage extends Controller
     $this->controller->save();
     $this->updateEdited();
     $this->response->addInfo(__('EDIT_PAGE_INFO_MODULE_ADD', htmlspecialchars($this->active_page->title)));
+    }
+
+  private function changeOrder($order)
+    {
+    $sorter = new StepSorter($this->model_page_controller);
+    if ($sorter->$order($this->controller, array($this->active_page->id, $this->controller->id)))
+      {
+      $this->updateEdited();
+      $this->response->addInfo(__($order == 'down' ? 'EDIT_PAGE_INFO_MODULE_DOWN' : 'EDIT_PAGE_INFO_MODULE_UP'));
+      }
+    else
+      {
+      $this->response->addError(__('EDIT_PAGE_ERROR_MOD_NO_MOVE'));
+      }
     }
 
   private function saveController()
