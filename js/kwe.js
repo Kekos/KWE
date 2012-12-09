@@ -237,9 +237,7 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
         {
         var self = this, lang = domiwyg.lang, 
           element = self.getSelectedAreaElement(), 
-          node_name = null, 
-          input = document.createElement('input'), 
-          body = document.body;
+          node_name = null;
 
         if (element)
           {
@@ -255,11 +253,7 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
 
             Browser.openPageBrowser(function(page)
               {
-              input.id = 'dw_link_url';
-              input.value = Kwf.MODR_SITE + page;
-              body.appendChild(input);
-              self.createLink(element);
-              body.removeChild(input);
+              self.createLink(element, '', Kwf.MODR_SITE + page);
               });
             }
           }
