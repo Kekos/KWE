@@ -3,7 +3,7 @@
  * Based on DOMcraft
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-10-22
+ * @date 2012-12-09
  * @version 3.0
  */
 
@@ -557,18 +557,21 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
      * Loads new pages and folders into the page browser
      * @method loadPageList
      * @private
+     * @param {Number} language Language ID
      * @param {String} path The path to browse to
      */
-    function loadPageList(path)
+    function loadPageList(language, path)
       {
       var html = '', json, i;
+
+      language = parseInt(language, 10);
 
       if (path === '/')
         {
         path = '';
         }
 
-      Ajax.get(Kwf.MODR + 'page/js_browse/' + path, function(resp)
+      Ajax.get(Kwf.MODR + 'page/js_browse/' + language + '/' + path, function(resp)
         {
         json = resp.page.pages;
         json.splice(0, 0, {url: '', title: 'Gå uppåt'});
@@ -577,7 +580,8 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
           {
           if (i !== 0 || path !== '')
             {
-            html += '<div data-url="' + json[i].url + '" class="kwe-browse-item kwe-change-page">' + json[i].title + '<a href="javascript:void(0);" class="kwe-select-page">Välj</a></div>';
+            html += '<div data-url="' + json[i].url + '" data-lang="' + language + '" class="kwe-browse-item kwe-change-page">'
+              + json[i].title + '<a href="javascript:void(0);" class="kwe-select-page">Välj</a></div>';
             }
           }
 
@@ -657,7 +661,7 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
         }
       else if (hasClass(targ, 'kwe-change-page'))
         {
-        loadPageList(targ.getAttribute('data-url') + '/');
+        loadPageList(targ.getAttribute('data-lang'), targ.getAttribute('data-url') + '/');
         }
       else if (hasClass(targ, 'kwe-select-page'))
         {
@@ -760,9 +764,36 @@ var Kwe = (function(window, document, elem, content_request, boxing_request, Box
           }
 
         dialog = new KDialog(domiwyg.lang.create_kwe_link, '<p id="browser_cd">/</p>'
+          + '<p><select id="browser_page_language"></select></p>'
           + '<div id="browser_page_browser"></div>', 500, 450, dialogClickListener);
 
-        loadPageList('');
+        // Load available languages
+        Ajax.get(Kwf.MODR + 'Languages/js_browse/', function(resp)
+          {
+          var json = resp.page.languages, 
+            language_select = elem('browser_page_language'), 
+            default_lang_id = 0, 
+            i;
+
+          // Listen for change events on the language select
+          addEvent(language_select, 'change', function()
+            {
+            loadPageList(language_select.value, '');
+            });
+
+          for (i = 0; i < json.length; i++)
+            {
+            if (i === 0)
+              {
+              default_lang_id = json[0].id;
+              }
+
+            language_select.options[i] = new Option(json[i].name, json[i].id);
+            }
+
+          // Load all pages in root with first language
+          loadPageList(default_lang_id, '');
+          }, function() {});
         }
       };
     }());

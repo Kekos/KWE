@@ -3,7 +3,7 @@
  * KWF Controller: AdminControllerLanguages
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-08-09
+ * @date 2012-12-09
  * @version 1.0
  */
 
@@ -88,6 +88,15 @@ class AdminControllerLanguages extends Controller
       {
       $this->view = new View('admin/delete-language', array('language' => $this->language));
       }
+    }
+
+  public function js_browse()
+    {
+    $json = array();
+    $json['languages'] = $this->model_language->fetchAll();
+
+    $this->response->setContentType('json');
+    $this->response->addContent(json_encode($json));
     }
 
   private function listLanguage()

@@ -3,7 +3,7 @@
  * KWF Controller: AdminPages
  * 
  * @author Christoffer Lindahl <christoffer@kekos.se>
- * @date 2012-11-25
+ * @date 2012-12-09
  * @version 2.2
  */
 
@@ -146,11 +146,11 @@ class AdminPages extends Controller
       }
     }
 
-  public function js_browse()
+  public function js_browse($language = 0)
     {
     $json = array();
     $json['cd'] = '/' . ($this->kpage ? $this->kpage->title . '/' : '');
-    $json['pages'] = (!$this->kpage ? $this->model_page->fetchPageList(0, 0) : 
+    $json['pages'] = (!$this->kpage ? $this->model_page->fetchPageList(0, 0, $language) : 
         $this->model_page->fetchSubPageList($this->kpage->id, 0, 0));
 
     $this->response->setContentType('application/json');
